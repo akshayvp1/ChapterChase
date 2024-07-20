@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChapterChase</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* background-color: #f8f9fa; */
+            background-image: url('assets/images/backgrounds/background-c4.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .otp-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .otp-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #343a40;
+        }
+        .otp-container label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+        .otp-container input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .otp-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .otp-container button:hover {
+            background-color: #0056b3;
+        }
+        .otp-container .timer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+            color: #6c757d;
+        }
+        .otp-container .resend-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .otp-container .resend-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .otp-container .resend-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="otp-container">
+
+        <h1>OTP Verification</h1>
+        <form action="/verify-otp" method="POST">
+            <input type="hidden" name="email" value="<%= email %>">
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" required maxlength="6">
+            <button type="submit">Verify OTP</button>
+        </form>
+        <div class="timer" id="timer">OTP expires in <span id="countdown">01:00</span> minutes</div>
+        <div class="resend-link">Didn't receive the OTP? <a href="/resend-otp?email=<%= email %>">Resend OTP</a></div>
+        
+    </div>
+    
+    <script>
+        let countdownElement = document.getElementById('countdown');
+        let timer = 60; // 1 minute in seconds
+        let interval = setInterval(function() {
+            let minutes = Math.floor(timer / 60);
+            let seconds = timer % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            countdownElement.textContent = `${minutes}:${seconds}`;
+            timer--;
+            if (timer < 0) {
+                clearInterval(interval);
+                countdownElement.textContent = "00:00";
+                alert('OTP has expired. Please request a new one.');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+
+
+
+
+
+<!-- 
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>OTP Verification</title>
+     <style>
+         body {
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             background-color: #f8f9fa;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh;
+             margin: 0;
+         }
+         .otp-container {
+             background-color: #ffffff;
+             padding: 30px;
+             border-radius: 8px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             max-width: 400px;
+             width: 100%;
+         }
+         .otp-container h1 {
+             font-size: 24px;
+             margin-bottom: 20px;
+             text-align: center;
+             color: #343a40;
+         }
+         .otp-container label {
+             display: block;
+             font-size: 14px;
+             margin-bottom: 5px;
+             color: #495057;
+         }
+         .otp-container .otp-input {
+             display: flex;
+             justify-content: space-between;
+             margin-bottom: 20px;
+         }
+         .otp-container .otp-input input {
+             width: 45px;
+             height: 45px;
+             text-align: center;
+             border: 1px solid #ced4da;
+             border-radius: 4px;
+             font-size: 20px;
+         }
+         .otp-container button {
+             width: 100%;
+             padding: 10px;
+             border: none;
+             border-radius: 4px;
+             background-color: #007bff;
+             color: #ffffff;
+             font-size: 16px;
+             cursor: pointer;
+         }
+         .otp-container button:hover {
+             background-color: #0056b3;
+         }
+         .otp-container .timer {
+             text-align: center;
+             font-size: 14px;
+             margin-top: 10px;
+             color: #6c757d;
+         }
+         .otp-container .resend-link {
+             text-align: center;
+             margin-top: 15px;
+             font-size: 14px;
+         }
+         .otp-container .resend-link a {
+             color: #007bff;
+             text-decoration: none;
+         }
+         .otp-container .resend-link a:hover {
+             text-decoration: underline;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="otp-container">
+         <h1>OTP Verification</h1>
+         <form action="/verify-otp" method="POST" id="otpForm">
+             <input type="hidden" name="email" value="<%= email %>">
+             <div class="otp-input">
+                 <input type="text" id="otp1" name="otp1" required maxlength="1" pattern="\d">
+                 <input type="text" id="otp2" name="otp2" required maxlength="1" pattern="\d">
+                 <input type="text" id="otp3" name="otp3" required maxlength="1" pattern="\d">
+                 <input type="text" id="otp4" name="otp4" required maxlength="1" pattern="\d">
+                 <input type="text" id="otp5" name="otp5" required maxlength="1" pattern="\d">
+                 <input type="text" id="otp6" name="otp6" required maxlength="1" pattern="\d">
+             </div>
+             <button type="submit">Verify OTP</button>
+         </form>
+         <div class="timer" id="timer">OTP expires in <span id="countdown">01:00</span> minutes</div>
+         <div class="resend-link">Didn't receive the OTP? <a href="/resend-otp?email=<%= email %>">Resend OTP</a></div>
+     </div>
+     
+     <script>
+         // Function to move focus to next input on entering OTP
+         document.querySelectorAll('.otp-input input').forEach((input, index, inputs) => {
+             input.addEventListener('input', (e) => {
+                 if (input.value.length === 1) {
+                     inputs[index + 1].focus();
+                 }
+             });
+             input.addEventListener('keydown', (e) => {
+                 if (e.key === 'Backspace' && index > 0 && input.value.length === 0) {
+                     inputs[index - 1].focus();
+                 }
+             });
+         });
+ 
+         let countdownElement = document.getElementById('countdown');
+         let timer = 60; // 1 minute in seconds
+         let interval = setInterval(function() {
+             let minutes = Math.floor(timer / 60);
+             let seconds = timer % 60;
+             seconds = seconds < 10 ? '0' + seconds : seconds;
+             countdownElement.textContent = `${minutes}:${seconds}`;
+             timer--;
+             if (timer < 0) {
+                 clearInterval(interval);
+                 countdownElement.textContent = "00:00";
+                 alert('OTP has expired. Please request a new one.');
+             }
+         }, 1000);
+     </script>
+ </body>
+ </html>
+  -->
+ 
