@@ -1608,7 +1608,16 @@
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0 small">John Doe</h6>
+                      
+                      <% if (admin) { %>
+
+                        <h6 class="mb-0 small"><%= admin.name%></h6>
+         
+                      <% } else { %>
+                    
+                        <p></p>
+                      <% } %>
+
                       <small class="text-muted">Admin</small>
 
                     </div>
@@ -1624,13 +1633,13 @@
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a class="dropdown-item" href="pages-account-settings-account.html">
                   <i class="ri-settings-4-line ri-22px me-2"></i>
                   <span class="align-middle">Settings</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a class="dropdown-item" href="pages-account-settings-billing.html">
                   <span class="d-flex align-items-center align-middle">
                     <i class="flex-shrink-0 ri-file-text-line ri-22px me-2"></i>
@@ -1638,25 +1647,25 @@
                     <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
                   </span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <div class="dropdown-divider"></div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a class="dropdown-item" href="pages-pricing.html">
                   <i class="ri-money-dollar-circle-line ri-22px me-2"></i>
                   <span class="align-middle">Pricing</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a class="dropdown-item" href="pages-faq.html">
                   <i class="ri-question-line ri-22px me-2"></i>
                   <span class="align-middle">FAQ</span>
                 </a>
-              </li>
+              </li> -->
               <li>
                 <div class="d-grid px-4 pt-2 pb-1">
-                  <a class="btn btn-danger d-flex" href="auth-login-cover.html" target="_blank">
+                  <a class="btn btn-danger d-flex" href="/admin/logout" target="_blank">
                     <small class="align-middle">Logout</small>
                     <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
                   </a>
@@ -1704,7 +1713,7 @@
             </div>
             <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
               <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center mb-0 gap-4 pt-0">
-                <div class="dataTables_length my-0" id="DataTables_Table_0_length">
+                <!-- <div class="dataTables_length my-0" id="DataTables_Table_0_length">
                   <label>
                     <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select form-select-sm">
                       <option value="7">7</option>
@@ -1715,9 +1724,9 @@
                       <option value="100">100</option>
                     </select>
                   </label>
-                  </div>
+                  </div> -->
                   <div class="dt-buttons btn-group flex-wrap"> 
-                    <div class="btn-group">
+                    <!-- <div class="btn-group">
                       <button class="btn btn-secondary buttons-collection dropdown-toggle btn-outline-secondary me-4 waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false">
                         <span>
                           <i class="ri-upload-2-line me-1">
@@ -1726,7 +1735,7 @@
                           <span class="d-none d-sm-inline-block">Export</span>
                         </span>
                       </button>
-                    </div> 
+                    </div>  -->
                   <button class="btn btn-secondary add-new btn-primary waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEcommerceCategoryList">
                     <span>
                       <i class="ri-add-line ri-16px me-0 me-sm-1 align-baseline"></i>
@@ -1743,9 +1752,11 @@
                 <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all">
                   <input type="checkbox" class="form-check-input">
                 </th>
-                <th>Categories</th>
-                <th class="text-nowrap text-sm-end">Description</th>
-                <th class="text-nowrap text-sm-end">Total Product</th>
+                <th >Categories</th>
+                <th class="text-nowrap text-sm-end" >Description</th>
+                <!-- <th class="text-nowrap text-sm-end">Total Product</th> -->
+                <th class="text-nowrap text-sm-end">Status</th>
+
                 <th class="text-lg-center">Actions</th>
               </tr>
             </thead>
@@ -1762,7 +1773,9 @@
       </div>
     </td>
     <td class="text-sm-end pe-3"><%= category.slug %></td>
-    <td class="text-sm-end" style="padding-right: 80px;">0</td>
+    <!-- <td class="text-sm-end" style="padding-right: 80px;">0</td> -->
+    <td class="text-sm-end pe-3 " ><%= category.status %></td>
+
     <td class="d-flex align-items-sm-center justify-content-sm-center">
       <button class="btn btn-sm btn-icon btn-text-secondary text-body waves-effect rounded-pill me-1"
         data-bs-toggle="modal" data-bs-target="#editCategoryModal"
@@ -1809,8 +1822,8 @@
             <label for="editCategoryStatus" class="form-label">Status</label>
             <select id="editCategoryStatus" class="form-select" required>
               <option value="" disabled>Select</option>
-              <option value="isListed">Is Listed</option>
-              <option value="listed">Listed</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
@@ -1863,8 +1876,8 @@
     <div class="form-floating form-floating-outline mb-5 fv-plugins-icon-container">
       <select id="ecommerce-category-status" class="form-select" name="status" required>
         <option value="" disabled selected>Select Status</option>
-        <option value="listed">Listed</option>
-        <option value="not-listed">Is Listed</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
       </select>
       <label for="ecommerce-category-status">Status</label>
       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>

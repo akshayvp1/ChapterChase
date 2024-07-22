@@ -26,8 +26,10 @@ const securePassword = async (password) => {
 const loadHome = async (req, res) => {
    
     try {
+        const categories = await Category.find({})
+
         const user = req.user || req.session.user;
-        res.render("home", { user }); 
+        res.render("home", { user,categories }); 
     } catch (error) {
         console.log('Error loading home page:', error.message);
         res.status(500).send('Internal server error');
@@ -200,6 +202,7 @@ const verifyLogin = async (req, res) => {
         console.log("first pass",password);
         // Find user by email
         const user = await User.findOne({email:email});
+        
 
         // If user not found
         if (!user) {
@@ -207,6 +210,10 @@ const verifyLogin = async (req, res) => {
             return res.render('login',{message:"Invalid email or password"})
 
         }
+
+        if (!user.isListed) {
+            return res.render('login',{ message: 'Your account is Blocked.' });
+          }
 
         // Compare passwords using bcrypt
         const match = await bcrypt.compare(password, user.password);
@@ -296,7 +303,7 @@ const loadProfile = (req,res)=>{
 const loadProductsList =async (req,res)=>{
     try{
 
-        const products = await Product.find();
+        const products = await Product.find({status:'Active'});
         
         res.render('products-list',{products})
     }

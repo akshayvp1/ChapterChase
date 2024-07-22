@@ -49,7 +49,8 @@ const verifyAdmin = async (req, res) => {
 //Load dashboard
 const loadDashboard = (req, res) => {
     try {
-        res.render('dashboard');
+        let admin = req.session.user
+        res.render('dashboard',{admin});
     } catch (error) {
         console.log(error.message);
     }
@@ -57,9 +58,9 @@ const loadDashboard = (req, res) => {
 
 const loadCustomerList = async (req, res) => {
     try {
-    
+        let admin = req.session.user
       const customers = await User.find(); 
-      res.render('customer-list', { customers });
+      res.render('customer-list', { customers,admin });
     } catch (error) {
       console.error('Error fetching customers:', error);
       res.status(500).send('Error fetching customers');
@@ -109,6 +110,21 @@ const changeCustomerStatus = async (req, res) => {
         res.status(500).json({ message: 'Error changing customer status' });
     }
 };
+const adminLogout = (req, res) => {
+    try {
+        req.session.destroy(err => {
+            if (err) {
+                console.error('Error destroying session:', err.message);
+            } else {
+                console.log('Session destroyed successfully');
+            }
+            res.render('adminlogin'); // Redirect to login page after logout
+        });
+    } catch (error) {
+        console.error('Error logging out:', error.message);
+        res.status(500).send('Internal server error');
+    }
+};
 
 
 module.exports = {
@@ -117,7 +133,8 @@ module.exports = {
     loadDashboard ,
     loadCustomerList,
     changeCustomerStatus,
-    editCustomer
+    editCustomer,
+    adminLogout
    
 
     

@@ -5,8 +5,9 @@ const Category = require('../models/categoryModel');
 //Load category list
 const loadCategoryList =async (req,res)=>{
     try{
+      let admin = req.session.user
         const categories = await Category.find({})
-      return res.render('category-list',{categories})
+      return res.render('category-list',{categories,admin})
     }
     catch(error){
         console.log(error.message);

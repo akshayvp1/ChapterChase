@@ -119,7 +119,7 @@
                                 <a href="wishlist.html" title="Wishlist">
                                     <div class="icon">
                                         <i class="icon-heart-o"></i>
-                                        <span class="wishlist-count badge">3</span>
+                                        <span class="wishlist-count badge">0</span>
                                     </div>
                                     <p>Wishlist</p>
                                 </a>
@@ -129,12 +129,12 @@
                                 <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <div class="icon">
                                         <i class="icon-shopping-cart"></i>
-                                        <span class="cart-count">2</span>
+                                        <span class="cart-count">0</span>
                                     </div>
                                     <p>Cart</p>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right">
+                                <!-- <div class="dropdown-menu dropdown-menu-right">
                                     <div class="dropdown-cart-products">
                                         <div class="product">
                                             <div class="product-cart-details">
@@ -146,15 +146,14 @@
                                                     <span class="cart-product-qty">1</span>
                                                     x $84.00
                                                 </span>
-                                            </div><!-- End .product-cart-details -->
-
+                                            </div>
                                             <figure class="product-image-container">
                                                 <a href="product.html" class="product-image">
                                                     <img src="assets/images/products/cart/product-1.jpg" alt="product">
                                                 </a>
                                             </figure>
                                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        </div><!-- End .product -->
+                                        </div>
 
                                         <div class="product">
                                             <div class="product-cart-details">
@@ -166,7 +165,7 @@
                                                     <span class="cart-product-qty">1</span>
                                                     x $76.00
                                                 </span>
-                                            </div><!-- End .product-cart-details -->
+                                            </div>
 
                                             <figure class="product-image-container">
                                                 <a href="product.html" class="product-image">
@@ -174,20 +173,22 @@
                                                 </a>
                                             </figure>
                                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        </div><!-- End .product -->
-                                    </div><!-- End .cart-product -->
+                                        </div>
+                                    </div>
 
                                     <div class="dropdown-cart-total">
                                         <span>Total</span>
 
                                         <span class="cart-total-price">$160.00</span>
-                                    </div><!-- End .dropdown-cart-total -->
+                                    </div>
 
                                     <div class="dropdown-cart-action">
                                         <a href="cart.html" class="btn btn-primary">View Cart</a>
                                         <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                                    </div><!-- End .dropdown-cart-total -->
-                                </div><!-- End .dropdown-menu -->
+                                    </div>
+                                </div> -->
+
+
                             </div><!-- End .cart-dropdown -->
                         </div>
                     </div><!-- End .header-right -->
@@ -200,21 +201,18 @@
                         <div class="header-left">
                             <div class="dropdown category-dropdown">
                                 <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
-                                    Browse Categories
+                                    Categories
                                 </a>
 
                                 <div class="dropdown-menu">
                                     <nav class="side-nav">
                                         <ul class="menu-vertical sf-arrows">
-                                            <li class="item-lead"><a href="#">Best Books of 2024</a></li>
-                                            <li class="item-lead"><a href="#">New for 2025</a></li>
-                                            <li><a href="#">Fiction</a></li>
-                                            <li><a href="#">Biography</a></li>
-                                            <li><a href="#">Children's Books</a></li>
-                                            <li><a href="#">Crime Thriller</a></li>
-                                            <li><a href="#">Novel</a></li>
-                                            <li><a href="#">Stories</a></li>
-                                         
+                                            
+                                            <% categories.forEach(category => { %>
+                                                <li><a href="#"><%= category.title %></a></li>
+                                            <% }); %>
+
+                                            
                                         </ul><!-- End .menu-vertical -->
                                     </nav><!-- End .side-nav -->
                                 </div><!-- End .dropdown-menu -->
@@ -226,7 +224,7 @@
                             <nav class="main-nav">
                                 <ul class="menu sf-arrows">
                                     <li class="megamenu-container active">
-                                        <a href="index.html" class="sf-with-ul">Home</a>
+                                        <a href="/home" class="sf-with-ul">Home</a>
 
                                     </li>
                                     <li>
@@ -528,10 +526,10 @@
                                         <i class="icon-envelope"></i>
                                     </span>
 
-                                    <!-- <div class="icon-box-content">
+                                    <div class="icon-box-content">
                                         <h3 class="icon-box-title">Join Our Newsletter</h3>
                                         <p>10% off by subscribing to our newsletter</p>
-                                    </div> -->
+                                    </div>
                                     
                                 </div><!-- End .icon-box -->
                             </div><!-- End .col-sm-6 col-lg-3 -->
@@ -1833,7 +1831,7 @@
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
 
-    <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
+    <!-- <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="row no-gutters bg-white newsletter-popup-content">
@@ -1847,13 +1845,13 @@
                                     <input type="email" class="form-control form-control-white" placeholder="Your Email Address" aria-label="Email Adress" required>
                                     <div class="input-group-append">
                                         <button class="btn" type="submit"><span>go</span></button>
-                                    </div><!-- .End .input-group-append -->
-                                </div><!-- .End .input-group -->
+                                    </div>
+                                </div>
                             </form>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
                                 <label class="custom-control-label" for="register-policy-2">Do not show this popup again</label>
-                            </div><!-- End .custom-checkbox -->
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-2-5col col-lg-5 ">
@@ -1862,7 +1860,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

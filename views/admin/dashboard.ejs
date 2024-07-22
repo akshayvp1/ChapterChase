@@ -1589,7 +1589,14 @@
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0 small">John Doe</h6>
+                      <% if (admin) { %>
+
+                        <h6 class="mb-0 small"><%= admin.name%></h6>
+         
+                      <% } else { %>
+                    
+                        <p></p>
+                      <% } %>
                       <small class="text-muted">Admin</small>
 
                     </div>
@@ -1605,13 +1612,13 @@
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a class="dropdown-item" href="pages-account-settings-account.html">
                   <i class="ri-settings-4-line ri-22px me-2"></i>
                   <span class="align-middle">Settings</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a class="dropdown-item" href="pages-account-settings-billing.html">
                   <span class="d-flex align-items-center align-middle">
                     <i class="flex-shrink-0 ri-file-text-line ri-22px me-2"></i>
@@ -1619,25 +1626,25 @@
                     <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
                   </span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <div class="dropdown-divider"></div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a class="dropdown-item" href="pages-pricing.html">
                   <i class="ri-money-dollar-circle-line ri-22px me-2"></i>
                   <span class="align-middle">Pricing</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a class="dropdown-item" href="pages-faq.html">
                   <i class="ri-question-line ri-22px me-2"></i>
                   <span class="align-middle">FAQ</span>
                 </a>
-              </li>
+              </li> -->
               <li>
                 <div class="d-grid px-4 pt-2 pb-1">
-                  <a class="btn btn-danger d-flex" href="auth-login-cover.html" target="_blank">
+                  <a class="btn btn-danger d-flex" href="/admin/logout" target="_blank">
                     <small class="align-middle">Logout</small>
                     <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
                   </a>

@@ -3,7 +3,10 @@ const userRoute = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const app = express()
+const path = require('path');
+const nocache = require('nocache');
+
+// const app = express()
 const userController = require('../controllers/userController');
 const auth=require("../middleware/auth")
 
@@ -11,12 +14,23 @@ userRoute.set('view engine', 'ejs');
 userRoute.set('views', './views/users');
 
 
+
+
 userRoute.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      path: '/',
+      _expires: 86400000,
+      httpOnly: true
+  }
 }));
 
+
+
+userRoute.use(auth.authMiddleware)
+userRoute.use(nocache());
 
 userRoute.use(bodyParser.json());
 userRoute.use(bodyParser.urlencoded({ extended: true }));
@@ -25,6 +39,9 @@ userRoute.use(bodyParser.urlencoded({ extended: true }));
 userRoute.use(passport.initialize());
 userRoute.use(passport.session());
 
+
+userRoute.use(passport.initialize());
+userRoute.use(passport.session());
 
 // existing routes
 userRoute.get("/", userController.loadHome);
