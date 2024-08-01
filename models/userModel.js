@@ -42,7 +42,11 @@ const userSchema = new mongoose.Schema({
     },
     isListed:{
         type:Boolean
-    }
+    },
+    resetPasswordToken: {type:String}
 });
+
+
+
 
 module.exports = mongoose.model('User', userSchema);

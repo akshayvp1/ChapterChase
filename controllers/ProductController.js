@@ -4,6 +4,7 @@ const Category = require('../models/categoryModel');
 const path = require('path');
 const fs = require('fs');
 const User = require("../models/userModel");
+const { promisify } = require('util');
 
 
 
@@ -15,27 +16,14 @@ const loadProduct = async (req, res) => {
     const products = await Product.find().populate('category');
     const categories = await Category.find();
     // const user = await User.find({is_admin:1})
-
-
-     // Fetch categories if needed for product list
-
-    res.render('product-list', { products, categories,admin }); // Pass categories to the view
+    res.render('product-list', { products, categories,admin }); 
   } catch (error) {
     console.error('Error fetching products:', error.message);
     res.status(500).send('Server Error');
   }
 };
 
-//Load Add product page
-// const loadAddProduct = (req,res)=>{
-//     try{
-        
-//         res.render('product-add',)
-//     }
-//     catch(error){
-//         console.log(error.message)
-//     }
-// }
+//load add product
 const loadAddProduct = async (req, res) => {
     try {
       let admin = req.session.user
@@ -73,30 +61,43 @@ const loadOrderDetails = (req,res)=>{
     }
 }
 
+
+
+//add product
 const addProduct = async (req, res) => {
-   try {
-    let admin = req.session.user
-    const { productTitle, productDescription, productPrice, stock, category, isListed } = req.body;
-    const images = req.files.map(file => file.path);
+  try {
+    const { productTitle, productDescription, productPrice, stock, category, isListed,productAuthor,productOffer } = req.body;
+
+    // console.log(req.files)
+    const images = req.files.map(file => file.filename);
+
+
 
     const newProduct = new Product({
       productName: productTitle,
       category: category,
       price: productPrice,
+      offer : productOffer,
       status: isListed,
       stock: stock,
       description: productDescription,
-      images: images
+      images: images,
+      author: productAuthor
+
     });
-    
+
     await newProduct.save();
-    res.redirect('/admin/add-product',{admin}); // Redirect after successful addition
+    res.status(200).json({ success: true, message: 'Product added successfully!' });
   } catch (error) {
     console.error('Error adding product:', error);
-    res.status(500).send('Server Error');
+    res.status(500).json({ success: false, message: 'Server Error. Please try again.' });
   }
-  };
-  const getProduct = async (req, res) => {
+};
+
+
+
+//get product list
+  const getProductList = async (req, res) => {
     try {
       const product = await Product.findById(req.params.id).populate('category');
       if (!product) return res.status(404).json({ error: 'Product not found' });
@@ -106,53 +107,18 @@ const addProduct = async (req, res) => {
     }
   };
 
-  // const updateProduct = async (req, res) => {
-  //   try {
-  //     const { productName, productCategory, productStock, productPrice, productStatus } = req.body;
-  //     const productId = req.params.id;
-  //     const product = await Product.findById(productId);
-  
-  //     if (!product) return res.status(404).json({ error: 'Product not found' });
-  
-  //     // Update product details
-  //     product.productName = productName;
-  //     product.category = productCategory;
-  //     product.stock = productStock;
-  //     product.price = productPrice;
-  //     product.status = productStatus;
-  
-  //     // Handle image replacement
-  //     if (req.files) {
-  //       ['productImage1', 'productImage2', 'productImage3'].forEach((field, index) => {
-  //         if (req.files[field]) {
-  //           // Delete old image if exists
-  //           if (product.images[index]) {
-  //             fs.unlink(path.join(__dirname, '..', product.images[index]), err => {
-  //               if (err) console.log(err);
-  //             });
-  //           }
-  //           // Save new image path
-  //           product.images[index] = req.files[field][0].path;
-  //         }
-  //       });
-  //     }
-  
-  //     await product.save();
-  //     res.json({ success: true });
-  //   } catch (error) {
-  //     res.status(500).json({ error: error.message });
-  //   }
-  // };
-  
 
-
+  
+  const unlinkAsync = promisify(fs.unlink);
+  const existsAsync = promisify(fs.exists);
+  //update product
   const updateProduct = async (req, res) => {
     try {
-      const { productName, productCategory, productStock, productPrice, productStatus, productDescription } = req.body;
+      const { productName, productCategory, productStock, productPrice, productStatus, productDescription, productAuthor, productOffer } = req.body;
       const productId = req.params.id;
       const product = await Product.findById(productId);
   
-      if (!product) return res.status(404).json({ error: 'Product not found' });
+      if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
   
       // Update product details
       product.productName = productName;
@@ -161,28 +127,39 @@ const addProduct = async (req, res) => {
       product.price = productPrice;
       product.status = productStatus;
       product.description = productDescription;
+      product.author = productAuthor;
+      product.offer = productOffer;
   
-      // Handle image replacement
-      ['productImage1', 'productImage2', 'productImage3'].forEach((field, index) => {
-        if (req.files[field]) {
-          // Delete old image if exists
-          if (product.images[index]) {
-            fs.unlink(path.join(__dirname, '..', product.images[index]), err => {
-              if (err) console.log(err);
-            });
+      // Handle image updates
+      if (req.files && req.files.length > 0) {
+        const newImages = req.files.map(file => file.filename);
+        
+        // Replace only the images that were uploaded
+        for (let i = 0; i < newImages.length; i++) {
+          if (product.images[i]) {
+            // Remove old image file
+            const oldImagePath = path.join(__dirname, '../../assets/uploads', product.images[i]);          
+            try {
+              const fileExists = await existsAsync(oldImagePath);
+              if (fileExists) {
+                await unlinkAsync(oldImagePath);
+              }
+            } catch (err) {
+              console.error('Error checking or deleting old image:', err);
+            }
           }
-          // Save new image path
-          product.images[index] = req.files[field][0].path;
+          product.images[i] = newImages[i];
         }
-      });
+      }
   
       await product.save();
-      res.json({ success: true });
+      res.json({ success: true, message: 'Product updated successfully' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ success: false, message: error.message });
     }
   };
   
+
   
   
 
@@ -194,7 +171,7 @@ module.exports = {
     loadOrderDetails,
     addProduct,
     updateProduct,
-    getProduct,
+    getProductList,
    
 
     

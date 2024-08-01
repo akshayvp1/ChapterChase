@@ -1,5 +1,72 @@
 <%- include('../layouts/header.ejs') %>
 
+
+<style>
+    .product-label {
+    /* Common styles for all labels */
+    padding: 5px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.label-low-stock {
+   background-color: red;
+
+}
+
+.label-in-stock {
+    background-color: yellow;
+    color: black;
+
+
+}
+
+.label-out-of-stock {
+    background-color: green;
+
+}
+
+
+
+
+
+.product-price {
+    text-align: center; /* Center align the price container */
+    font-size: 1.2rem; /* Adjust font size as needed */
+    position: relative; /* Positioning for alignment */
+}
+
+.product-price-original {
+    display: inline-block; /* Display on the same line as the discounted price */
+    text-decoration: line-through; /* Add strikethrough line */
+    color:red; /* Gray color for the original price */
+    margin-right: 10px; /* Space between original and discounted price */
+    position: relative; /* For alignment */
+    vertical-align: middle;
+    font-size: 10px; /* Aligns vertically in the middle of the line */
+}
+
+.product-price-discounted {
+    display: inline-block; /* Display on the same line as the original price */
+    color:green; /* Red color for the discounted price */
+    font-weight: normal; /* Make the discounted price bold */
+    margin-left: 30px;
+    font-size: 15px;
+}
+
+.product-price-discount {
+    display: block; /* Display discount percentage on a new line */
+    color:green; /* Color for the discount percentage */
+    font-weight: normal; /* Make the discount percentage bold */
+    font-size: 8px;
+    
+     /* Space above the discount percentage */
+}
+
+
+
+</style>
+
     <div class="page-wrapper">
         <header class="header">
             <div class="header-top">
@@ -32,11 +99,22 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(0)</span></a></li>
                                     <li><a href="about.html">About Us</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                    <!-- <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li> -->
+
+                                    
+                                    <% if (user) { %>
+                                        <li>
+                                            <a href="/profile"> <%= user.name||user.displayName %></a>
+                                        </li>
+                                    <% } else { %>
+                                        <li >
+                                            <a  href="/login">Signin</a>
+                                        </li>
+                                    <% } %>
+
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
@@ -59,7 +137,7 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" class="sf-with-ul">Home</a>
+                                    <a href="/home" class="sf-with-ul">Home</a>
 
                                     
                                 </li>
@@ -174,7 +252,7 @@
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
-                        <div class="dropdown compare-dropdown">
+                        <!-- <div class="dropdown compare-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
                                 <i class="icon-random"></i>
                             </a>
@@ -195,69 +273,16 @@
                                     <a href="#" class="action-link">Clear All</a>
                                     <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
                                 </div>
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .compare-dropdown -->
+                            </div>
+                        </div> -->
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" >
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count">0</span>
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
+                           
                         </div><!-- End .cart-dropdown -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -273,12 +298,16 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Grid 3 Columns</li>
+                        <% breadcrumbs.forEach(crumb => { %>
+                            <% if (crumb.url) { %>
+                                <li class="breadcrumb-item"><a href="<%= crumb.url %>"><%= crumb.title %></a></li>
+                            <% } else { %>
+                                <li class="breadcrumb-item active" aria-current="page"><%= crumb.title %></li>
+                            <% } %>
+                        <% }); %>
                     </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
+                </div>
+            </nav>
 
             <div class="page-content">
                 <div class="container">
@@ -417,9 +446,16 @@
                                     <div class="col-6 col-md-4 col-lg-4">
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
-                                                <span class="product-label label-new"><%= product.label %></span>
-                                                <a href="<%= product.href %>">
-                                                    <img src="/<%= product.images[0] %>" alt="Product image" class="product-image">
+                                                <% if (product.stock <= 0) { %>
+                                                    <span class="product-label label-low-stock">Out of stock</span>
+                                                <% } else if (product.stock <= 10) { %>
+                                                    <span class="product-label label-in-stock">Less stock</span>
+                                                <% } else { %>
+                                                    <span class="product-label label-out-of-stock">In stock</span>
+                                                <% } %>
+                                                
+                                                <a href="/product-details/<%= product._id %>">
+                                                    <img src="/assets/uploads/<%= product.images[0] %>" alt="Product image" class="product-image">
                                                 </a>
                         
                                                 <div class="product-action-vertical">
@@ -427,9 +463,13 @@
                                                     <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                                     <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
                                                 </div><!-- End .product-action-vertical -->
-                        
+                                                <form action="/add-to-cart" method="POST">
+                                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                                     <input type="hidden" name="quantity" id="qty" value="1">
+                                                      <button type="submit" class="btn-product btn-cart"><span>Add to Cart</span></button>
+                                                       </form>
                                                 <div class="product-action">
-                                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                    
                                                 </div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
                         
@@ -439,8 +479,28 @@
                                                 </div><!-- End .product-cat -->
                                                 <h3 class="product-title"><a href="<%= product.href %>"><%= product.productName %></a></h3><!-- End .product-title -->
                                                 <div class="product-price">
-                                                    <%= product.price %>
+                                                    <% if (product.offer) { %>
+                                                        <% 
+                                                            const originalPrice = product.price;
+                                                            const discountedPrice = product.offer;
+                                                            const discountPercentage = ((originalPrice - discountedPrice) / originalPrice * 100).toFixed(2);
+                                                        %>
+                                                        <span class="product-price-discounted">
+                                                            ₹<%= discountedPrice.toFixed(2) %>
+                                                        </span>
+                                                        <span class="product-price-original">
+                                                            (₹<%= originalPrice.toFixed(2) %>
+                                                        </span>
+                                                        
+                                                        <span class="product-price-discount">
+                                                            <%= discountPercentage %>% Off)
+                                                        </span>
+                                                    <% } else { %>
+                                                        ₹<%= product.price.toFixed(2) %>
+                                                    <% } %>
                                                 </div><!-- End .product-price -->
+                                                
+                                                <!-- End .product-price -->
                                                 
                                                 <div class="ratings-container">
                                                     <div class="ratings">
@@ -465,21 +525,42 @@
 
                 			<nav aria-label="Page navigation">
 							    <ul class="pagination justify-content-center">
-							        <li class="page-item disabled">
-							            <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
-							                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
-							            </a>
-							        </li>
-							        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-							        <li class="page-item"><a class="page-link" href="#">2</a></li>
-							        <li class="page-item"><a class="page-link" href="#">3</a></li>
-							        <li class="page-item-total">of 6</li>
-							        <li class="page-item">
-							            <a class="page-link page-link-next" href="#" aria-label="Next">
-							                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
-							            </a>
-							        </li>
-							    </ul>
+                                    <% if (currentPage > 1) { %>
+                                        <li class="page-item">
+                                            <a class="page-link page-link-prev" href="?page=<%= currentPage - 1 %>&limit=<%= limit %>" aria-label="Previous">
+                                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span> Prev
+                                            </a>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="page-item disabled">
+                                            <a class="page-link page-link-prev" href="#" aria-label="Previous" aria-disabled="true">
+                                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span> Prev
+                                            </a>
+                                        </li>
+                                    <% } %>
+                                
+                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                                            <a class="page-link" href="?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+                                        </li>
+                                    <% } %>
+                                
+                                    <li class="page-item-total">of <%= totalPages %></li>
+                                
+                                    <% if (currentPage < totalPages) { %>
+                                        <li class="page-item">
+                                            <a class="page-link page-link-next" href="?page=<%= currentPage + 1 %>&limit=<%= limit %>" aria-label="Next">
+                                                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                            </a>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="page-item disabled">
+                                            <a class="page-link page-link-next" href="#" aria-label="Next" aria-disabled="true">
+                                                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                            </a>
+                                        </li>
+                                    <% } %>
+                                </ul>
 							</nav>
                 		</div><!-- End .col-lg-9 -->
                 		<aside class="col-lg-3 order-lg-first">
@@ -499,69 +580,17 @@
 									<div class="collapse show" id="widget-1">
 										<div class="widget-body">
 											<div class="filter-items filter-items-count">
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-1">
-														<label class="custom-control-label" for="cat-1">Dresses</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">3</span>
-												</div><!-- End .filter-item -->
 
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-2">
-														<label class="custom-control-label" for="cat-2">T-shirts</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">0</span>
-												</div><!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-3">
-														<label class="custom-control-label" for="cat-3">Bags</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">4</span>
-												</div><!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-4">
-														<label class="custom-control-label" for="cat-4">Jackets</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">2</span>
-												</div><!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-5">
-														<label class="custom-control-label" for="cat-5">Shoes</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">2</span>
-												</div><!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-6">
-														<label class="custom-control-label" for="cat-6">Jumpers</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">1</span>
-												</div><!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-7">
-														<label class="custom-control-label" for="cat-7">Jeans</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">1</span>
-												</div><!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-8">
-														<label class="custom-control-label" for="cat-8">Sportwear</label>
-													</div><!-- End .custom-checkbox -->
-													<span class="item-count">0</span>
-												</div><!-- End .filter-item -->
+												<% categories.forEach(category => { %>
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="cat-<%= category._id %>">
+                                                            <label class="custom-control-label" for="cat-<%= category._id %>"><%= category.title %></label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                        <!-- <span class="item-count"></span> -->
+                                                    </div><!-- End .filter-item -->
+                                                <% }) %>
+                                                
 											</div><!-- End .filter-items -->
 										</div><!-- End .widget-body -->
 									</div><!-- End .collapse -->
@@ -850,118 +879,7 @@
     </div><!-- End .mobile-menu-container -->
 
     <!-- Sign in / Register Modal -->
-    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close"></i></span>
-                    </button>
-
-                    <div class="form-box">
-                        <div class="form-tab">
-                            <ul class="nav nav-pills nav-fill" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="tab-content-5">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group">
-                                            <label for="singin-password">Password *</label>
-                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>LOG IN</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
-                                            </div><!-- End .custom-checkbox -->
-
-                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">or sign in with</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Login With Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <label for="register-email">Your email address *</label>
-                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group">
-                                            <label for="register-password">Password *</label>
-                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>SIGN UP</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
-                                            </div><!-- End .custom-checkbox -->
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">or sign in with</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Login With Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login  btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
+   
 
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
@@ -976,5 +894,28 @@
     <script src="assets/js/nouislider.min.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const paginationLinks = document.querySelectorAll('.pagination-link');
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.querySelector('body').innerHTML = html;
+                        });
+                });
+            });
+        });
+    </script>
+
+
 
     <%- include('../layouts/footer.ejs') %>

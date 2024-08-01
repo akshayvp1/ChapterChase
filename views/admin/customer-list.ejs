@@ -1,15 +1,47 @@
 <%- include('../adminlayouts/header.ejs') %>
 
+<style>
+
+.pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .pagination-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .page-item {
+            margin: 0 5px;
+        }
+        .page-link {
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            color: #007bff;
+            display: block;
+        }
+        .page-item.active .page-link {
+            background-color: #007bff;
+            color: white;
+        }
+        .page-item.disabled .page-link {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+</style>
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/typeahead-js/typeahead.css" /> 
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
-<link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
-<link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
-<link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css">
-<link rel="stylesheet" href="/dashboard-assets/vendor/libs/select2/select2.css" />
-<link rel="stylesheet" href="/dashboard-assets/vendor/libs/%40form-validation/form-validation.css" />
+    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css">
+    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/%40form-validation/form-validation.css" />
 
     <!-- Page CSS -->
     
@@ -18,7 +50,7 @@
     <script src="/dashboard-assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="/dashboard-assets/vendor/js/template-customizer.js"></script>
+    <!-- <script src="/dashboard-assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/dashboard-assets/js/config.js"></script>
     
@@ -32,14 +64,8 @@
   <!-- End Google Tag Manager (noscript) -->
   
   <!-- Layout wrapper -->
-<div class="layout-wrapper layout-content-navbar  ">
+  <div class="layout-wrapper layout-content-navbar  ">
   <div class="layout-container">
-
-    
-    
-
-
-
 
 <!-- Menu -->
 
@@ -77,162 +103,7 @@
   
   
   <ul class="menu-inner py-1">
-    <!-- Dashboards -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-home-smile-line"></i>
-        <div data-i18n="Dashboards">Dashboards</div>
-        <div class="badge bg-danger rounded-pill ms-auto">5</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="dashboards-crm.html" class="menu-link">
-            <div data-i18n="CRM">CRM</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="index.html" class="menu-link">
-            <div data-i18n="Analytics">Analytics</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-ecommerce-dashboard.html" class="menu-link">
-            <div data-i18n="eCommerce">eCommerce</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-logistics-dashboard.html" class="menu-link">
-            <div data-i18n="Logistics">Logistics</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-academy-dashboard.html" class="menu-link">
-            <div data-i18n="Academy">Academy</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-
-    <!-- Layouts -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-layout-2-line"></i>
-        <div data-i18n="Layouts">Layouts</div>
-      </a>
-
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="layouts-collapsed-menu.html" class="menu-link">
-            <div data-i18n="Collapsed menu">Collapsed menu</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-content-navbar.html" class="menu-link">
-            <div data-i18n="Content navbar">Content navbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
-            <div data-i18n="Content nav + Sidebar">Content nav + Sidebar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/horizontal-menu-template" class="menu-link" target="_blank">
-            <div data-i18n="Horizontal">Horizontal</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-without-menu.html" class="menu-link">
-            <div data-i18n="Without menu">Without menu</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-without-navbar.html" class="menu-link">
-            <div data-i18n="Without navbar">Without navbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-fluid.html" class="menu-link">
-            <div data-i18n="Fluid">Fluid</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-container.html" class="menu-link">
-            <div data-i18n="Container">Container</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-blank.html" class="menu-link">
-            <div data-i18n="Blank">Blank</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-
-    <!-- Front Pages -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-file-copy-line'></i>
-        <div data-i18n="Front Pages">Front Pages</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/front-pages/landing-page.html" class="menu-link" target="_blank">
-            <div data-i18n="Landing">Landing</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/front-pages/pricing-page.html" class="menu-link" target="_blank">
-            <div data-i18n="Pricing">Pricing</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/front-pages/payment-page.html" class="menu-link" target="_blank">
-            <div data-i18n="Payment">Payment</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/front-pages/checkout-page.html" class="menu-link" target="_blank">
-            <div data-i18n="Checkout">Checkout</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/front-pages/help-center-landing.html" class="menu-link" target="_blank">
-            <div data-i18n="Help Center">Help Center</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-
-
-    <!-- Apps & Pages -->
-    <!-- <li class="menu-header mt-7">
-      <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="app-email.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-mail-open-line"></i>
-        <div data-i18n="Email">Email</div>
-      </a>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="app-chat.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-wechat-line"></i>
-        <div data-i18n="Chat">Chat</div>
-      </a>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="app-calendar.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-calendar-line"></i>
-        <div data-i18n="Calendar">Calendar</div>
-      </a>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="app-kanban.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-drag-drop-line"></i>
-        <div data-i18n="Kanban">Kanban</div>
-      </a>
-    </li> -->
+   
     <!-- e-commerce-app menu start -->
     <li class="menu-item active open">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -294,34 +165,7 @@
                 <div data-i18n="All Customers">All Customers</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <div data-i18n="Customer Details">Customer Details</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-ecommerce-customer-details-overview.html" class="menu-link">
-                    <div data-i18n="Overview">Overview</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-customer-details-security.html" class="menu-link">
-                    <div data-i18n="Security">Security</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
-                    <div data-i18n="Address & Billing">Address & Billing</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-customer-details-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">Notifications</div>
-                  </a>
-                </li>
-
-              </ul>
-            </li> -->
+            
           </ul>
         </li>
         <li class="menu-item">
@@ -373,50 +217,7 @@
         </li>
       </ul>
     </li>
-    <!-- e-commerce-app menu end -->
-    <!-- Academy menu start -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-graduation-cap-line'></i>
-        <div data-i18n="Academy">Academy</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-academy-dashboard.html" class="menu-link">
-            <div data-i18n="Dashboard">Dashboard</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-academy-course.html" class="menu-link">
-            <div data-i18n="My Course">My Course</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-academy-course-details.html" class="menu-link">
-            <div data-i18n="Course Details">Course Details</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- Academy menu end -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-car-line'></i>
-        <div data-i18n="Logistics">Logistics</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-logistics-dashboard.html" class="menu-link">
-            <div data-i18n="Dashboard">Dashboard</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-logistics-fleet.html" class="menu-link">
-            <div data-i18n="Fleet">Fleet</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
+    
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class='menu-icon tf-icons ri-bill-line'></i>
@@ -491,1091 +292,31 @@
           </ul>
         </li>
       </ul>
-    </li>
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-lock-2-line'></i>
-        <div data-i18n="Roles & Permissions">Roles & Permissions</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-access-roles.html" class="menu-link">
-            <div data-i18n="Roles">Roles</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-access-permission.html" class="menu-link">
-            <div data-i18n="Permission">Permission</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-layout-left-line"></i>
-        <div data-i18n="Pages">Pages</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="User Profile">User Profile</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="pages-profile-user.html" class="menu-link">
-                <div data-i18n="Profile">Profile</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-profile-teams.html" class="menu-link">
-                <div data-i18n="Teams">Teams</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-profile-projects.html" class="menu-link">
-                <div data-i18n="Projects">Projects</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-profile-connections.html" class="menu-link">
-                <div data-i18n="Connections">Connections</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Account Settings">Account Settings</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="pages-account-settings-account.html" class="menu-link">
-                <div data-i18n="Account">Account</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-account-settings-security.html" class="menu-link">
-                <div data-i18n="Security">Security</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-account-settings-billing.html" class="menu-link">
-                <div data-i18n="Billing & Plans">Billing & Plans</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-account-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-account-settings-connections.html" class="menu-link">
-                <div data-i18n="Connections">Connections</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="pages-faq.html" class="menu-link">
-            <div data-i18n="FAQ">FAQ</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="pages-pricing.html" class="menu-link">
-            <div data-i18n="Pricing">Pricing</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Misc">Misc</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="pages-misc-error.html" class="menu-link" target="_blank">
-                <div data-i18n="Error">Error</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-misc-comingsoon.html" class="menu-link" target="_blank">
-                <div data-i18n="Coming Soon">Coming Soon</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-misc-not-authorized.html" class="menu-link" target="_blank">
-                <div data-i18n="Not Authorized">Not Authorized</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-misc-server-error.html" class="menu-link" target="_blank">
-                <div data-i18n="Server Error">Server Error</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-shield-keyhole-line"></i>
-        <div data-i18n="Authentications">Authentications</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Login">Login</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-login-cover.html" class="menu-link" target="_blank">
-                <div data-i18n="Cover">Cover</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Register">Register</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-cover.html" class="menu-link" target="_blank">
-                <div data-i18n="Cover">Cover</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-multisteps.html" class="menu-link" target="_blank">
-                <div data-i18n="Multi-steps">Multi-steps</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Verify Email">Verify Email</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-verify-email-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-verify-email-cover.html" class="menu-link" target="_blank">
-                <div data-i18n="Cover">Cover</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Reset Password">Reset Password</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-reset-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-reset-password-cover.html" class="menu-link" target="_blank">
-                <div data-i18n="Cover">Cover</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Forgot Password">Forgot Password</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-forgot-password-cover.html" class="menu-link" target="_blank">
-                <div data-i18n="Cover">Cover</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Two Steps">Two Steps</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-two-steps-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-two-steps-cover.html" class="menu-link" target="_blank">
-                <div data-i18n="Cover">Cover</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-git-commit-line"></i>
-        <div data-i18n="Wizard Examples">Wizard Examples</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="wizard-ex-checkout.html" class="menu-link">
-            <div data-i18n="Checkout">Checkout</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="wizard-ex-property-listing.html" class="menu-link">
-            <div data-i18n="Property Listing">Property Listing</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="wizard-ex-create-deal.html" class="menu-link">
-            <div data-i18n="Create Deal">Create Deal</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="modal-examples.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-tv-2-line"></i>
-        <div data-i18n="Modal Examples">Modal Examples</div>
-      </a>
-    </li> -->
-
-    <!-- Components -->
-    <!-- <li class="menu-header mt-7">
-      <span class="menu-header-text" data-i18n="Components">Components</span>
-    </li> -->
-    <!-- Cards -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-bank-card-2-line"></i>
-        <div data-i18n="Cards">Cards</div>
-        <div class="badge bg-primary rounded-pill ms-auto">6</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="cards-basic.html" class="menu-link">
-            <div data-i18n="Basic">Basic</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="cards-advance.html" class="menu-link">
-            <div data-i18n="Advance">Advance</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="cards-statistics.html" class="menu-link">
-            <div data-i18n="Statistics">Statistics</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="cards-analytics.html" class="menu-link">
-            <div data-i18n="Analytics">Analytics</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="cards-gamifications.html" class="menu-link">
-            <div data-i18n="Gamifications">Gamifications</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="cards-actions.html" class="menu-link">
-            <div data-i18n="Actions">Actions</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- User interface -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0)" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-toggle-line"></i>
-        <div data-i18n="User interface">User interface</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="ui-accordion.html" class="menu-link">
-            <div data-i18n="Accordion">Accordion</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-alerts.html" class="menu-link">
-            <div data-i18n="Alerts">Alerts</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-badges.html" class="menu-link">
-            <div data-i18n="Badges">Badges</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-buttons.html" class="menu-link">
-            <div data-i18n="Buttons">Buttons</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-carousel.html" class="menu-link">
-            <div data-i18n="Carousel">Carousel</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-collapse.html" class="menu-link">
-            <div data-i18n="Collapse">Collapse</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-dropdowns.html" class="menu-link">
-            <div data-i18n="Dropdowns">Dropdowns</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-footer.html" class="menu-link">
-            <div data-i18n="Footer">Footer</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-list-groups.html" class="menu-link">
-            <div data-i18n="List Groups">List Groups</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-modals.html" class="menu-link">
-            <div data-i18n="Modals">Modals</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-navbar.html" class="menu-link">
-            <div data-i18n="Navbar">Navbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-offcanvas.html" class="menu-link">
-            <div data-i18n="Offcanvas">Offcanvas</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-            <div data-i18n="Pagination & Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-progress.html" class="menu-link">
-            <div data-i18n="Progress">Progress</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-spinners.html" class="menu-link">
-            <div data-i18n="Spinners">Spinners</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-tabs-pills.html" class="menu-link">
-            <div data-i18n="Tabs & Pills">Tabs &amp; Pills</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-toasts.html" class="menu-link">
-            <div data-i18n="Toasts">Toasts</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-tooltips-popovers.html" class="menu-link">
-            <div data-i18n="Tooltips & Popovers">Tooltips &amp; Popovers</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-typography.html" class="menu-link">
-            <div data-i18n="Typography">Typography</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-
-    <!-- Extended components -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0)" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-box-3-line"></i>
-        <div data-i18n="Extended UI">Extended UI</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="extended-ui-avatar.html" class="menu-link">
-            <div data-i18n="Avatar">Avatar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-blockui.html" class="menu-link">
-            <div data-i18n="BlockUI">BlockUI</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-drag-and-drop.html" class="menu-link">
-            <div data-i18n="Drag & Drop">Drag &amp; Drop</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-media-player.html" class="menu-link">
-            <div data-i18n="Media Player">Media Player</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
-            <div data-i18n="Perfect Scrollbar">Perfect Scrollbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-star-ratings.html" class="menu-link">
-            <div data-i18n="Star Ratings">Star Ratings</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-sweetalert2.html" class="menu-link">
-            <div data-i18n="SweetAlert2">SweetAlert2</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-text-divider.html" class="menu-link">
-            <div data-i18n="Text Divider">Text Divider</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Timeline">Timeline</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="extended-ui-timeline-basic.html" class="menu-link">
-                <div data-i18n="Basic">Basic</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="extended-ui-timeline-fullscreen.html" class="menu-link">
-                <div data-i18n="Fullscreen">Fullscreen</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-tour.html" class="menu-link">
-            <div data-i18n="Tour">Tour</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-treeview.html" class="menu-link">
-            <div data-i18n="Treeview">Treeview</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="extended-ui-misc.html" class="menu-link">
-            <div data-i18n="Miscellaneous">Miscellaneous</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-
-    <!-- Icons -->
-    <!-- <li class="menu-item">
-      <a href="icons-ri.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-remixicon-line"></i>
-        <div data-i18n="Icons">Icons</div>
-      </a>
-    </li> -->
-
-    <!-- Forms & Tables -->
-    <!-- <li class="menu-header mt-7">
-      <span class="menu-header-text" data-i18n="Forms & Tables">Forms &amp; Tables</span>
-    </li> -->
-    <!-- Forms -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-radio-button-line"></i>
-        <div data-i18n="Form Elements">Form Elements</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="forms-basic-inputs.html" class="menu-link">
-            <div data-i18n="Basic Inputs">Basic Inputs</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-input-groups.html" class="menu-link">
-            <div data-i18n="Input groups">Input groups</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-custom-options.html" class="menu-link">
-            <div data-i18n="Custom Options">Custom Options</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-editors.html" class="menu-link">
-            <div data-i18n="Editors">Editors</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-file-upload.html" class="menu-link">
-            <div data-i18n="File Upload">File Upload</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-pickers.html" class="menu-link">
-            <div data-i18n="Pickers">Pickers</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-selects.html" class="menu-link">
-            <div data-i18n="Select & Tags">Select &amp; Tags</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-sliders.html" class="menu-link">
-            <div data-i18n="Sliders">Sliders</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-switches.html" class="menu-link">
-            <div data-i18n="Switches">Switches</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="forms-extras.html" class="menu-link">
-            <div data-i18n="Extras">Extras</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-box-3-line"></i>
-        <div data-i18n="Form Layouts">Form Layouts</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="form-layouts-vertical.html" class="menu-link">
-            <div data-i18n="Vertical Form">Vertical Form</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="form-layouts-horizontal.html" class="menu-link">
-            <div data-i18n="Horizontal Form">Horizontal Form</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="form-layouts-sticky.html" class="menu-link">
-            <div data-i18n="Sticky Actions">Sticky Actions</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-git-commit-line"></i>
-        <div data-i18n="Form Wizard">Form Wizard</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="form-wizard-numbered.html" class="menu-link">
-            <div data-i18n="Numbered">Numbered</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="form-wizard-icons.html" class="menu-link">
-            <div data-i18n="Icons">Icons</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="form-validation.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-checkbox-multiple-line"></i>
-        <div data-i18n="Form Validation">Form Validation</div>
-      </a>
-    </li> -->
-    <!-- Tables -->
-    <!-- <li class="menu-item">
-      <a href="tables-basic.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-table-alt-line"></i>
-        <div data-i18n="Tables">Tables</div>
-      </a>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-grid-line"></i>
-        <div data-i18n="Datatables">Datatables</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="tables-datatables-basic.html" class="menu-link">
-            <div data-i18n="Basic">Basic</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="tables-datatables-advanced.html" class="menu-link">
-            <div data-i18n="Advanced">Advanced</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="tables-datatables-extensions.html" class="menu-link">
-            <div data-i18n="Extensions">Extensions</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-
-    <!-- Charts & Maps -->
-    <!-- <li class="menu-header mt-7">
-      <span class="menu-header-text" data-i18n="Charts & Maps">Charts &amp; Maps</span>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-bar-chart-2-line"></i>
-        <div data-i18n="Charts">Charts</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="charts-apex.html" class="menu-link">
-            <div data-i18n="Apex Charts">Apex Charts</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="charts-chartjs.html" class="menu-link">
-            <div data-i18n="ChartJS">ChartJS</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="maps-leaflet.html" class="menu-link">
-        <i class="menu-icon tf-icons ri-map-2-line"></i>
-        <div data-i18n="Leaflet Maps">Leaflet Maps</div>
-      </a>
-    </li> -->
-
-    <!-- Misc -->
-    <!-- <li class="menu-header mt-7">
-      <span class="menu-header-text" data-i18n="Misc">Misc</span>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="https://themeselection.com/support/" target="_blank" class="menu-link">
-        <i class="menu-icon tf-icons ri-lifebuoy-line"></i>
-        <div data-i18n="Support">Support</div>
-      </a>
-    </li> -->
-    <!-- <li class="menu-item">
-      <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/documentation/" target="_blank" class="menu-link">
-        <i class="menu-icon tf-icons ri-article-line"></i>
-        <div data-i18n="Documentation">Documentation</div>
-      </a>
-    </li> -->
+    </li>  
   </ul>
-  
-  
-
 </aside>
 <!-- / Menu -->
 
     
 
-    <!-- Layout container -->
-    <div class="layout-page">
-      
-      
-
-
-
+<!-- Layout container -->
+<div class="layout-page">
 <!-- Navbar -->
 
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-  
-
-  
-
-      
-      
-
-      
-      
       <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0   d-xl-none ">
         <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
           <i class="ri-menu-fill ri-24px"></i>
         </a>
       </div>
-      
-
       <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-        
-        <!-- Search -->
-        <!-- <div class="navbar-nav align-items-center">
-          <div class="nav-item navbar-search-wrapper mb-0">
-            <a class="nav-item nav-link search-toggler fw-normal px-0" href="javascript:void(0);">
-              <i class="ri-search-line ri-22px scaleX-n1-rtl me-1_5"></i>
-              <span class="d-none d-md-inline-block text-muted ms-1_5">Search (Ctrl+/)</span>
-            </a>
-          </div>
-        </div> -->
-        <!-- /Search -->
-        
-        
-
-        
-
         <ul class="navbar-nav flex-row align-items-center ms-auto">
-
-          
-          
-          <!-- Language -->
-          <li class="nav-item dropdown-language dropdown">
-            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='ri-translate-2 ri-22px'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end py-2">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                  <span class="align-middle">English</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                  <span class="align-middle">French</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                  <span class="align-middle">Arabic</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                  <span class="align-middle">German</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!--/ Language -->
-          
           <!-- Style Switcher -->
           <li class="nav-item dropdown-style-switcher dropdown">
             <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
               <i class='ri-22px'></i>
             </a>
-            <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                  <span class="align-middle"><i class='ri-sun-line ri-22px me-3'></i>Light</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                  <span class="align-middle"><i class="ri-moon-clear-line ri-22px me-3"></i>Dark</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                  <span class="align-middle"><i class="ri-computer-line ri-22px me-3"></i>System</span>
-                </a>
-              </li>
-            </ul> -->
           </li>
-          <!-- / Style Switcher-->
-          
-          <!-- Quick links  -->
-          <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
-            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-              <i class='ri-star-smile-line ri-22px'></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end py-0">
-              <div class="dropdown-menu-header border-bottom py-50">
-                <div class="dropdown-header d-flex align-items-center py-2">
-                  <h6 class="mb-0 me-auto">Shortcuts</h6>
-                  <a href="javascript:void(0)" class="btn btn-text-secondary rounded-pill btn-icon dropdown-shortcuts-add" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="ri-layout-grid-line ri-24px text-heading"></i></a>
-                </div>
-              </div>
-              <div class="dropdown-shortcuts-list scrollable-container">
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-calendar-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                    <small>Appointments</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-file-text-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                    <small>Manage Accounts</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-user-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="app-user-list.html" class="stretched-link">User App</a>
-                    <small>Manage Users</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-computer-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                    <small>Permission</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-pie-chart-2-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="index.html" class="stretched-link">Dashboard</a>
-                    <small>Analytics</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-settings-4-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                    <small>Account Settings</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-question-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="pages-faq.html" class="stretched-link">FAQs</a>
-                    <small class="text-muted mb-0">FAQs & Articles</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ri-tv-2-line ri-26px text-heading"></i>
-                    </span>
-                    <a href="modal-examples.html" class="stretched-link">Modals</a>
-                    <small>Useful Popups</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!-- Quick links -->
-
-          <!-- Notification -->
-          <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-4 me-xl-1">
-            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-              <i class="ri-notification-2-line ri-22px"></i>
-              <span class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end py-0">
-              <li class="dropdown-menu-header border-bottom">
-                <div class="dropdown-header d-flex align-items-center py-3">
-                  <h6 class="mb-0 me-auto">Notification</h6>
-                  <div class="d-flex align-items-center">
-                    <span class="badge rounded-pill bg-label-primary me-2">8 New</span>
-                    <a href="javascript:void(0)" class="btn btn-text-secondary rounded-pill btn-icon dropdown-notifications-all" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="ri-mail-open-line ri-20px text-body"></i></a>
-                  </div>
-                </div>
-              </li>
-              <li class="dropdown-notifications-list scrollable-container">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="/dashboard-assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="small mb-1">Congratulation Lettie 🎉</h6>
-                        <small class="mb-1 d-block text-body">Won the monthly best seller gold badge</small>
-                        <small class="text-muted">1h ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">Charles Franklin</h6>
-                        <small class="mb-1 d-block text-body">Accepted your connection</small>
-                        <small class="text-muted">12hr ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="/dashboard-assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">New Message ✉️</h6>
-                        <small class="mb-1 d-block text-body">You have new message from Natalie</small>
-                        <small class="text-muted">1h ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-success"><i class="ri-shopping-cart-2-line"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">Whoo! You have new order 🛒 </h6>
-                        <small class="mb-1 d-block text-body">ACME Inc. made new order $1,154</small>
-                        <small class="text-muted">1 day ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="/dashboard-assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">Application has been approved 🚀 </h6>
-                        <small class="mb-1 d-block text-body">Your ABC project application has been approved.</small>
-                        <small class="text-muted">2 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-success"><i class="ri-pie-chart-2-line"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">Monthly report is generated</h6>
-                        <small class="mb-1 d-block text-body">July monthly financial report is generated </small>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="/dashboard-assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">Send connection request</h6>
-                        <small class="mb-1 d-block text-body">Peter sent you connection request</small>
-                        <small class="text-muted">4 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="/dashboard-assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">New message from Jane</h6>
-                        <small class="mb-1 d-block text-body">Your have new message from Jane</small>
-                        <small class="text-muted">5 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-warning"><i class="ri-error-warning-line"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1 small">CPU is running high</h6>
-                        <small class="mb-1 d-block text-body">CPU Utilization Percent is currently at 88.63%,</small>
-                        <small class="text-muted">5 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ri-close-line"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="border-top">
-                <div class="d-grid p-4">
-                  <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
-                    <small class="align-middle">View all notifications</small>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!--/ Notification -->
-
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -1616,36 +357,6 @@
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
-              <!-- <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
-                  <i class="ri-settings-4-line ri-22px me-2"></i>
-                  <span class="align-middle">Settings</span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <a class="dropdown-item" href="pages-account-settings-billing.html">
-                  <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 ri-file-text-line ri-22px me-2"></i>
-                    <span class="flex-grow-1 align-middle">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
-                  </span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <div class="dropdown-divider"></div>
-              </li> -->
-              <!-- <li>
-                <a class="dropdown-item" href="pages-pricing.html">
-                  <i class="ri-money-dollar-circle-line ri-22px me-2"></i>
-                  <span class="align-middle">Pricing</span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <a class="dropdown-item" href="pages-faq.html">
-                  <i class="ri-question-line ri-22px me-2"></i>
-                  <span class="align-middle">FAQ</span>
-                </a>
-              </li> -->
               <li>
                 <div class="d-grid px-4 pt-2 pb-1">
                   <a class="btn btn-danger d-flex" href="/admin/logout" target="_blank">
@@ -1657,9 +368,6 @@
             </ul>
           </li>
           <!--/ User -->
-          
-
-
         </ul>
       </div>
 
@@ -1668,13 +376,9 @@
       <div class="navbar-search-wrapper search-input-wrapper  d-none">
         <input type="text" class="form-control search-input container-xxl border-0" placeholder="Search..." aria-label="Search...">
         <i class="ri-close-fill search-toggler cursor-pointer"></i>
-      </div>
-      
-      
-  
-</nav>
-
-<!-- / Navbar -->
+      </div> 
+    </nav>
+    <!-- / Navbar -->
 
       
 
@@ -1694,28 +398,20 @@
         <div class="card-header d-flex rounded-0 flex-wrap pb-md-0 pt-0">
             <div class="me-5 pe-5">
                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                    <label>
-                        <input type="search" class="form-control form-control-sm ms-0" placeholder="Search Order" aria-controls="DataTables_Table_0">
-                    </label>
+                  <label>
+                    <input type="search" id="search-order" class="form-control form-control-sm ms-0" placeholder="Search Order" aria-controls="DataTables_Table_0" onkeyup="searchTable()">
+                </label>
                 </div>
             </div>
             <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
                 <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center gap-4 pt-0">
                     <div class="dataTables_length my-0" id="DataTables_Table_0_length">
-                        <label>
-                            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select form-select-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </label>
                     </div>
                     <div class="dt-buttons btn-group flex-wrap d-flex">
                         <div class="btn-group">
-                            <button class="btn btn-secondary buttons-collection dropdown-toggle btn-outline-secondary me-4 waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false">
+                            <!-- <button class="btn btn-secondary buttons-collection dropdown-toggle btn-outline-secondary me-4 waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false">
                                 <span><i class="ri-upload-2-line ri-16px me-1"></i> <span class="d-none d-sm-inline-block">Export</span></span>
-                            </button>
+                            </button> -->
                         </div>
                         <!-- <button class="btn btn-secondary add-new btn-primary waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEcommerceCustomerAdd">
                             <span><i class="ri-add-line ri-16px me-0 me-sm-1 align-baseline"></i><span class="d-none d-sm-inline-block">Add Customer</span></span>
@@ -1724,139 +420,28 @@
                 </div>
             </div>
         </div>
-        <!-- <table class="datatables-customers table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
-            <thead>
-              <tr>
-                <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label=""></th>
-                <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 18px;" data-col="1" aria-label="">
-                    <input type="checkbox" class="form-check-input">
-                </th>
-                <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 305px;" aria-label="Customer: activate to sort column ascending" aria-sort="descending">Customer</th>
-                <th class="text-nowrap sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 139px;" aria-label="Customer Id: activate to sort column ascending">Customer Id</th>
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 237px;" aria-label="Email: activate to sort column ascending">Email</th>
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 76px;" aria-label="Mobile: activate to sort column ascending">Mobile</th>
-                <th class="text-nowrap" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 100px;" aria-label="Actions">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table> -->
+       
 
 
         <!-- views/admin/customer-list.ejs -->
         <table class="datatables-customers table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
           <thead>
-            <tr>
-              <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label=""></th>
-              <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 18px;" data-col="1" aria-label="">
-                <input type="checkbox" class="form-check-input">
-              </th>
-              <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 305px;" aria-label="Customer: activate to sort column ascending" aria-sort="descending">Customer</th>
-              <th class="text-nowrap sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 139px;" aria-label="Customer Id: activate to sort column ascending">Customer Id</th>
-              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 237px;" aria-label="Email: activate to sort column ascending">Email</th>
-              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 76px;" aria-label="Mobile: activate to sort column ascending">Mobile</th>
-              <th class="text-nowrap" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 100px;" aria-label="Actions">Actions</th>
-            </tr>
+              <tr>
+                  <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label=""></th>
+                  <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 18px;" data-col="1" aria-label="">
+                      <!-- <input type="checkbox" class="form-check-input"> -->
+                  </th>
+                  <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 305px;" aria-label="Customer: activate to sort column ascending" aria-sort="descending">Customer</th>
+                  <th class="text-nowrap sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 139px;" aria-label="Customer Id: activate to sort column ascending">Customer Id</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 237px;" aria-label="Email: activate to sort column ascending">Email</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 76px;" aria-label="Mobile: activate to sort column ascending">Mobile</th>
+                  <th class="text-nowrap" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 100px;" aria-label="Actions">Actions</th>
+              </tr>
           </thead>
-          <!-- <tbody>
-            <% if (customers && customers.length > 0) { %>
-                <% customers.forEach(customer => { %>
-                    <tr>
-                        <td class="control" tabindex="0" style="display: none;"></td>
-                        <td class="dt-checkboxes-cell">
-                            <input type="checkbox" class="dt-checkboxes form-check-input">
-                        </td>
-                        <td class="sorting_1">
-                            <div class="d-flex justify-content-start align-items-center customer-name">
-                                <div class="d-flex flex-column">
-                                    <a href="app-ecommerce-customer-details-overview.html" class="text-heading">
-                                        <span class="fw-medium text-truncate"><%= customer.name %></span>
-                                    </a>
-                                    <small class="text-truncate"><%= customer.email %></small>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="text-heading"><%= customer.customerId || customer._customerId %></span></td>
-                        <td><span><%= customer.email %></span></td>
-                        <td><span><%= customer.mobile %></span></td>
-                      
-
-
-                        <td class="sorting_1">
-                          <div class="d-flex justify-content-start align-items-center customer-name">
-                            <div class="d-flex flex-column">
-                              <span class="fw-medium text-truncate" contenteditable="true" data-id="<%= customer._customerId %>">
-                                <%= customer.name %>
-                              </span>
-                              <small class="text-muted text-truncate"><%= customer.email %></small>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <button class="btn btn-outline-success update-btn" data-id="<%= customer._customerId %>">
-                            Update
-                          </button>
-                          <a href="#" style="margin-left: 40px; " class="text-danger delete-btn" data-id="<%= customer._customerId %>" onclick="return confirm('Are you sure you want to delete this customer?');">
-                            <i class="ri-delete-bin-6-line ri-lg"></i>
-                          </a>
-                        </td>
-                    </tr>
-                <% }) %>
-            <% } else { %>
-                <tr>
-                    <td colspan="6" class="text-center">No customers found.</td>
-                </tr>
-            <% } %>
-        </tbody> -->
-
-        <!-- <tbody id="customer-table-body">
-          <% customers.forEach(function(customer, index) { %>
-            <tr id="row-<%= customer._id %>">
-              <td><%= index + 1 %></td>
-              <td><%= customer.name %></td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <span class="text-heading fw-medium text-wrap static-text" id="name-text-<%= customer._id %>"><%= customer._id %></span>
-                  <input type="text" class="form-control edit-input" id="edit-name-<%= customer._id %>" value="<%= customer.name %>" style="display: none;">
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <span class="text-heading fw-medium text-wrap static-text" id="email-text-<%= customer._id %>"><%= customer.email %></span>
-                  <input type="email" class="form-control edit-input" id="edit-email-<%= customer._id %>" value="<%= customer.email %>" style="display: none;">
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <span class="text-heading fw-medium text-wrap static-text" id="phone-text-<%= customer._id %>"><%= customer.mobile %></span>
-                  <input type="text" class="form-control edit-input" id="edit-phone-<%= customer._id %>" value="<%= customer.phone %>" style="display: none;">
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center justify-content-sm-center">
-                  <button id="editBtn-<%= customer._id %>" class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill" onclick="toggleEdit('<%= customer._id %>')">
-                    <i class="ri-edit-box-line ri-20px"></i> 
-                  </button>
-                  <button id="saveBtn-<%= customer._id %>" class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill" onclick="saveChanges('<%= customer._id %>')" style="display: none;">
-                    <i class="ri-save-line ri-20px"></i> 
-                  </button>
-                  <select name="status" id="status-<%= customer._id %>" style="border: none; background-color: transparent; outline: none;" onchange="changeStatus('<%= customer._id %>', this.value)">
-                    <option value="false" <%= customer.isListed ? '' : 'selected' %>>Blocked</option>
-                    <option value="true" <%= customer.isListed ? 'selected' : '' %>>Unblocked</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
-          <% }); %>
-        </tbody> -->
-
-
-        <tbody id="customer-table-body">
-          <% customers.forEach(function(customer, index) { %>
+          <tbody id="customer-table-body">
+              <% customers.forEach(function(customer, index) { %>
               <tr id="row-<%= customer._id %>">
                   <td><%= index + 1 %></td>
-                 
                   <td>
                       <div class="d-flex align-items-center">
                           <span class="text-heading fw-medium text-wrap static-text" id="name-text-<%= customer._id %>"><%= customer.name %></span>
@@ -1864,8 +449,8 @@
                       </div>
                   </td>
                   <td>
-                    <span class="text-heading fw-medium text-wrap"><%= customer._id %></span>
-                </td>
+                      <span class="text-heading fw-medium text-wrap"><%= customer._id %></span>
+                  </td>
                   <td>
                       <div class="d-flex align-items-center">
                           <span class="text-heading fw-medium text-wrap static-text" id="email-text-<%= customer._id %>"><%= customer.email %></span>
@@ -1880,72 +465,81 @@
                   </td>
                   <td>
                       <div class="d-flex align-items-center justify-content-sm-center">
-                          <button id="editBtn-<%= customer._id %>" class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill" onclick="toggleEdit('<%= customer._id %>')">
+                          <!-- <button class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill" onclick="openEditModal('<%= customer._id %>')">
                               <i class="ri-edit-box-line ri-20px"></i>
-                          </button>
-                          <button id="saveBtn-<%= customer._id %>" class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill" onclick="saveChanges('<%= customer._id %>')" style="display: none;">
-                              <i class="ri-save-line ri-20px"></i>
-                          </button>
-                          <select name="status" id="status-<%= customer._id %>" style="border: none; background-color: transparent; outline: none;" onchange="changeStatus('<%= customer._id %>', this.value)">
+                          </button> -->
+                          <select name="status" id="status-<%= customer._id %>" style="border: none; background-color: transparent; outline: none;" onchange="confirmChangeStatus('<%= customer._id %>', this.value)">
                               <option value="false" <%= customer.isListed ? '' : 'selected' %>>Blocked</option>
                               <option value="true" <%= customer.isListed ? 'selected' : '' %>>Unblocked</option>
                           </select>
                       </div>
                   </td>
               </tr>
-          <% }); %>
-      </tbody>
-      
-      
+              <% }); %>
+          </tbody>
+      </table>
+</div>
 
-        
-        
-        
-        </table>
-        
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Edit Customer</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="editCustomerForm">
+                  <input type="hidden" id="edit-customer-id">
+                  <div class="mb-3">
+                      <label for="edit-name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="edit-name">
+                  </div>
+                  <div class="mb-3">
+                      <label for="edit-email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="edit-email">
+                  </div>
+                  <div class="mb-3">
+                      <label for="edit-phone" class="form-label">Phone</label>
+                      <input type="text" class="form-control" id="edit-phone">
+                  </div>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveChanges()">Save Changes</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
 
-        
+//pagination
+<div class="pagination">
+  <ul class="pagination-list">
+      <% if (currentPage > 1) { %>
+          <li class="page-item">
+              <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="page-link">Previous</a>
+          </li>
+      <% } else { %>
+          <li class="page-item disabled">
+              <span class="page-link">Previous</span>
+          </li>
+      <% } %>
 
+      <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+              <a href="?page=<%= i %>&limit=<%= limit %>" class="page-link"><%= i %></a>
+          </li>
+      <% } %>
 
-
-
-        <div class="row mx-1">
-            <div class="col-sm-12 col-md-6">
-                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 100 entries</div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                    <ul class="pagination">
-                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
-                            <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">
-                                <i class="ri-arrow-left-s-line"></i>
-                            </a>
-                        </li>
-                        <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
-                        </li>
-                        <li class="paginate_button page-item">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
-                        </li>
-                        <li class="paginate_button page-item">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
-                        </li>
-                        <li class="paginate_button page-item">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
-                        </li>
-                        <li class="paginate_button page-item">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
-                        </li>
-                        <li class="paginate_button page-item next" id="DataTables_Table_0_next">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">
-                                <i class="ri-arrow-right-s-line"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+      <% if (currentPage < totalPages) { %>
+          <li class="page-item">
+              <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="page-link">Next</a>
+          </li>
+      <% } else { %>
+          <li class="page-item disabled">
+              <span class="page-link">Next</span>
+          </li>
+      <% } %>
+  </ul>
 </div>
 
   <!-- Offcanvas to add new customer -->
@@ -2042,60 +636,28 @@
     </div>
   </div>
 </div>
-
-
-          </div>
-          <!-- / Content -->
-
-          
-          
-
-
-
-          
-          <div class="content-backdrop fade"></div>
-        </div>
-          <!-- / Content -->
-
-          
-          
+</div>
+<!-- / Content -->
+<div class="content-backdrop fade"></div>
+</div>
+<!-- / Content -->
 
 <!-- Footer -->
 <footer class="content-footer footer bg-footer-theme">
   <div class="container-xxl">
     <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-      <!-- <div class="text-body mb-2 mb-md-0">
-        © <script>
-        document.write(new Date().getFullYear())
-
-        </script>, made with <span class="text-danger"><i class="tf-icons ri-heart-fill"></i></span> by <a href="https://themeselection.com/" target="_blank" class="footer-link">ThemeSelection</a>
-      </div> -->
       <div class="d-none d-lg-inline-block">
-        
-        <!-- <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a> -->
-        <!-- <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a> -->
-        
-        <!-- <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a> -->
-        
-        
-        <!-- <a href="https://themeselection.com/support/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a> -->
-        
       </div>
     </div>
   </div>
 </footer>
 <!-- / Footer -->
-
-          
-          <div class="content-backdrop fade"></div>
-        </div>
-        <!-- Content wrapper -->
-      </div>
-      <!-- / Layout page -->
-    </div>
-
-    
-    
+<div class="content-backdrop fade"></div>
+  </div>
+    <!-- Content wrapper -->
+     </div>
+       <!-- / Layout page -->
+         </div>
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
     
@@ -2138,102 +700,156 @@
 <script src="/dashboard-assets/vendor/libs/cleavejs/cleave.js"></script>
 <script src="/dashboard-assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
-  <!-- Main JS -->
-  <script src="/dashboard-assets/js/main.js"></script>
-  
+     <!-- Main JS -->
+    <script src="/dashboard-assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.0/dist/sweetalert2.all.min.js"></script>
+    <script>
+      const openEditModal = (id) => {
+          const name = document.getElementById(`name-text-${id}`).innerText;
+          const email = document.getElementById(`email-text-${id}`).innerText;
+          const mobile = document.getElementById(`phone-text-${id}`).innerText;
 
-  <!-- Page JS -->
-  <!-- <script src="/dashboard-assets/js/app-ecommerce-customer-all.js"></script> -->
+          document.getElementById('edit-customer-id').value = id;
+          document.getElementById('edit-name').value = name;
+          document.getElementById('edit-email').value = email;
+          document.getElementById('edit-phone').value = mobile;
+
+          const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+          editModal.show();
+      };
+
+      const saveChanges = async () => {
+          const id = document.getElementById('edit-customer-id').value;
+          const name = document.getElementById('edit-name').value;
+          const email = document.getElementById('edit-email').value;
+          const mobile = document.getElementById('edit-phone').value;
+
+          try {
+              const response = await fetch(`/admin/edit/${id}`, {
+                  method: 'PATCH',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ name, email, mobile }),
+              });
+
+              if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error(`Error: ${response.status} - ${errorText}`);
+              }
+
+              const result = await response.json();
+              Swal.fire('Success', result.message, 'success').then(() => location.reload());
+          } catch (error) {
+              console.error('Error saving changes:', error);
+              Swal.fire('Error', `Error saving changes: ${error.message}`, 'error');
+          }
+      };
+
+      const confirmChangeStatus = (id, status) => {
+          Swal.fire({
+              title: 'Are you sure?',
+              text: `Do you want to ${status === 'true' ? 'unblock' : 'block'} this customer?`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, confirm!',
+              cancelButtonText: 'Cancel'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  changeStatus(id, status);
+              }
+          });
+      };
+
+      const changeStatus = async (id, status) => {
+          try {
+              const response = await fetch(`/admin/change-status/${id}`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ status }),
+              });
+
+              if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error(`Error: ${response.status} - ${errorText}`);
+              }
+
+              const result = await response.json();
+              Swal.fire('Success', result.message, 'success').then(() => location.reload());
+          } catch (error) {
+              console.error('Error changing status:', error);
+              Swal.fire('Error', `Error changing status: ${error.message}`, 'error');
+          }
+      };
 
 
 
 
-  <script>
-    const toggleEdit = (id) => {
-        const nameText = document.getElementById(`name-text-${id}`);
-        const emailText = document.getElementById(`email-text-${id}`);
-        const phoneText = document.getElementById(`phone-text-${id}`);
+
+
+      function searchTable() {
+    // Get the search input value
+    var input = document.getElementById('search-order');
+    var filter = input.value.toLowerCase();
     
-        const editNameInput = document.getElementById(`edit-name-${id}`);
-        const editEmailInput = document.getElementById(`edit-email-${id}`);
-        const editPhoneInput = document.getElementById(`edit-phone-${id}`);
+    // Get the table and tbody elements
+    var table = document.getElementById('DataTables_Table_0');
+    var tbody = document.getElementById('customer-table-body');
     
-        // Toggle display
-        nameText.style.display = nameText.style.display === 'none' ? 'block' : 'none';
-        emailText.style.display = emailText.style.display === 'none' ? 'block' : 'none';
-        phoneText.style.display = phoneText.style.display === 'none' ? 'block' : 'none';
+    // Get all rows in the table body
+    var rows = tbody.getElementsByTagName('tr');
     
-        editNameInput.style.display = editNameInput.style.display === 'none' ? 'block' : 'none';
-        editEmailInput.style.display = editEmailInput.style.display === 'none' ? 'block' : 'none';
-        editPhoneInput.style.display = editPhoneInput.style.display === 'none' ? 'block' : 'none';
-    
-        // Toggle button visibility
-        document.getElementById(`editBtn-${id}`).style.display = document.getElementById(`editBtn-${id}`).style.display === 'none' ? 'block' : 'none';
-        document.getElementById(`saveBtn-${id}`).style.display = document.getElementById(`saveBtn-${id}`).style.display === 'none' ? 'block' : 'none';
-    };
-    
-    const saveChanges = async (id) => {
-    const name = document.getElementById(`edit-name-${id}`).value;
-    const email = document.getElementById(`edit-email-${id}`).value;
-    const mobile = document.getElementById(`edit-phone-${id}`).value;
+    // Loop through all rows and hide those that don't match the search query
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var cells = row.getElementsByTagName('td');
+        var match = false;
+        
+        // Loop through all cells in the row
+        for (var j = 0; j < cells.length; j++) {
+            var cell = cells[j];
+            if (cell) {
+                // Check if the cell text content matches the search query
+                if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+        }
+        
+        // Show or hide the row based on the match result
+        if (match) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+}
 
-    try {
-        const response = await fetch(`/admin/edit/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, mobile }),
+
+
+document.addEventListener('DOMContentLoaded', function () {
+            const paginationLinks = document.querySelectorAll('.pagination-link');
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.querySelector('body').innerHTML = html;
+                        });
+                });
+            });
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error: ${response.status} - ${errorText}`);
-        }
-
-        const result = await response.json();
-        alert(result.message);
-        location.reload(); // Refresh the page to see changes
-    } catch (error) {
-        console.error('Error saving changes:', error);
-        alert(`Error saving changes: ${error.message}`);
-    }
-};
-
-const changeStatus = async (id, status) => {
-    try {
-        const response = await fetch(`/admin/change-status/${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ status }),
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error: ${response.status} - ${errorText}`);
-        }
-
-        const result = await response.json();
-        alert(result.message);
-        location.reload(); // Refresh the page to see changes
-    } catch (error) {
-        console.error('Error changing status:', error);
-        alert(`Error changing status: ${error.message}`);
-    }
-};
-
-    </script>
-    
-  
-
-
-
-  
+  </script> 
 </body>
-
-
 <!-- Mirrored from demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-customer-all.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 05:50:34 GMT -->
 </html>
 

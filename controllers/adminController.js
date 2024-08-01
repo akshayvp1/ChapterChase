@@ -50,23 +50,45 @@ const verifyAdmin = async (req, res) => {
 const loadDashboard = (req, res) => {
     try {
         let admin = req.session.user
+        if(admin){
         res.render('dashboard',{admin});
+        return;
+        }
     } catch (error) {
         console.log(error.message);
     }
 }
 
+
+//load customer skill
 const loadCustomerList = async (req, res) => {
     try {
-        let admin = req.session.user
-      const customers = await User.find(); 
-      res.render('customer-list', { customers,admin });
+        let admin = req.session.user;
+        const page = parseInt(req.query.page) || 1; // Current page
+        const limit = parseInt(req.query.limit) || 10; // Number of items per page
+
+        const customers = await User.find({})
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        const totalCustomers = await User.countDocuments();
+
+        res.render('customer-list', {
+            customers,
+            admin,
+            currentPage: page,
+            totalPages: Math.ceil(totalCustomers / limit),
+            limit
+        });
     } catch (error) {
-      console.error('Error fetching customers:', error);
-      res.status(500).send('Error fetching customers');
+        console.error('Error fetching customers:', error);
+        res.status(500).send('Error fetching customers');
     }
-  };
+};
+
   
+
+
 const editCustomer = async (req, res) => {
     const { id } = req.params;
     const { name, email, mobile } = req.body;
@@ -89,6 +111,8 @@ const editCustomer = async (req, res) => {
     }
 };
 
+
+//change customer status
 const changeCustomerStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -110,6 +134,9 @@ const changeCustomerStatus = async (req, res) => {
         res.status(500).json({ message: 'Error changing customer status' });
     }
 };
+
+
+//admin logout
 const adminLogout = (req, res) => {
     try {
         req.session.destroy(err => {

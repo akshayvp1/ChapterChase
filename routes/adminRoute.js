@@ -65,12 +65,22 @@ adminRoute.get('/customer-list', adminAuth.isLogin, adminController.loadCustomer
 adminRoute.patch('/edit/:id', adminAuth.isLogin, adminController.editCustomer);
 adminRoute.post('/change-status/:id', adminAuth.isLogin, adminController.changeCustomerStatus);
 adminRoute.post('/add-product', adminAuth.isLogin, upload.array('productImages', 3), productController.addProduct);
-adminRoute.get('/product/:id', adminAuth.isLogin, productController.getProduct);
-adminRoute.patch('/product/:id', upload.fields([
-  { name: 'productImage1', maxCount: 1 },
-  { name: 'productImage2', maxCount: 1 },
-  { name: 'productImage3', maxCount: 1 }
-]), productController.updateProduct);
+adminRoute.get('/product/:id', adminAuth.isLogin, productController.getProductList);
+// adminRoute.patch('/product/:id', upload.fields([
+//   { name: 'productImage1', maxCount: 1 },
+//   { name: 'productImage2', maxCount: 1 },
+//   { name: 'productImage3', maxCount: 1 }
+// ]), productController.updateProduct);
+
+adminRoute.patch('/product/:id', adminAuth.isLogin, upload.any(), productController.updateProduct);adminRoute.patch('/product/:id', adminAuth.isLogin, upload.any(), productController.updateProduct);
+
+
+
+// adminRoute.patch('/product/:id', adminAuth.isLogin, upload.fields([
+//   { name: 'image1', maxCount: 1 },
+//   { name: 'image2', maxCount: 1 },
+//   { name: 'image3', maxCount: 1 }
+// ]), productController.updateProduct);
 
 
 module.exports = adminRoute;
