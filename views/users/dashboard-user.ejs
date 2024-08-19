@@ -60,35 +60,25 @@
                     <nav class="main-nav">
                         <ul class="menu sf-arrows">
                             <li class="megamenu-container active">
-                                <a href="index.html" class="sf-with-ul">Home</a>
-
-                                
+                                <a href="/home" class="sf-with-ul">Home</a>
                             </li>
                             <li>
-                                <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                
+                                <a href="category.html" class="sf-with-ul">Shop</a>                                 
                             </li>
                             <li>
-                                <a href="product.html" class="sf-with-ul">Product</a>
-
-                                
+                                <a href="/products-list" class="sf-with-ul">Product</a>                                     
                             </li>
                             <li>
-                                <a href="#" class="sf-with-ul">Pages</a>
-
-                                
+                                <a href="#" class="sf-with-ul">Pages</a>                                      
                             </li>
                             <li>
                                 <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                
-                            </li>
-                            <li>
-                                <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                
-                            </li>
+                                <ul>
+                                    <li><a href="blog.html">Classic</a></li>
+                                    <li><a href="blog-listing.html">Listing</a></li>                                         
+                                </ul>
+                            </li>                                   
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->
@@ -106,9 +96,12 @@
                     
 
                     <div class="dropdown cart-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <a href="/cart" class="dropdown-toggle" >
                             <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count">
+                                <%= cartCount %>
+
+                            </span>
                         </a>
 
                         
@@ -157,7 +150,7 @@
                                     
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Sign Out</a>
+                                    <a class="nav-link" href="/logout">Sign Out</a>
                                 </li>
                             </ul>
                         </aside>

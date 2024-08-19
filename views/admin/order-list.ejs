@@ -3,6 +3,7 @@
 
 
 <style>
+  
   .view-btn{
     background-color: #27ae60;
     color: #ecf0f1;
@@ -305,6 +306,41 @@ button {
             </li>
           </ul>
         </li>
+
+
+
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div data-i18n="Coupon">Coupon</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="/admin/product-list" class="menu-link">
+                <div data-i18n="Add Coupon">Add coupon</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Coupon List">Coupon List</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Add Offer">Add offer</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Order List">Offer List</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+
+
+
         <li class="menu-item">
           <a href="app-ecommerce-manage-reviews.html" class="menu-link">
             <div data-i18n="Manage Reviews">Manage Reviews</div>
@@ -803,39 +839,64 @@ button {
     <table class="datatables-order table">
       <thead>
         <tr>
-         
           <th>order</th>
           <th>date</th>
-          <th>customers</th>
           <th>payment</th>
           <th>status</th>
           <th>actions</th>
+          
         </tr>
       </thead>
       <tbody>
         <% if (orders.length === 0) { %>
-            <tr>
-                <td colspan="6">No orders found for this user.</td>
-            </tr>
+          <tr>
+            <td colspan="5">No orders found for this user.</td>
+          </tr>
         <% } else { %>
-            <% orders.forEach(order => { %>
-                <tr>
-                    
-                    <td>#<%= order.orderId %></td>
-                    <td><%= order.deliveryDate %></td>
-                    <td><%= order.address.addressName %></td>
-                    <td>₹<%= order.totalPrice %></td>
-                    <td><%= order.order_status %></td>
-                    <td><button class="view-btn" data-order-id="<%= order._id %>">View</button></td>
-
-                  </tr>
+          <% orders.forEach(order => { %>
+            <% order.items.forEach(pro => { %>
+              <tr>
+                <td>#<%= order.orderId %></td>
+                <td><%= new Date(order.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) %></td>
+                <td>₹<%= (pro.price * pro.quantity).toFixed(2) %></td>
+                <td>
+                  <select class="status-select" data-order-id="<%= order._id %>" data-item-id="<%= pro._id %>">
+                    <% if (pro.order_status === 'Pending') { %>
+                      <option value="Pending" selected>Pending</option>
+                      <option value="Processing">Processing</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    <% } else if (pro.order_status === 'Processing') { %>
+                      <option value="Processing" selected>Processing</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    <% } else if (pro.order_status === 'Shipped') { %>
+                      <option value="Shipped" selected>Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    <% } else if (pro.order_status === 'Delivered') { %>
+                      <option value="Delivered" selected>Delivered</option>
+                    <% } else if (['Cancelled', 'Returned', 'Return Requested'].includes(pro.order_status)) { %>
+                      <option value="<%= pro.order_status %>" selected><%= pro.order_status %></option>
+                    <% } %>
+                  </select>
+                  
+                </td>
+                <td>
+                  <button class="view-btn" data-order-id="<%= order._id %>">View</button>
+                  <% if (pro.order_status === 'Return Requested') { %>
+                    <button class="confirm-return-btn" data-order-id="<%= order._id %>" data-item-id="<%= pro._id %>">Confirm Return</button>
+                  <% } %>
+                </td>
+              </tr>
             <% }) %>
+          <% }) %>
         <% } %>
-    </tbody>
-    
+      </tbody>
     </table>
+    
   </div>
 </div>
+
 </div>
 <!-- / Content -->
 
@@ -887,17 +948,8 @@ button {
           </div>
       </div>
       <div class="modal-footer">
-        <select id="statusSelect" style="display: none;">
-          <option value="Pending">Pending</option>
-          <option value="Processing">Processing</option>
-          <option value="Shipped">Shipped</option>
-          <option value="Delivered">Delivered</option>
-        </select>
-        <button id="updateStatusBtn" style="display: none;">Update Status</button>
-        <button id="cancelOrderBtn" style="display: none;">Cancel Order</button>
         <button class="close-btn">Close</button>
       </div>
-
   </div>
 </div>
 
@@ -953,9 +1005,10 @@ button {
 
   <script>
 // Global variable to store the current order ID
+
+
 let currentOrderId;
 
-// Function to show SweetAlert
 function showAlert(message, icon = 'info') {
   return Swal.fire({
     text: message,
@@ -967,7 +1020,6 @@ function showAlert(message, icon = 'info') {
   });
 }
 
-// Function for SweetAlert confirmation
 async function showConfirm(message) {
   const result = await Swal.fire({
     text: message,
@@ -982,7 +1034,6 @@ async function showConfirm(message) {
   return result.isConfirmed;
 }
 
-// Function to open the order details modal
 async function openOrderDetailsModal(orderId) {
   currentOrderId = orderId;
   try {
@@ -994,7 +1045,7 @@ async function openOrderDetailsModal(orderId) {
       document.querySelector('.order-id').textContent = order.orderId;
       document.querySelector('.order-date').textContent = new Date(order.createdAt).toLocaleDateString();
       document.querySelector('.total-amount').textContent = order.totalPrice.toFixed(2);
-      document.querySelector('.order-status').textContent = order.order_status;
+      document.querySelector('.order-status').textContent = order.items[0].order_status;
       document.querySelector('.payment-type').textContent = order.paymentMethod;
       document.querySelector('.payment-status').textContent = order.payment_status;
       document.querySelector('.name').textContent = order.address.addressName;
@@ -1012,14 +1063,11 @@ async function openOrderDetailsModal(orderId) {
         row.innerHTML = `
           <td>${item.product.productName}</td>
           <td>${item.quantity}</td>
-          <td>₹${item.product.price}</td>
-          <td>₹${item.quantity * item.product.price}</td>
+          <td>₹${item.price}</td>
+          <td>₹${item.quantity * item.price}</td>
         `;
         orderItemsTable.appendChild(row);
       });
-
-      // Set up status selection
-      setupStatusSelection(order.order_status);
 
       // Show the modal
       document.querySelector('#orderDetailsModal').style.display = 'block';
@@ -1032,57 +1080,18 @@ async function openOrderDetailsModal(orderId) {
   }
 }
 
-function setupStatusSelection(currentStatus) {
-  const statusSelect = document.getElementById('statusSelect');
-  const updateStatusBtn = document.getElementById('updateStatusBtn');
-  const cancelOrderBtn = document.getElementById('cancelOrderBtn');
-
-  statusSelect.value = currentStatus;
-  statusSelect.style.display = 'inline-block';
-  updateStatusBtn.style.display = 'inline-block';
-
-  // Disable options based on current status
-  Array.from(statusSelect.options).forEach(option => {
-    option.disabled = false;
-  });
-
-  switch (currentStatus) {
-    case 'Pending':
-      break;
-    case 'Processing':
-      statusSelect.querySelector('option[value="Pending"]').disabled = true;
-      break;
-    case 'Shipped':
-      statusSelect.querySelector('option[value="Pending"]').disabled = true;
-      statusSelect.querySelector('option[value="Processing"]').disabled = true;
-      break;
-    case 'Delivered':
-    case 'Cancelled':
-      statusSelect.style.display = 'none';
-      updateStatusBtn.style.display = 'none';
-      cancelOrderBtn.style.display = 'none';
-      return;
-  }
-
-  cancelOrderBtn.style.display = 'inline-block';
-}
-
-// Function to update order status
-async function updateOrderStatus() {
-  const newStatus = document.getElementById('statusSelect').value;
+async function updateOrderStatus(orderId, itemId, newStatus) {
   try {
-    const response = await fetch(`/admin/order/${currentOrderId}/status`, {
+    const response = await fetch(`/admin/order/${orderId}/status`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ status: newStatus }),
+      body: JSON.stringify({ itemId, status: newStatus }),
     });
 
     if (response.ok) {
       await showAlert('Order status updated successfully', 'success');
-      document.querySelector('.order-status').textContent = newStatus;
-      setupStatusSelection(newStatus);
       // Refresh the order list
       location.reload();
     } else {
@@ -1094,33 +1103,31 @@ async function updateOrderStatus() {
   }
 }
 
-// Function to cancel order
-async function cancelOrder() {
-  const shouldCancel = await showConfirm('Are you sure you want to cancel this order?');
-  if (shouldCancel) {
-    try {
-      const response = await fetch(`/admin/order/${currentOrderId}/cancel`, {
-        method: 'PATCH',
-      });
+async function confirmReturn(orderId, itemId) {
+  try {
+    const response = await fetch('/admin/confirm-return', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ orderId, itemId }),
+    });
 
-      if (response.ok) {
-        await showAlert('Order cancelled successfully', 'success');
-        document.querySelector('.order-status').textContent = 'Cancelled';
-        setupStatusSelection('Cancelled');
-        // Refresh the order list
-        location.reload();
-      } else {
-        await showAlert('Failed to cancel order', 'error');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      await showAlert('Error cancelling order', 'error');
+    if (response.ok) {
+      await showAlert('Return confirmed successfully', 'success');
+      location.reload();
+    } else {
+      await showAlert('Failed to confirm return', 'error');
     }
+  } catch (error) {
+    console.error('Error:', error);
+    await showAlert('Error confirming return', 'error');
   }
 }
 
-// Add event listeners
-document.addEventListener('DOMContentLoaded', () => {
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  // View button event listener
   document.querySelectorAll('.view-btn').forEach(button => {
     button.addEventListener('click', function() {
       const orderId = this.getAttribute('data-order-id');
@@ -1128,8 +1135,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.getElementById('updateStatusBtn').addEventListener('click', updateOrderStatus);
-  document.getElementById('cancelOrderBtn').addEventListener('click', cancelOrder);
+  // Status change event listener
+  document.querySelectorAll('.status-select').forEach(select => {
+    select.addEventListener('change', async function() {
+      const orderId = this.getAttribute('data-order-id');
+      const itemId = this.getAttribute('data-item-id');
+      const newStatus = this.value;
+      const currentStatus = this.options[this.selectedIndex].text;
+
+      if (['Cancelled', 'Returned', 'Return Requested'].includes(currentStatus)) {
+        this.value = currentStatus;
+        await showAlert('This order status cannot be changed.', 'info');
+        return;
+      }
+
+      if (currentStatus === 'Delivered' && newStatus !== 'Delivered') {
+        this.value = 'Delivered';
+        await showAlert('Delivered orders cannot be changed to a different status.', 'info');
+        return;
+      }
+
+      if (currentStatus === 'Processing' && newStatus === 'Pending') {
+        this.value = currentStatus;
+        await showAlert('Processing orders cannot be changed back to Pending.', 'info');
+        return;
+      }
+
+      const confirmed = await showConfirm(`Are you sure you want to change the status to ${newStatus}?`);
+      if (confirmed) {
+        await updateOrderStatus(orderId, itemId, newStatus);
+      } else {
+        this.value = currentStatus;
+      }
+    });
+  });
+
+  // Confirm return button event listener
+  document.querySelectorAll('.confirm-return-btn').forEach(button => {
+    button.addEventListener('click', async function() {
+      const orderId = this.getAttribute('data-order-id');
+      const itemId = this.getAttribute('data-item-id');
+      
+      const confirmed = await showConfirm('Are you sure you want to confirm this return?');
+      if (confirmed) {
+        await confirmReturn(orderId, itemId);
+      }
+    });
+  });
 
   // Close the modal when clicking on the close button
   document.querySelectorAll('.close-btn').forEach(button => {
@@ -1138,6 +1190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
 
   </script>
   

@@ -43,7 +43,9 @@ const userSchema = new mongoose.Schema({
     isListed:{
         type:Boolean
     },
-    resetPasswordToken: {type:String}
+    // resetPasswordToken: {type:String}
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 

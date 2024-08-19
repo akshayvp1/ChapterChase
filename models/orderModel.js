@@ -64,6 +64,25 @@ const orderSchema = new Schema({
                 type: Number,
                 required: true,
             },
+            order_status: {
+                type: String,
+                enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled", "Returned", "Return Requested"],
+                default: "Pending",
+              },
+            price:{
+                type:Number,
+                required:true
+            },
+            cancelReason: {
+                type: String,
+                default: '', // Optional: Set a default value if required
+            },
+            returnReason:{
+                type:String,
+                default: '' // Optional: Set a default value if required
+
+            }
+
         },
     ],
     createdAt: {
@@ -82,11 +101,7 @@ const orderSchema = new Schema({
         enum: ["Pending", "Completed", "Failed"],
         default: "Pending",
     },
-    order_status: {
-        type: String,
-        enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled", "Returned"],
-        default: "Pending",
-    },
+   
     coupon: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Coupon",
@@ -100,6 +115,7 @@ const orderSchema = new Schema({
         unique: true,
         required: true,
     },
+    
 });
 
 module.exports = mongoose.model("Order", orderSchema);

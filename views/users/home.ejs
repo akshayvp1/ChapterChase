@@ -1,5 +1,7 @@
 
 <%- include('../layouts/header.ejs') %>
+
+
     <div class="page-wrapper">
         <header class="header header-12">
                 <div class="header-top">
@@ -89,7 +91,7 @@
                             </form>
                         </div><!-- End .header-search -->
                         
-                        <div class="header-dropdown-link">
+                        <!-- <div class="header-dropdown-link">
                             <div class="account">
                                 <a href="dashboard.html" title="My account">
                                     <div class="icon">
@@ -97,7 +99,16 @@
                                     </div>
                                     <p>Account</p>
                                 </a>
-                            </div><!-- End .compare-dropdown -->
+                            </div> -->
+                            <div class="header-dropdown-link">
+                                <div class="account">
+                                    <a href="/wallet" title="My account">
+                                        <div class="icon">
+                                            <i class="fa-solid fa-wallet"></i>
+                                        </div>
+                                        <p>Wallet</p>
+                                    </a>
+                                </div>
 
                             <div class="wishlist">
                                 <a href="/wishlist" title="Wishlist">
@@ -113,7 +124,9 @@
                                 <a href="/cart" class="dropdown-toggle" ">
                                     <div class="icon">
                                         <i class="icon-shopping-cart"></i>
-                                        <span class="cart-count">0</span>
+                                        <span class="cart-count">
+                                            <%= cartCount %>
+                                        </span>
                                     </div>
                                     <p>Cart</p>
                                 </a>
@@ -363,11 +376,13 @@
                                                 </div><!-- End .ratings -->
                                                 <span class="ratings-text">( <%= product.reviews %> Reviews )</span>
                                             </div><!-- End .ratings-container -->
-                                            <form action="/add-to-cart" method="POST">
-                                                <input type="hidden" name="productId" value="<%= product._id %>">
-                                                 <input type="hidden" name="quantity" id="qty" value="1">
-                                                  <button type="submit" class="btn-product btn-cart"><span>Add to Cart</span></button>
-                                            </form>
+                                            <% if (product.stock > 0) { %>
+                                                <a href="" class="btn-product btn-cart add-to-cart-btn" data-product-id="<%= product._id %>" data-quantity="1">
+                                                    <span>Add to cart</span>
+                                                </a>
+                                            <% } else { %>
+                                                <span class="btn-product btn-cart disabled">Out of Stock</span>
+                                            <% } %>
                                             <div class="product-action">
                                                         
                                              <a href="#" class="btn-product btn-wishlist"><span>Add to Wishlist</span></a>
@@ -1454,6 +1469,64 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-20.js"></script>
+    <script src="https://kit.fontawesome.com/466193e456.js" crossorigin="anonymous"></script>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // Function to update data-quantity attribute for a specific add-to-cart button
+    const updateQuantityForButton = (input) => {
+        const quantity = input.value;
+        const addToCartBtn = input.closest('.details-filter-row').nextElementSibling.querySelector('.add-to-cart-btn');
+        if (addToCartBtn) {
+            addToCartBtn.dataset.quantity = quantity;
+        }
+    };
+
+    // Event delegation for quantity input changes
+    document.addEventListener('input', (event) => {
+        if (event.target.classList.contains('quantity-input')) {
+            updateQuantityForButton(event.target);
+        }
+    });
+
+    // Event delegation for add to cart button clicks
+    document.addEventListener('click', async (event) => {
+        const addToCartBtn = event.target.closest('.add-to-cart-btn');
+        if (addToCartBtn) {
+            event.preventDefault();
+            const productId = addToCartBtn.dataset.productId;
+            const quantity = addToCartBtn.dataset.quantity || '1'; // Default to 1 if not set
+
+            try {
+                const response = await fetch('/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId, quantity })
+                });
+
+                if (response.ok) {
+                    // Item added successfully
+                    const originalText = addToCartBtn.innerHTML;
+                    addToCartBtn.innerHTML = '<span>Added to Cart</span>';
+                    setTimeout(() => {
+                        addToCartBtn.innerHTML = originalText;
+                    }, 2000);
+                } else {
+                    // Handle error
+                    console.error('Error adding item to cart');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    });
+});
+
+    </script>
 
     <%- include('../layouts/footer.ejs') %>
 

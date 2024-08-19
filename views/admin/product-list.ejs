@@ -178,6 +178,41 @@
             </li>
           </ul>
         </li>
+
+
+
+
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div data-i18n="Coupon">Coupon</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="/admin/product-list" class="menu-link">
+                <div data-i18n="Add Coupon">Add coupon</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Coupon List">Coupon List</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Add Offer">Add offer</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Order List">Offer List</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+
+
         <li class="menu-item">
           <a href="app-ecommerce-manage-reviews.html" class="menu-link">
             <div data-i18n="Manage Reviews">Manage Reviews</div>
@@ -402,7 +437,8 @@
 <div class="card-header d-flex border-top rounded-0 flex-wrap pb-md-0 pt-0">
 <div class="me-5 ms-n2"><div id="DataTables_Table_0_filter" class="dataTables_filter">
   <label>
-    <input type="search" class="form-control form-control-sm" placeholder="Search" aria-controls="DataTables_Table_0" id="search-input" onkeyup="searchTable()">
+    <input type="search" class="form-control form-control-sm" placeholder="Search" 
+           aria-controls="DataTables_Table_0" id="search-input">
   </label>
 </div>
 </div>
@@ -419,41 +455,40 @@
 </div>
 <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
   <thead>
-  <tr>
-    <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 18px;" data-col="1" aria-label=""><input type="checkbox" class="form-check-input"></th>
-    <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 440px;" aria-label="Product: activate to sort column descending" aria-sort="ascending">Product</th>
-    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 136px;" aria-label="Category: activate to sort column ascending">Category</th>
-    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 57px;" aria-label="Stock">Stock</th>
-    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 57px;" aria-label="Stock">Status</th>
-
-    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 77px;" aria-label="Price: activate to sort column ascending">Price</th>
-    <th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px;" aria-label="Actions">Actions</th>
-  </tr>
-</thead>
-<tbody>
-  <% products.forEach(product => { %>
     <tr>
-      <td><input type="checkbox" class="form-check-input"></td><!-- Checkbox column -->
-      <td>
-        <img src="/assets/uploads/<%= product.images[0] %>" alt="Product Image" style="max-width: 50px; max-height: 50px;">
-        <%= product.productName %>
-      </td><!-- Product column -->
-      <td><%= product.category ? product.category.title : 'No category' %></td><!-- Category column -->
-      <td><%= product.stock %></td><!-- Stock column -->
-      <td><%= product.status %></td><!-- Status column -->
-      <td><%= product.price %></td><!-- Price column -->
-      <td class="dtr-hidden">
-        <!-- <button class="btn btn-sm btn-icon btn-text-secondary text-body rounded-pill me-1 edit-btn" data-id="<%= product._id %>">
-          <i class="ri-edit-box-line ri-22px"></i>
-        </button> -->
-
-        <button class="btn btn-sm btn-success rounded-pill me-1 edit-btn" data-id="<%= product._id %>">
-          Edit
-        </button>
-      </td>
+      <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 18px;" data-col="1" aria-label="">
+        <input type="checkbox" class="form-check-input">
+      </th>
+      <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 40px;" aria-label="Index: activate to sort column descending" aria-sort="ascending">#</th> <!-- Index column -->
+      <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 440px;" aria-label="Product: activate to sort column descending" aria-sort="ascending">Product</th>
+      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 136px;" aria-label="Category: activate to sort column ascending">Category</th>
+      <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 57px;" aria-label="Stock">Stock</th>
+      <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 57px;" aria-label="Status">Status</th>
+      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 77px;" aria-label="Price: activate to sort column ascending">Price</th>
+      <th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px;" aria-label="Actions">Actions</th>
     </tr>
-  <% }); %>
-</tbody>
+  </thead>
+  <tbody>
+    <% products.forEach((product, index) => { %>
+      <tr>
+        <td><input type="checkbox" class="form-check-input"></td> <!-- Checkbox column -->
+        <td><%= startIndex + index %></td> <!-- Index column -->
+        <td>
+          <img src="/assets/uploads/<%= product.images[0] %>" alt="Product Image" style="max-width: 50px; max-height: 50px;">
+          <%= product.productName %>
+        </td> <!-- Product column -->
+        <td><%= product.category ? product.category.title : 'No category' %></td> <!-- Category column -->
+        <td><%= product.stock %></td> <!-- Stock column -->
+        <td><%= product.status %></td> <!-- Status column -->
+        <td><%= product.price %></td> <!-- Price column -->
+        <td class="dtr-hidden">
+          <button class="btn btn-sm btn-success rounded-pill me-1 edit-btn" data-id="<%= product._id %>">
+            Edit
+          </button>
+        </td>
+      </tr>
+    <% }); %>
+  </tbody>
 
 
 
@@ -507,10 +542,10 @@
               <label for="editProductPrice" class="form-label">Price</label>
               <input type="number" step="0.01" class="form-control" id="editProductPrice" name="productPrice" required>
             </div>
-            <div class="col-md-4 mb-3">
+            <!-- <div class="col-md-4 mb-3">
               <label for="editProductOffer" class="form-label">Offer Price:</label>
-              <input type="number" step="0.01" class="form-control" id="editProductOffer" name="productOffer" required>
-            </div>
+              <input type="number" step="0.01" class="form-control" id="editProductOffer" name="productOffer" >
+            </div> -->
           </div>
 
           <div class="mb-3">
@@ -769,7 +804,7 @@
           document.getElementById('editProductStatus').value = product.status;
           document.getElementById('editProductAuthor').value = product.author
           document.getElementById('editProductDescription').value = product.description;
-          document.getElementById('editProductOffer').value = product.offer;
+          // document.getElementById('editProductOffer').value = product.offer;
   
           // Populate current images
           document.getElementById('imagePreview1').src = `/assets/uploads/${product.images[0]}`;
@@ -891,41 +926,33 @@
   
   
   //search table
-    function searchTable() {
-      // Get the search input value
-      var input = document.getElementById('search-input');
-      var filter = input.value.toLowerCase();
-      
-      // Get all rows in the table body
-      var tbody = document.querySelector('tbody');
-      var rows = tbody.getElementsByTagName('tr');
-      
-      // Loop through all rows and hide those that don't match the search query
-      for (var i = 0; i < rows.length; i++) {
-          var row = rows[i];
-          var cells = row.getElementsByTagName('td');
-          var match = false;
-          
-          // Loop through all cells in the row
-          for (var j = 0; j < cells.length; j++) {
-              var cell = cells[j];
-              if (cell) {
-                  // Check if the cell text content matches the search query
-                  if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
-                      match = true;
-                      break;
-                  }
-              }
-          }
-          
-          // Show or hide the row based on the match result
-          if (match) {
-              row.style.display = '';
-          } else {
-              row.style.display = 'none';
-          }
-      }
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Set initial search input value from URL
+    searchInput.value = urlParams.get('search') || '';
+
+    searchInput.addEventListener('input', debounce(function() {
+      const searchQuery = this.value.trim();
+      urlParams.set('search', searchQuery);
+      urlParams.set('page', '1'); // Reset to first page on new search
+      window.location.search = urlParams.toString();
+    }, 300));
+  });
+
+  // Debounce function to limit how often the search is performed
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this, args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        func.apply(context, args);
+      }, wait);
+    };
   }
+
   
   
   

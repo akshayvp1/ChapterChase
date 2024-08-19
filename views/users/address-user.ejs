@@ -181,39 +181,29 @@
                     </a>
 
                     <nav class="main-nav">
-                        <ul class="menu sf-arrows">
-                            <li class="megamenu-container active">
-                                <a href="index.html" class="sf-with-ul">Home</a>
+                      <ul class="menu sf-arrows">
+                          <li class="megamenu-container active">
+                              <a href="/home" class="sf-with-ul">Home</a>
+                          </li>
+                          <li>
+                              <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                          </li>
+                          <li>
+                              <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                          </li>
+                          <li>
+                              <a href="#" class="sf-with-ul">Pages</a>                                      
+                          </li>
+                          <li>
+                              <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                
-                            </li>
-                            <li>
-                                <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                
-                            </li>
-                            <li>
-                                <a href="product.html" class="sf-with-ul">Product</a>
-
-                                
-                            </li>
-                            <li>
-                                <a href="#" class="sf-with-ul">Pages</a>
-
-                                
-                            </li>
-                            <li>
-                                <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                
-                            </li>
-                            <li>
-                                <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                
-                            </li>
-                        </ul><!-- End .menu -->
-                    </nav><!-- End .main-nav -->
+                              <ul>
+                                  <li><a href="blog.html">Classic</a></li>
+                                  <li><a href="blog-listing.html">Listing</a></li>                                         
+                              </ul>
+                          </li>                                   
+                      </ul><!-- End .menu -->
+                  </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->
 
                 <div class="header-right">
@@ -229,10 +219,12 @@
                     
 
                     <div class="dropdown cart-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                            <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
-                        </a>
+                      <a href="/cart" class="dropdown-toggle" >
+                        <i class="icon-shopping-cart"></i>
+                        <span class="cart-count"> 
+                                 <%= cartCount %>
+                        </span>
+                    </a>
 
                         
                     </div><!-- End .cart-dropdown -->
@@ -280,7 +272,7 @@
                                     
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Sign Out</a>
+                                    <a class="nav-link" href="/logout">Sign Out</a>
                                 </li>
                             </ul>
                         </aside>
@@ -324,7 +316,7 @@
                                       </div>
                                       
                             
-  <!-- Modal -->
+ <!-- Add Address Modal -->
 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Increased modal size -->
       <div class="modal-content">
@@ -335,60 +327,139 @@
         <div class="modal-body">
           <form id="addressForm" action="/add-address" method="POST">
             <input type="hidden" id="addressId" name="addressId">
-
+  
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="addressName" class="form-label">Name</label>
-                <input type="text" id="addressName" name="addressName" class="form-control" placeholder="Name" required>
+                <input type="text" id="addressName" name="addressName" class="form-control" placeholder="Name" required pattern="[A-Za-z ]+" title="Name can only contain letters and spaces.">
+                <div class="invalid-feedback">Name can only contain letters and spaces.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressEmail" class="form-label">Email</label>
-                <input type="email" id="addressEmail" name="addressEmail" class="form-control" placeholder="Email" required>
+                <input type="email" id="addressEmail" name="addressEmail" class="form-control" placeholder="Email" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Email must be a valid Gmail address.">
+                <div class="invalid-feedback">Email must be a valid Gmail address.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressMobile" class="form-label">Mobile</label>
-                <input type="tel" id="addressMobile" name="addressMobile" class="form-control" placeholder="Mobile" required>
+                <input type="tel" id="addressMobile" name="addressMobile" class="form-control" placeholder="Mobile" required pattern="[6789][0-9]{9}" title="Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.">
+                <div class="invalid-feedback">Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressHouse" class="form-label">House Number</label>
-                <input type="text" id="addressHouse" name="addressHouse" class="form-control" placeholder="House Number" required>
+                <input type="text" id="addressHouse" name="addressHouse" class="form-control" placeholder="House Number" required pattern="\d+" title="House number can only contain numbers.">
+                <div class="invalid-feedback">House number can only contain numbers.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressStreet" class="form-label">Street</label>
-                <input type="text" id="addressStreet" name="addressStreet" class="form-control" placeholder="Street" required>
+                <input type="text" id="addressStreet" name="addressStreet" class="form-control" placeholder="Street" required pattern="[A-Za-z ]+" title="Street can only contain letters and spaces.">
+                <div class="invalid-feedback">Street can only contain letters and spaces.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressPost" class="form-label">Post</label>
-                <input type="text" id="addressPost" name="addressPost" class="form-control" placeholder="Post" required>
+                <input type="text" id="addressPost" name="addressPost" class="form-control" placeholder="Post" required pattern="[A-Za-z ]+" title="Post can only contain letters and spaces.">
+                <div class="invalid-feedback">Post can only contain letters and spaces.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressCity" class="form-label">City</label>
-                <input type="text" id="addressCity" name="addressCity" class="form-control" placeholder="City" required>
+                <input type="text" id="addressCity" name="addressCity" class="form-control" placeholder="City" required pattern="[A-Za-z ]+" title="City can only contain letters and spaces.">
+                <div class="invalid-feedback">City can only contain letters and spaces.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressDistrict" class="form-label">District</label>
-                <input type="text" id="addressDistrict" name="addressDistrict" class="form-control" placeholder="District" required>
+                <input type="text" id="addressDistrict" name="addressDistrict" class="form-control" placeholder="District" required pattern="[A-Za-z ]+" title="District can only contain letters and spaces.">
+                <div class="invalid-feedback">District can only contain letters and spaces.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressState" class="form-label">State</label>
-                <input type="text" id="addressState" name="addressState" class="form-control" placeholder="State" required>
+                <input type="text" id="addressState" name="addressState" class="form-control" placeholder="State" required pattern="[A-Za-z ]+" title="State can only contain letters and spaces.">
+                <div class="invalid-feedback">State can only contain letters and spaces.</div>
               </div>
               <div class="col-md-6">
                 <label for="addressPin" class="form-label">Pin</label>
-                <input type="number" id="addressPin" name="addressPin" class="form-control" placeholder="Pin" required>
+                <input type="text" id="addressPin" name="addressPin" class="form-control" placeholder="Pin" required pattern="\d{6}" title="Pin must be exactly 6 digits.">
+                <div class="invalid-feedback">Pin must be exactly 6 digits.</div>
               </div>
             </div>
             <div class="text-center mt-3">
               <button type="submit" id="saveAddress" class="btn btn-primary">Save Address</button>
             </div>
-        </div>
           </form>
         </div>
       </div>
     </div>
   </div>
   
-  
+  <!-- Edit Address Modal -->
+  <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editAddressForm">
+            <input type="hidden" id="editAddressId" name="addressId">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="editAddressName" class="form-label">Name</label>
+                <input type="text" id="editAddressName" name="addressName" class="form-control" required pattern="[A-Za-z ]+" title="Name can only contain letters and spaces.">
+                <div class="invalid-feedback">Name can only contain letters and spaces.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressEmail" class="form-label">Email</label>
+                <input type="email" id="editAddressEmail" name="addressEmail" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Email must be a valid Gmail address.">
+                <div class="invalid-feedback">Email must be a valid Gmail address.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressMobile" class="form-label">Mobile</label>
+                <input type="tel" id="editAddressMobile" name="addressMobile" class="form-control" required pattern="[6789][0-9]{9}" title="Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.">
+                <div class="invalid-feedback">Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressHouse" class="form-label">House Number</label>
+                <input type="text" id="editAddressHouse" name="addressHouse" class="form-control" required pattern="\d+" title="House number can only contain numbers.">
+                <div class="invalid-feedback">House number can only contain numbers.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressStreet" class="form-label">Street</label>
+                <input type="text" id="editAddressStreet" name="addressStreet" class="form-control" required pattern="[A-Za-z ]+" title="Street can only contain letters and spaces.">
+                <div class="invalid-feedback">Street can only contain letters and spaces.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressPost" class="form-label">Post</label>
+                <input type="text" id="editAddressPost" name="addressPost" class="form-control" required pattern="[A-Za-z ]+" title="Post can only contain letters and spaces.">
+                <div class="invalid-feedback">Post can only contain letters and spaces.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressCity" class="form-label">City</label>
+                <input type="text" id="editAddressCity" name="addressCity" class="form-control" required pattern="[A-Za-z ]+" title="City can only contain letters and spaces.">
+                <div class="invalid-feedback">City can only contain letters and spaces.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressDistrict" class="form-label">District</label>
+                <input type="text" id="editAddressDistrict" name="addressDistrict" class="form-control" required pattern="[A-Za-z ]+" title="District can only contain letters and spaces.">
+                <div class="invalid-feedback">District can only contain letters and spaces.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressState" class="form-label">State</label>
+                <input type="text" id="editAddressState" name="addressState" class="form-control" required pattern="[A-Za-z ]+" title="State can only contain letters and spaces.">
+                <div class="invalid-feedback">State can only contain letters and spaces.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="editAddressPin" class="form-label">Pin</label>
+                <input type="text" id="editAddressPin" name="addressPin" class="form-control" required pattern="\d{6}" title="Pin must be exactly 6 digits.">
+                <div class="invalid-feedback">Pin must be exactly 6 digits.</div>
+              </div>
+            </div>
+            <div class="text-center mt-3">
+              <button type="submit" id="updateAddress" class="btn btn-primary">Update Address</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   
                                 
                                 
@@ -785,6 +856,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 
+
+
 <script>
     
     document.addEventListener('DOMContentLoaded', function() {
@@ -880,69 +953,142 @@
 
 
 
-
-
-
-
-
-
-
-// Function to open the modal for editing
-function openEditModal(address) {
-    // Set modal title and form action for editing
-    document.querySelector('#addressModal .modal-title').textContent = 'Edit Address';
-    document.querySelector('#addressForm').action = '/edit-address/' + address._id;
-
-    // Populate the form fields with the address data
-    document.getElementById('addressId').value = address._id;
-   
-    
-    document.getElementById('addressName').value = address.addressName;
-    document.getElementById('addressEmail').value = address.addressEmail;
-    document.getElementById('addressMobile').value = address.addressMobile;
-    document.getElementById('addressHouse').value = address.addressHouse;
-    document.getElementById('addressStreet').value = address.addressStreet;
-    document.getElementById('addressPost').value = address.addressPost;
-    document.getElementById('addressCity').value = address.addressCity;
-    document.getElementById('addressDistrict').value = address.addressDistrict;
-    document.getElementById('addressState').value = address.addressState;
-    document.getElementById('addressPin').value = address.addressPin;
-
-    // Show the modal
-    var myModal = new bootstrap.Modal(document.getElementById('addressModal'));
-    myModal.show();
-  }
-  document.getElementById('addressForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitEditForm(address._id);
-    });
-
-  // Attach event listeners to edit buttons
+document.addEventListener('DOMContentLoaded', () => {
+  // Event listener for edit buttons
   document.querySelectorAll('.edit').forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      const addressId = this.dataset.id; // Get address ID from data attribute
-      
-      // Fetch address data from server
-      fetch(`/get-address/${addressId}`)
-        .then(response => response.json())
-        .then(data => openEditModal(data))
-        .catch(error => console.error('Error:', error));
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const addressId = button.getAttribute('data-id');
+      try {
+        const response = await fetch(`/get-address/${addressId}`);
+        if (response.ok) {
+          const address = await response.json();
+          console.log('Fetched address:', address); // Add this line
+          populateEditModal(address);
+        } else {
+          console.error('Failed to fetch address details');
+        }
+      } catch (error) {
+        console.error('Error fetching address details:', error);
+      }
     });
   });
 
+  function populateEditModal(address) {
+    document.getElementById('editAddressId').value = address._id;
+    document.getElementById('editAddressName').value = address.addressName;
+    document.getElementById('editAddressEmail').value = address.addressEmail;
+    document.getElementById('editAddressMobile').value = address.addressMobile;
+    document.getElementById('editAddressHouse').value = address.addressHouse;
+    document.getElementById('editAddressStreet').value = address.addressStreet;
+    document.getElementById('editAddressPost').value = address.addressPost;
+    document.getElementById('editAddressCity').value = address.addressCity;
+    document.getElementById('editAddressDistrict').value = address.addressDistrict;
+    document.getElementById('editAddressState').value = address.addressState;
+    document.getElementById('editAddressPin').value = address.addressPin;
 
+    const editAddressModal = new bootstrap.Modal(document.getElementById('editAddressModal'));
+    editAddressModal.show();
+}
 
-
-
-
-
+  // Event listener for edit form submission
+  document.getElementById('editAddressForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
   
+  const form = event.target;
+  const formData = new FormData(form);
+  const addressId = formData.get('addressId');
+  
+  try {
+    const response = await fetch(`/edit-address/${addressId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    });
 
+    const result = await response.json();
 
+    if (response.ok) {
+      console.log('Update successful:', result);
+      
+      // Try to close the modal
+      try {
+        const editAddressModal = document.getElementById('editAddressModal');
+        if (editAddressModal) {
+          const bsModal = bootstrap.Modal.getInstance(editAddressModal);
+          if (bsModal) {
+            bsModal.hide();
+          } else {
+            editAddressModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            const modalBackdrop = document.querySelector('.modal-backdrop');
+            if (modalBackdrop) {
+              modalBackdrop.remove();
+            }
+          }
+        }
+      } catch (modalError) {
+        console.error('Error closing modal:', modalError);
+      }
 
+      // Update the address in the list
+      updateAddressInList(result);
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Address updated successfully!',
+      });
 
+      // Reload the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
 
+    } else {
+      throw new Error(result.message || 'Failed to update address');
+    }
+  } catch (error) {
+    console.error('Error updating address:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: `An error occurred while updating the address: ${error.message}`,
+    });
+  }
+});
+
+function updateAddressInList(updatedAddress) {
+  try {
+    const addressList = document.getElementById('addressList');
+    const addressCards = addressList.querySelectorAll('.card-dashboard');
+
+    addressCards.forEach(card => {
+      const editButton = card.querySelector('.edit');
+      if (editButton && editButton.getAttribute('data-id') === updatedAddress._id) {
+        card.querySelector('.card-title').textContent = updatedAddress.addressName;
+        const addressParagraph = card.querySelector('p');
+        if (addressParagraph) {
+          addressParagraph.innerHTML = `
+            ${updatedAddress.addressHouse || ''}<br>
+            ${updatedAddress.addressStreet || ''}<br>
+            ${updatedAddress.addressPost || ''}, ${updatedAddress.addressCity || ''}<br>
+            ${updatedAddress.addressState || ''}<br>
+            Pin: ${updatedAddress.addressPin || ''}<br>
+            ${updatedAddress.addressEmail || ''}<br>
+            Mobile: ${updatedAddress.addressMobile || ''}<br>
+          `;
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error updating address in list:', error);
+  }
+}
+});
 
 
 
@@ -996,6 +1142,28 @@ function openEditModal(address) {
       });
     });
   });
+
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Function to validate form fields
+    function validateForm() {
+      const forms = document.querySelectorAll('.needs-validation');
+      forms.forEach(form => {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+          }
+        }, false);
+      });
+    }
+    validateForm();
+  });
+
 
 </script>
 

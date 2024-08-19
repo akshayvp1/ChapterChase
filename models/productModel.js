@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  offer:{type:Number,required:true}
+  // offer: { type: mongoose.Schema.Types.ObjectId, ref: 'Offer' } 
   
 
 });

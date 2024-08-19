@@ -153,6 +153,42 @@
             
           </ul>
         </li>
+
+
+
+
+
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div data-i18n="Coupon">Coupon</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="/admin/product-list" class="menu-link">
+                <div data-i18n="Add Coupon">Add coupon</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Coupon List">Coupon List</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Add Offer">Add offer</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Order List">Offer List</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+
+
         <li class="menu-item">
           <a href="app-ecommerce-manage-reviews.html" class="menu-link">
             <div data-i18n="Manage Reviews">Manage Reviews</div>
@@ -384,7 +420,8 @@
             <div class="me-5 pe-5">
                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                   <label>
-                    <input type="search" id="search-order" class="form-control form-control-sm ms-0" placeholder="Search Order" aria-controls="DataTables_Table_0" onkeyup="searchTable()">
+                    <input type="search" id="search-customer" class="form-control form-control-sm ms-0" 
+                           placeholder="Search Customer" aria-controls="DataTables_Table_0">
                 </label>
                 </div>
             </div>
@@ -774,45 +811,35 @@
 
 
 
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-customer');
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Set initial search input value from URL
+        searchInput.value = urlParams.get('search') || '';
 
-      function searchTable() {
-    // Get the search input value
-    var input = document.getElementById('search-order');
-    var filter = input.value.toLowerCase();
-    
-    // Get the table and tbody elements
-    var table = document.getElementById('DataTables_Table_0');
-    var tbody = document.getElementById('customer-table-body');
-    
-    // Get all rows in the table body
-    var rows = tbody.getElementsByTagName('tr');
-    
-    // Loop through all rows and hide those that don't match the search query
-    for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var cells = row.getElementsByTagName('td');
-        var match = false;
-        
-        // Loop through all cells in the row
-        for (var j = 0; j < cells.length; j++) {
-            var cell = cells[j];
-            if (cell) {
-                // Check if the cell text content matches the search query
-                if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
-                    match = true;
-                    break;
-                }
-            }
-        }
-        
-        // Show or hide the row based on the match result
-        if (match) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
+        searchInput.addEventListener('input', debounce(function() {
+            const searchQuery = this.value.trim();
+            urlParams.set('search', searchQuery);
+            urlParams.set('page', '1'); // Reset to first page on new search
+            window.location.search = urlParams.toString();
+        }, 300));
+    });
+
+    // Debounce function to limit how often the search is performed
+    function debounce(func, wait) {
+        let timeout;
+        return function() {
+            const context = this, args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                func.apply(context, args);
+            }, wait);
+        };
     }
-}
+
+
+
 
 
 

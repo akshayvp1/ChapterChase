@@ -196,35 +196,25 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" class="sf-with-ul">Home</a>
-
-                                    
+                                    <a href="/home" class="sf-with-ul">Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                    
+                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
-
-                                    
+                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>
-
-                                    
+                                    <a href="#" class="sf-with-ul">Pages</a>                                      
                                 </li>
                                 <li>
                                     <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                    
-                                </li>
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    
-                                </li>
+                                    <ul>
+                                        <li><a href="blog.html">Classic</a></li>
+                                        <li><a href="blog-listing.html">Listing</a></li>                                         
+                                    </ul>
+                                </li>                                   
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
@@ -244,7 +234,7 @@
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count">0</span>
                             </a>
 
                             
@@ -302,18 +292,24 @@
             </thead>
             <tbody>
                 <% let subtotal = 0; %>
-                <% order.items.forEach(item => { %>
+                <% order.items.forEach((item, index) => { %>
                     <% const product = item.product; %>
                     <% if (product) { %>
-                        <% const itemTotal = product.price * item.quantity; %>
+                        <% const itemTotal = item.discountedPrice * item.quantity; %>
                         <% subtotal += itemTotal; %>
                         <tr>
-                            <td>
-                                
-                            </td>
-                            <td><%= item.product.productName %></td>
+                            <td><%= index + 1 %></td>
+                            <td><%= product.productName %></td>
                             <td><%= item.quantity %></td>
-                            <td>₹<%= product.price.toFixed(2) %></td>
+                            <td>
+                                <% if (item.discountPercentage > 0) { %>
+                                    <span class="price-discounted">₹<%= item.discountedPrice.toFixed(2) %></span>
+                                    <span class="price-original"></span>
+                                    <span class="discount-percentage">(-<%= item.discountPercentage %>%)</span>
+                                <% } else { %>
+                                    ₹<%= item.originalPrice.toFixed(2) %>
+                                <% } %>
+                            </td>
                             <td>₹<%= itemTotal.toFixed(2) %></td>
                         </tr>
                     <% } else { %>
@@ -323,7 +319,6 @@
                     <% } %>
                 <% }); %>
             </tbody>
-            
             <tfoot>
                 <tr>
                     <td colspan="4">Subtotal</td>

@@ -43,86 +43,46 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" class="sf-with-ul">Home</a>                                  
+                                    <a href="/home" class="sf-with-ul">Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
+                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
+                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>
+                                    <a href="#" class="sf-with-ul">Pages</a>                                      
+                                </li>
+                                <li>
+                                    <a href="blog.html" class="sf-with-ul">Blog</a>
 
                                     <ul>
-                                        <li>
-                                            <a href="about.html" class="sf-with-ul">About</a>
-
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html" class="sf-with-ul">Contact</a>
-
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
+                                        <li><a href="blog.html">Classic</a></li>
+                                        <li><a href="blog-listing.html">Listing</a></li>                                         
                                     </ul>
-                                </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>                                 
-                                </li>
+                                </li>                                   
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
                         <div class="header-search">
-                            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                            <!-- <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a> -->
                             <form action="#" method="get">
                                 <div class="header-search-wrapper">
-                                    <label for="q" class="sr-only">Search</label>
+                                    <!-- <label for="q" class="sr-only">Search</label> -->
                                     <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
-                        <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="compare-products">
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                                    </li>
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                                    </li>
-                                </ul>
-
-                                <div class="compare-actions">
-                                    <a href="#" class="action-link">Clear All</a>
-                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                                </div>
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .compare-dropdown -->
+                        
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <!-- <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
-                            </a>                         
+                            </a>                          -->
                         </div><!-- End .cart-dropdown -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -177,20 +137,45 @@
                                                     </h3>
                                                 </div>
                                             </td>
-                                            <td class="price-col">₹<%= item.product.price.toFixed(2) %></td>
+                                    
+                                            <!-- Price and Discount Logic -->
+                                            <td class="price-col">
+                                                <% if (item.discountPercentage > 0) { %>
+                                                    <span class="product-price-discounted">
+                                                        ₹<%= (item.product.price - (item.product.price * (item.discountPercentage / 100))).toFixed(2) %>
+                                                    </span>
+                                                    <p class="product-price-original">
+                                                        ₹<%= item.product.price.toFixed(2) %>
+                                                    </p>
+                                                    <p class="product-price-discount">
+                                                        <%= item.discountPercentage %>% Off
+                                                    </p>
+                                                <% } else { %>
+                                                    ₹<%= item.product.price.toFixed(2) %>
+                                                <% } %>
+                                            </td>
+                                    
                                             <td class="quantity-col">
                                                 <div class="cart-product-quantity">
                                                     <input type="number" class="form-control" value="<%= item.quantity %>" min="1" max="10" step="1" required>
                                                 </div>
                                             </td>
-                                            <td class="total-col">₹<%= item.total.toFixed(2) %></td>
+                                    
+                                            <td class="total-col">
+                                                <% if (item.discountPercentage > 0) { %>
+                                                    ₹<%= (item.total - (item.total * (item.discountPercentage / 100))).toFixed(2) %>
+                                                <% } else { %>
+                                                    ₹<%= item.total.toFixed(2) %>
+                                                <% } %>
+                                            </td>
+                                    
                                             <td class="remove-col">
                                                 <button class="btn-remove" data-product-id="<%= item.product._id %>"><i class="icon-close"></i></button>
-
                                             </td>
                                         </tr>
                                         <% }); %>
                                     </tbody>
+                                    
                                     
                                     
                                     </table>
@@ -623,88 +608,6 @@
     
     <script>
        
-       
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to update the database with the new quantity
-    async function updateCart(productId, quantity) {
-        try {
-            const response = await fetch('/update-cart', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId, quantity })
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                console.log(result.message);
-            } else {
-                console.error(result.message);
-            }
-        } catch (error) {
-            console.error('Error updating cart:', error);
-        }
-    }
-
-    // Function to update totals and cart
-    function updateTotals() {
-        let subtotal = 0;
-        const cartRows = document.querySelectorAll('tbody tr:not(.summary-subtotal):not(.summary-total)');
-
-        cartRows.forEach(row => {
-            const price = parseFloat(row.querySelector('.price-col').innerText.replace('₹', ''));
-            const quantityInput = row.querySelector('.quantity-col input');
-            const quantity = parseInt(quantityInput.value);
-            const total = price * quantity;
-
-            row.querySelector('.total-col').innerText = `₹${total.toFixed(2)}`;
-            subtotal += total;
-
-            // Update cart when quantity changes
-            quantityInput.addEventListener('change', () => {
-                updateCart(row.dataset.productId, quantityInput.value);
-                updateTotals(); // Ensure totals are updated when quantity changes
-            });
-        });
-
-        // Update subtotal
-        document.querySelector('#subtotal').innerText = `₹${subtotal.toFixed(2)}`;
-
-        // Update shipping cost based on selected option
-        let shippingCost = 0;
-        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-        if (selectedShipping) {
-            shippingCost = parseFloat(selectedShipping.nextElementSibling.innerText.replace('$', ''));
-        }
-
-        // Update total
-        const total = subtotal + shippingCost;
-        document.querySelector('#total').innerText = `$${total.toFixed(2)}`;
-    }
-
-    // Event listeners for quantity changes
-    document.querySelectorAll('.quantity-col input').forEach(input => {
-        input.addEventListener('input', updateTotals);
-    });
-
-    // Event listeners for shipping options
-    document.querySelectorAll('input[name="shipping"]').forEach(input => {
-        input.addEventListener('change', updateTotals);
-    });
-
-    // Initial update on page load
-    updateTotals();
-});
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     // Function to handle item removal
     async function removeFromCart(productId) {
@@ -720,9 +623,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
             if (response.ok) {
                 // Remove the item from the DOM
-                document.querySelector(`tr[data-product-id="${productId}"]`).remove();
+                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                if (row) {
+                    row.remove();
+                }
                 console.log(result.message);
-                updateTotals(); // Optionally update totals after removal
+                updateTotals(); // Update totals after removal
             } else {
                 console.error(result.message);
             }
@@ -730,6 +636,87 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error removing item from cart:', error);
         }
     }
+
+
+
+
+    async function updateCart(productId, quantity) {
+    try {
+        const response = await fetch('/update-cart', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: quantity
+            })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            console.log('Cart updated successfully:', data);
+        } else {
+            console.error('Error updating cart:', data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+
+
+
+    // Function to update totals and cart
+    function updateTotals() {
+    let subtotal = 0;
+    const cartRows = document.querySelectorAll('tbody tr[data-product-id]');
+
+    cartRows.forEach(row => {
+        const price = parseFloat(row.querySelector('.price-col').innerText.replace('₹', ''));
+        const quantityInput = row.querySelector('.quantity-col input');
+        const quantity = parseInt(quantityInput.value);
+        const total = price * quantity;
+
+        row.querySelector('.total-col').innerText = `₹${total.toFixed(2)}`;
+        subtotal += total;
+
+        // Update cart when quantity changes
+        quantityInput.addEventListener('change', () => {
+            updateCart(row.dataset.productId, quantityInput.value);
+            updateTotals(); // Ensure totals are updated when quantity changes
+        });
+    });
+
+    // Update subtotal
+    document.querySelector('#subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+
+    // Update shipping cost based on selected option
+    let shippingCost = 0;
+    const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+    if (selectedShipping) {
+        shippingCost = parseFloat(selectedShipping.nextElementSibling.innerText.replace('$', ''));
+    }
+
+    // Update total
+    const total = subtotal + shippingCost;
+    document.querySelector('#total').innerText = `₹${total.toFixed(2)}`;
+}
+
+// Event listener for quantity changes
+document.querySelectorAll('.quantity-col input').forEach(input => {
+    input.addEventListener('input', updateTotals);
+});
+
+// Event listeners for shipping options
+document.querySelectorAll('input[name="shipping"]').forEach(input => {
+    input.addEventListener('change', updateTotals);
+});
+
+// Initial update on page load
+updateTotals();
+
 
     // Attach event listener to remove buttons
     document.querySelectorAll('.btn-remove').forEach(button => {
@@ -740,6 +727,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
 </script>

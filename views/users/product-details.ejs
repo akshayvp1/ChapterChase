@@ -119,40 +119,30 @@
                             <img src="/assets/images/demos/demo-20/ChapterChase.png"alt="Molla Logo" width="105" height="25">
                         </a>
 
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/home" class="sf-with-ul">Home</a>
+                         <nav class="main-nav">
+                                <ul class="menu sf-arrows">
+                                    <li class="megamenu-container active">
+                                        <a href="/home" class="sf-with-ul">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                    </li>
+                                    <li>
+                                        <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sf-with-ul">Pages</a>                                      
+                                    </li>
+                                    <li>
+                                        <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                    
-                                </li>
-                                <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                    
-                                </li>
-                                <li>
-                                    <a href="/products-list" class="sf-with-ul">Product</a>
-
-                                    
-                                </li>
-                                <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>
-
-                                   
-                                </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                   
-                                </li>
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    
-                                </li>
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
+                                        <ul>
+                                            <li><a href="blog.html">Classic</a></li>
+                                            <li><a href="blog-listing.html">Listing</a></li>                                         
+                                        </ul>
+                                    </li>                                   
+                                </ul><!-- End .menu -->
+                            </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
@@ -261,21 +251,30 @@
                                         <p><%= product.description %></p>
                                     </div>
                                     <div class="product-price">
-                                        <% if (product.offer) { %>
-                                            <% 
-                                                const originalPrice = product.price;
-                                                const discountedPrice = product.offer;
-                                                const discountPercentage = ((originalPrice - discountedPrice) / originalPrice * 100).toFixed(2);
-                                            %>
-
+                                        <% 
+                                            let discountedPrice = product.price;
+                                            let discountPercentage = 0;
+                                    
+                                            // Find the applicable offer for the product's category
+                                            const applicableOffer = offers.find(o => 
+                                                o.offerType === 'category' &&
+                                                o.categoryId.includes(product.category.toString())
+                                            );
+                                    
+                                            if (applicableOffer) {
+                                                // Calculate the discounted price and discount percentage
+                                                discountedPrice = product.price - (product.price * (applicableOffer.discount / 100));
+                                                discountPercentage = applicableOffer.discount.toFixed(2);
+                                            }
+                                        %>
+                                        
+                                        <% if (discountedPrice < product.price) { %>
                                             <span class="product-price-discounted">
                                                 ₹<%= discountedPrice.toFixed(2) %>
                                             </span>
-
                                             <span class="product-price-original">
-                                                (₹<%= originalPrice.toFixed(2) %>
+                                               ( ₹<%= product.price.toFixed(2) %>
                                             </span>
-                                            
                                             <span class="product-price-discount">
                                                 <%= discountPercentage %>% Off)
                                             </span>
@@ -293,18 +292,28 @@
                                     <div class="details-filter-row details-row-size">
                                         <label for="qty">Qty:</label>
                                         <div class="product-details-quantity">
-                                            <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                            <input type="number" id="qty" class="form-control quantity-input" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                         </div><!-- End .product-details-quantity -->
-                                    </div><!-- End .details-filter-row -->
-                            
+                                    </div>
+                                    
                                     <div class="product-details-action">
-                                        <!-- <a href="/cart" class="btn-product btn-cart"><span>add to cart</span></a> -->
-                                         <form action="/add-to-cart" method="POST">
-                                           <input type="hidden" name="productId" value="<%= product._id %>">
-                                            <input type="hidden" name="quantity" id="qty" value="1">
+                                        <!-- <a href="#" class="btn-product btn-cart add-to-cart-btn" data-product-id="<%= product._id %>" data-quantity="1">
+                                            <span>Add to cart</span>
+                                        </a> -->
+                                    
 
-                                             <button type="submit" class="btn-product btn-cart"><span>Add to Cart</span></button>
-                                              </form>
+                                        <% if (product.stock > 0) { %>
+                                            <a href="" class="btn-product btn-cart add-to-cart-btn" data-product-id="<%= product._id %>" data-quantity="1">
+                                                <span>Add to cart</span>
+                                            </a>
+                                        <% } else { %>
+                                            <span class="btn-product btn-cart disabled">Out of Stock</span>
+                                        <% } %>
+                                   
+                                    
+                                    
+                                    
+                                        
                                               
                                         <div class="details-action-wrapper">
                                             <!-- <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a> -->
@@ -502,12 +511,16 @@
                         <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
                     </div><!-- End .product-action-vertical -->
                     
-                    <form action="/add-to-cart" method="POST">
-                        <input type="hidden" name="productId" value="<%= product._id %>">
-                         <input type="hidden" name="quantity" id="qty" value="1">
-                          <button type="submit" class="btn-product btn-cart"><span>Add to Cart</span></button>
-                           </form>
-
+                    <!-- <a href="#" class="btn-product btn-cart add-to-cart-btn" data-product-id="<%= product._id %>" data-quantity="1">
+                        <span>Add to cart</span>
+                    </a> -->
+                    <% if (product.stock > 0) { %>
+                        <a href="" class="btn-product btn-cart add-to-cart-btn" data-product-id="<%= product._id %>" data-quantity="1">
+                            <span>Add to cart</span>
+                        </a>
+                    <% } else { %>
+                        <span class="btn-product btn-cart disabled">Out of Stock</span>
+                    <% } %>
                     <div class="product-action">
                         <!-- <a href="#" class="btn-product btn-cart"><span>Add to cart</span></a> -->
                     </div><!-- End .product-action -->
@@ -519,21 +532,32 @@
                     </h3><!-- End .product-title -->
 
                     <div class="product-price">
-                        <% if (product.offer) { %>
-                            <% 
-                                const originalPrice = product.price;
-                                const discountedPrice = product.offer;
-                                const discountPercentage = ((originalPrice - discountedPrice) / originalPrice * 100).toFixed(2);
-                            %>
-                            <span class="product-price-discounted-d">
+                        <% 
+                            let discountedPrice = product.price;
+                            let discountPercentage = 0;
+                    
+                            // Find the applicable offer for the product's category
+                            const applicableOffer = offers.find(o => 
+                                o.offerType === 'category' &&
+                                o.categoryId.includes(product.category.toString())
+                            );
+                    
+                            if (applicableOffer) {
+                                // Calculate the discounted price and discount percentage
+                                discountedPrice = product.price - (product.price * (applicableOffer.discount / 100));
+                                discountPercentage = applicableOffer.discount.toFixed(2);
+                            }
+                        %>
+                        
+                        <% if (discountedPrice < product.price) { %>
+                            <span class="product-price-discounted">
                                 ₹<%= discountedPrice.toFixed(2) %>
                             </span>
                             <span class="product-price-original">
-                               ( ₹<%= originalPrice.toFixed(2) %>
+                                ₹<%= product.price.toFixed(2) %>
                             </span>
-                           
                             <span class="product-price-discount">
-                                <%= discountPercentage %>% Off)
+                                <%= discountPercentage %>% Off
                             </span>
                         <% } else { %>
                             ₹<%= product.price.toFixed(2) %>
@@ -887,6 +911,70 @@ function addToWishlist(productId, button) {
         }, 2000);
     });
 }
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to update data-quantity attribute for a specific add-to-cart button
+    const updateQuantityForButton = (input) => {
+        const quantity = input.value;
+        const addToCartBtn = input.closest('.details-filter-row').nextElementSibling.querySelector('.add-to-cart-btn');
+        if (addToCartBtn) {
+            addToCartBtn.dataset.quantity = quantity;
+        }
+    };
+
+    // Event delegation for quantity input changes
+    document.addEventListener('input', (event) => {
+        if (event.target.classList.contains('quantity-input')) {
+            updateQuantityForButton(event.target);
+        }
+    });
+
+    // Event delegation for add to cart button clicks
+    document.addEventListener('click', async (event) => {
+        const addToCartBtn = event.target.closest('.add-to-cart-btn');
+        if (addToCartBtn) {
+            event.preventDefault();
+            const productId = addToCartBtn.dataset.productId;
+            const quantity = addToCartBtn.dataset.quantity || '1'; // Default to 1 if not set
+
+            try {
+                const response = await fetch('/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId, quantity })
+                });
+
+                if (response.ok) {
+                    // Item added successfully
+                    const originalText = addToCartBtn.innerHTML;
+                    addToCartBtn.innerHTML = '<span>Added to Cart</span>';
+                    setTimeout(() => {
+                        addToCartBtn.innerHTML = originalText;
+                    }, 2000);
+                } else {
+                    // Handle error
+                    console.error('Error adding item to cart');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    });
+});
+
+
+
 
     </script>
 

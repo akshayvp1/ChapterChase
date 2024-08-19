@@ -6,14 +6,19 @@ const passport = require('passport');
 const path = require('path');
 const nocache = require('nocache');
 
-const orderController = require('../controllers/orderController')
-const userController = require('../controllers/userController');
+const orderController = require('../controllers/user/orderController')
+const userController = require('../controllers/user/userController');
 const auth=require("../middleware/auth")
+const addressController = require('../controllers/user/addressController')
+const cartController = require('../controllers/user/cartController')
+const wishlistController = require('../controllers/user/wishlistController')
+const productController = require('../controllers/user/productController')
+const changePasswordController = require('../controllers/user/changePasswordController')
+const profileController = require('../controllers/user/profileController')
+const walletController = require('../controllers/user/walletController')
 
 userRoute.set('view engine', 'ejs');
 userRoute.set('views', './views/users');
-
-
 
 
 userRoute.use(session({
@@ -28,9 +33,7 @@ userRoute.use(session({
 }));
 
 
-
 userRoute.use(nocache());
-
 userRoute.use(bodyParser.json());
 userRoute.use(bodyParser.urlencoded({ extended: true }));
 
@@ -55,52 +58,77 @@ userRoute.post('/login', userController.verifyLogin);
 
 
 
+userRoute.get('/forgot-password',userController.loadForgot)
+userRoute.post('/forgot-password', userController.forgotPassword);
+userRoute.get('/reset-password/:token', userController.getResetPassword);
+userRoute.post('/reset-password/:token', userController.postResetPassword);
+
+
+
 
 userRoute.get('/account',auth.isLogin,userController.loadAccount)
 userRoute.get('/logout',auth.isLogin,userController.logout)
-userRoute.get('/products-list',userController.loadProductsList)
-userRoute.get('/product-details/:id',userController.loadProductDetails)
+
+//product
+userRoute.get('/products-list',productController.loadProductsList)
+userRoute.get('/product-details/:id',productController.loadProductDetails)
+
+
+//cart
+userRoute.get('/cart',auth.isLogin,cartController.loadCart)
+userRoute.post('/add-to-cart',auth.isLogin, cartController.addToCart);
+userRoute.patch('/update-cart',auth.isLogin,cartController. updateCart);
+userRoute.delete('/remove-from-cart',auth.isLogin, cartController.removeFromCart);
+
+//wishlist
+userRoute.get('/wishlist',auth.isLogin,wishlistController.loadWishlist)
+userRoute.post('/add-to-wishlist', auth.isLogin, wishlistController.addToWishlist);
+userRoute.delete('/remove-from-wishlist/:productId', wishlistController.removeFromWishlist);
 
 
 
-userRoute.get('/cart',auth.isLogin,userController.loadCart)
-userRoute.post('/add-to-cart', userController.addToCart);
-userRoute.patch('/update-cart',userController. updateCart);
-userRoute.delete('/remove-from-cart', userController.removeFromCart);
 
-
-userRoute.get('/wishlist',auth.isLogin,userController.loadWishlist)
-userRoute.post('/add-to-wishlist', auth.isLogin, userController.addToWishlist);
-userRoute.patch('/update-user', auth.isLogin, userController.updateUser);
-
-
-
-userRoute.post('/add-address', auth.isLogin, userController.addAddress);
-userRoute.get('/dashboard-user',auth.isLogin,userController.loadUserDashboard)
-userRoute.get('/account-details',auth.isLogin,userController.loadAccountDetails)
-userRoute.get('/user-order',auth.isLogin,userController.loadUserOrder)
-userRoute.get('/user-download',auth.isLogin,userController.loadUserDownload)
-
-
-userRoute.get('/user-address',auth.isLogin,userController.loadUserAddress)
-
-userRoute.get('/get-address/:id',auth.isLogin, userController.getAddress);
-userRoute.patch('/edit-address/:id',auth.isLogin, userController.updateAddress);
-userRoute.delete('/delete-address/:id',auth.isLogin, userController.deleteAddres);
-
-userRoute.get('/change-password',auth.isLogin,userController.loadChangePassword)
-
-userRoute.post('/change-password', userController.loadPasswordChange);
+//profile
+userRoute.get('/dashboard-user',auth.isLogin,profileController.loadUserDashboard)
+userRoute.get('/account-details',auth.isLogin,profileController.loadAccountDetails)
+userRoute.patch('/update-user', auth.isLogin, profileController.updateUser);
+userRoute.get('/user-order',auth.isLogin,profileController.loadUserOrder)
+userRoute.get('/user-download',auth.isLogin,profileController.loadUserDownload)
 
 
 
+//address
+userRoute.post('/add-address', auth.isLogin, addressController.addAddress);
+userRoute.get('/user-address',auth.isLogin,addressController.loadUserAddress)
+userRoute.get('/get-address/:id',auth.isLogin, addressController.getAddress);
+userRoute.patch('/edit-address/:id', auth.isLogin, addressController.updateAddress);
+userRoute.delete('/delete-address/:id',auth.isLogin, addressController.deleteAddres);
+
+
+//change password
+userRoute.get('/change-password',auth.isLogin,changePasswordController.loadChangePassword)
+userRoute.post('/change-password', changePasswordController.loadPasswordChange);
+
+
+//order
 userRoute.get('/checkout',auth.isLogin,orderController.loadCheckout)
 userRoute.post('/place-order',auth.isLogin,orderController.placeOrder)
-
 userRoute.get('/order-summary/:order_id',auth.isLogin,orderController.loadOrderSummary)
+userRoute.patch('/order/order-status',auth.isLogin,orderController. updateOrderStatus);
+userRoute.get('/order/:id',auth.isLogin,orderController.getUserOrder)
+userRoute.post('/order/return-request', auth.isLogin, orderController.submitReturnRequest);
 
-userRoute.patch('/order/order-status',auth.isLogin,userController. updateOrderStatus);
-userRoute.get('/order/:id',auth.isLogin,userController.getUserOrder)
+
+
+//Wallet
+userRoute.get('/wallet',auth.isLogin,walletController.loadWallet)
+
+
+//razorpay
+userRoute.post('/create-order',auth.isLogin, orderController.createOrder);
+userRoute.post('/verify-payment',auth.isLogin, orderController.verifyPayment);
+
+
 
 // Google OAuth routes
 userRoute.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

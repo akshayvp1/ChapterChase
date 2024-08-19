@@ -1,6 +1,195 @@
 <%- include('../layouts/header.ejs') %>
 
 <style>
+
+
+.large-swal-popup {
+    width: 600px !important;
+    font-size: 1.2em !important;
+}
+
+.large-swal-input {
+    height: 150px !important;
+    font-size: 1.1em !important;
+}
+
+
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    /* Search input styling */
+    .search-input {
+        padding: 10px;
+        font-size: 14px;
+        width: 300px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        margin-right: 10px;
+    }
+
+    /* Focused input with shadow */
+    .search-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Search button styling */
+    .search-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect for the search button */
+    .search-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Additional optional styles for the table */
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .order-table th, .order-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    /* Pagination list styling */
+    .pagination-list {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .pagination-list li {
+        margin: 0 5px;
+    }
+
+    .pagination-list li a {
+        padding: 5px 10px;
+        border: 1px solid #007bff;
+        color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .pagination-list li a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .pagination-list li.active a {
+        background-color: #007bff;
+        color: white;
+    }
+
+
+
+
+
+
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination */
+    margin: 20px 0;
+}
+.pagination-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the list items */
+}
+.pagination-list li {
+    display: inline-block;
+    margin: 0 5px;
+}
+.pagination-list a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    color: #007bff;
+    transition: background-color 0.3s;
+}
+.pagination-list a:hover {
+    background-color: #f1f1f1;
+}
+.pagination-list .active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+
+
+
+
+
+/* Custom styles for SweetAlert2 modal */
+.swal2-custom-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.swal2-custom-textarea {
+    height: 150px; /* Adjust height as needed */
+    resize: vertical; /* Allow vertical resizing */
+    box-sizing: border-box; /* Ensure padding and border are included in the width/height */
+}
+
+.swal2-custom-confirm-btn {
+    background-color: #3085d6;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.swal2-custom-cancel-btn {
+    background-color: #d33;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+/* Center the modal horizontally */
+.swal2-popup {
+    box-sizing: border-box; /* Ensure proper width calculation */
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .order-details-modal {
   position: fixed;
   top: 50%;
@@ -120,12 +309,12 @@
 .order-table td {
   padding: 10px;
   text-align: left;
-  border: 1px solid #000000;
+  /* border: 1px solid #000000; */
   
 }
 
 .order-table th {
-  background-color: #62b8b8;
+  background-color: #040404;
 }
 
 .view-btn {
@@ -139,6 +328,60 @@
   font-size: 14px;
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+.action-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .cancel-btn {
+        background-color: #ff4d4d;
+        color: white;
+    }
+
+    .return-btn {
+        background-color: #ffa500;
+        color: white;
+    }
+
+    .cancel-btn:hover, .return-btn:hover {
+        opacity: 0.8;
+    }
+
+    .action-btn:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
+    .view-btn {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .view-btn:hover {
+        background-color: #45a049;
+    }
+
+
 </style>
 
 
@@ -201,35 +444,25 @@
                     <nav class="main-nav">
                         <ul class="menu sf-arrows">
                             <li class="megamenu-container active">
-                                <a href="index.html" class="sf-with-ul">Home</a>
-
-                                
+                                <a href="/home" class="sf-with-ul">Home</a>
                             </li>
                             <li>
-                                <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                
+                                <a href="category.html" class="sf-with-ul">Shop</a>                                 
                             </li>
                             <li>
-                                <a href="product.html" class="sf-with-ul">Product</a>
-
-                                
+                                <a href="/products-list" class="sf-with-ul">Product</a>                                     
                             </li>
                             <li>
-                                <a href="#" class="sf-with-ul">Pages</a>
-
-                                
+                                <a href="#" class="sf-with-ul">Pages</a>                                      
                             </li>
                             <li>
                                 <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                
-                            </li>
-                            <li>
-                                <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                
-                            </li>
+                                <ul>
+                                    <li><a href="blog.html">Classic</a></li>
+                                    <li><a href="blog-listing.html">Listing</a></li>                                         
+                                </ul>
+                            </li>                                   
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->
@@ -247,9 +480,12 @@
                     
 
                     <div class="dropdown cart-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <a href="/cart" class="dropdown-toggle" >
                             <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count">
+                                <%= cartCount %>
+
+                            </span>
                         </a>
 
                         
@@ -298,54 +534,88 @@
                                     
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Sign Out</a>
+                                    <a class="nav-link" href="/logout">Sign Out</a>
                                 </li>
                             </ul>
                         </aside>
                          
                         <div class="col-md-8 col-lg-9">
                             <div class="tab-content">
-                               
-
-                                <table class="order-table">
+                                <div class="search-container">
+                                    <form id="search-form" action="" method="GET">
+                                        <input type="search" class="form-control form-control-sm search-input" 
+                                               placeholder="Search order" aria-controls="DataTables_Table_0" 
+                                               id="search-input" name="search" value="<%= search %>">
+                                        <button type="submit" class="btn btn-primary search-btn">Search</button>
+                                    </form>
+                                </div>
+                                
+                                <table class="order-table" id="orderTable">
                                     <thead>
                                         <tr>
                                             <th>Order ID</th>
-                                            <th>Address Name</th>
+                                            <th>Image</th>
+                                            <th>Quantity</th>
                                             <th>Price</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                             <th>View</th>
-                                            <th>Cancel</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% if (orders.length === 0) { %>
                                             <tr>
-                                                <td colspan="6">No orders found for this user.</td>
+                                                <td colspan="7">No orders found for this user.</td>
                                             </tr>
                                         <% } else { %>
                                             <% orders.forEach(order => { %>
+                                                <% order.items.forEach(pro => { %>
                                                 <tr>
                                                     <td>#<%= order.orderId %></td>
-                                                    <td><%= order.address.addressName %></td>
-                                                    <td>₹<%= order.items.reduce((total, item) => total + item.product.price * item.quantity, 0) %></td>
-                                                    <td><%= order.order_status %></td>
-                                                    <td><button class="view-btn" data-order-id="<%= order._id %>">View</button></td>
+                                                    <td><img src="/assets/uploads/<%= pro.product.images[1] %>" alt="" style="width: 50px;height: 50px;"></td>
+                                                    <td><%= pro.quantity %></td>
+                                                    <td>₹<%= (pro.price * pro.quantity).toFixed(2) %></td>
+                                                    <td class="status-<%= order._id %>"><%= pro.order_status %></td>
                                                     <td>
-                                                        <% if (order.order_status === 'Pending') { %>
-                                                            <button class="cancel-btn" data-order-id="<%= order._id %>">Cancel</button>
+                                                        <% if (['Pending', 'Processing', 'Shipped'].includes(pro.order_status)) { %>
+                                                            <button class="action-btn cancel-btn" data-order-id="<%= order._id %>">Cancel</button>
+                                                        <% } else if (pro.order_status === 'Delivered') { %>
+                                                            <button class="action-btn return-btn" data-order-id="<%= order._id %>">Return</button>
+                                                        <% } else { %>
+                                                            <button class="action-btn" disabled>No Action</button>
                                                         <% } %>
                                                     </td>
+                                                    <td><button class="view-btn" data-order-id="<%= order._id %>">View</button></td>
                                                 </tr>
+                                                <% }) %>
                                             <% }) %>
                                         <% } %>
                                     </tbody>
                                 </table>
                                 
+                                <!-- Pagination -->
+                                <div class="pagination">
+                                    <ul class="pagination-list">
+                                        <% if (page > 1) { %>
+                                            <li><a href="?page=<%= page - 1 %>&search=<%= search %>">&laquo; Previous</a></li>
+                                        <% } %>
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                            <li class="<%= i === page ? 'active' : '' %>">
+                                                <a href="?page=<%= i %>&search=<%= search %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                        <% if (page < totalPages) { %>
+                                            <li><a href="?page=<%= page + 1 %>&search=<%= search %>">Next &raquo;</a></li>
+                                        <% } %>
+                                    </ul>
+                                </div>
                                 
-                                  
-                        </div><!-- End .col-lg-9 -->
-                    </div><!-- End .row -->
+
+
+                            </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                        
+                        
                 </div><!-- End .container -->
             </div><!-- End .dashboard -->
         </div><!-- End .page-content -->
@@ -397,10 +667,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <!-- Cancel button always visible -->
-            <button class="cancel-btn" style="display: none;"></button>
-            <!-- Return button conditionally visible -->
-            <button class="return-btn" style="display: none;"></button>
+       
             <button class="close-btn">Close</button>
         </div>
     </div>
@@ -798,187 +1065,259 @@
 
 
 <script>
-// Function to open the modal and populate it with order details
-// Function to open the order details modal
-// Add event listeners to all view buttons
-document.querySelectorAll('.view-btn').forEach(button => {
-  button.addEventListener('click', function() {
-    const orderId = this.getAttribute('data-order-id');
-    openOrderDetailsModal(orderId);
-  });
-});
-async function openOrderDetailsModal(orderId) {
-  try {
-    const response = await fetch(`/order/${orderId}`); // Fetch order details by ID
-    const order = await response.json();
+function openOrderDetailsModal(orderId) {
+    fetch(`/order/${orderId}`)
+        .then(response => response.json())
+        .then(order => {
+            if (order) {
+                document.querySelector('.order-id').textContent = order.orderId;
+                document.querySelector('.order-date').textContent = new Date(order.createdAt).toLocaleDateString();
+                document.querySelector('.total-amount').textContent = order.totalPrice.toFixed(2);
+                order.items.forEach(product => {
+                    document.querySelector('.order-status').textContent = product.order_status;
+                });
+                document.querySelector('.payment-type').textContent = order.paymentMethod;
+                document.querySelector('.payment-status').textContent = order.payment_status;
+                document.querySelector('.name').textContent = order.address.addressName;
+                document.querySelector('.street').textContent = `${order.address.addressHouse}, ${order.address.addressStreet}`;
+                document.querySelector('.city').textContent = order.address.addressCity;
+                document.querySelector('.zip').textContent = order.address.addressPin;
+                document.querySelector('.state').textContent = order.address.addressState;
+                document.querySelector('.phone').textContent = order.address.addressMobile;
 
-    if (response.ok) {
-      // Populate the modal with order details
-      document.querySelector('.order-id').textContent = order.orderId;
-      document.querySelector('.order-date').textContent = new Date(order.createdAt).toLocaleDateString();
-      document.querySelector('.total-amount').textContent = order.totalPrice.toFixed(2);
-      document.querySelector('.order-status').textContent = order.order_status;
-      document.querySelector('.payment-type').textContent = order.paymentMethod;
-      document.querySelector('.payment-status').textContent = order.payment_status;
-      document.querySelector('.name').textContent = order.address.addressName;
-      document.querySelector('.street').textContent = `${order.address.addressHouse}, ${order.address.addressStreet}`;
-      document.querySelector('.city').textContent = order.address.addressCity;
-      document.querySelector('.zip').textContent = order.address.addressPin;
-      document.querySelector('.state').textContent = order.address.addressState;
-      document.querySelector('.phone').textContent = order.address.addressMobile;
+                const orderItemsTable = document.querySelector('.order-items-table');
+                orderItemsTable.innerHTML = '';
+                order.items.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.product.productName}</td>
+                        <td>${item.quantity}</td>
+                        <td>₹${item.product.price}</td>
+                        <td>₹${item.quantity * item.product.price}</td>
+                    `;
+                    orderItemsTable.appendChild(row);
+                });
 
-      // Populate the order items table
-      const orderItemsTable = document.querySelector('.order-items-table');
-      orderItemsTable.innerHTML = '';
-      order.items.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.product.productName}</td>
-          <td>${item.quantity}</td>
-          <td>₹${item.product.price}</td>
-          <td>₹${item.quantity * item.product.price}</td>
-        `;
-        orderItemsTable.appendChild(row);
-      });
-
-      // Show or hide buttons based on order status
-      const cancelBtn = document.querySelector('.cancel-btn');
-      const returnBtn = document.querySelector('.return-btn');
-      
-      if (order.order_status === 'Delivered') {
-        cancelBtn.style.display = 'none';
-        returnBtn.style.display = 'block';
-      } else {
-        cancelBtn.style.display = 'block';
-        returnBtn.style.display = 'none';
-      }
-
-      // Show the modal
-      document.querySelector('#orderDetailsModal').style.display = 'block';
-    } else {
-      alert('Failed to fetch order details.');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Error fetching order details.');
-  }
+                document.querySelector('#orderDetailsModal').style.display = 'block';
+            } else {
+                alert('Failed to fetch order details.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error fetching order details.');
+        });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle the cancel button click
-    document.querySelectorAll('.cancel-btn').forEach(button => {
-        button.addEventListener('click', async () => {
-            const orderId = button.getAttribute('data-order-id');
-
-            // Show SweetAlert2 popup
-            const { value: reason } = await Swal.fire({
-                title: 'Cancel Order',
-                input: 'textarea',
-                inputLabel: 'Reason for Cancellation',
-                inputPlaceholder: 'Enter the reason...',
-                inputAttributes: {
-                    'aria-label': 'Enter the reason for cancellation'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Submit',
-                cancelButtonText: 'Cancel',
-                preConfirm: (reason) => {
-               // Check if reason is provided, has at least 10 characters, does not contain numbers, and is not just spaces
-               if (!reason || reason.length < 10 || /\d/.test(reason) || !/\S/.test(reason)) {
-                Swal.showValidationMessage(
-               'Reason must be at least 10 characters long, cannot contain numbers, and cannot be only spaces.'
-                 );
-                return false;
-                }
-               return reason;
-               }
-            });
-
-            if (reason) {
-                try {
-                    const response = await fetch('/order/order-status', {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            orderId: orderId,
-                            status: 'Cancelled',
-                            reason: reason
-                        }),
-                    });
-
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Order Cancelled',
-                            text: result.message,
-                        }).then(() => {
-                            // Optionally, refresh the order list or update the UI
-                            location.reload(); // Reload to update the order status
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: result.message,
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to cancel the order.',
-                    });
-                }
-            }
-        });
+// Add event listeners to all view buttons
+document.querySelectorAll('.view-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const orderId = this.getAttribute('data-order-id');
+        openOrderDetailsModal(orderId);
     });
 });
 
+// Add event listeners to all action buttons
+document.querySelectorAll('.action-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const orderId = this.getAttribute('data-order-id');
+        if (this.classList.contains('cancel-btn')) {
+            cancelOrder(orderId, this);
+        } else if (this.classList.contains('return-btn')) {
+            returnOrder(orderId, this);
+        }
+    });
+});
 
-
-
-// Handle the return button click
-document.querySelector('.return-btn').addEventListener('click', async () => {
-  const orderId = document.querySelector('.order-id').textContent;
-
-  try {
-    const response = await fetch('/order/order-status', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        orderId: orderId,
-        status: 'Returned'
-      }),
+async function cancelOrder(orderId, buttonElement) {
+    const { value: reason } = await Swal.fire({
+        title: 'Enter Reason for Cancellation',
+        input: 'textarea',
+        inputLabel: 'Cancellation Reason',
+        inputPlaceholder: 'Type your reason here...',
+        inputAttributes: {
+            'aria-label': 'Type your reason here',
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Confirm Cancellation',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        width: '500px',
+        padding: '1.5em',
+        inputAutoTrim: false,
+        customClass: {
+            container: 'swal2-custom-container',
+            input: 'swal2-custom-textarea',
+            confirmButton: 'swal2-custom-confirm-btn',
+            cancelButton: 'swal2-custom-cancel-btn',
+        },
+        preConfirm: (reason) => {
+            // Validation logic
+            if (!reason || reason.trim().length < 15) {
+                Swal.showValidationMessage('Give proper reason to cancel this product');
+                return false;
+            }
+            if (/^[\d\s]+$/.test(reason)) {
+                Swal.showValidationMessage('Give proper reason to cancel this product');
+                return false;
+            }
+            return reason;
+        }
     });
 
-    const result = await response.json();
+    if (!reason) return; // User clicked cancel on SweetAlert or failed validation
 
-    if (response.ok) {
-      alert(result.message);
-      document.querySelector('#orderDetailsModal').style.display = 'none';
-      // Optionally, refresh the order list or update the UI
-    } else {
-      alert(result.message);
+    try {
+        const response = await fetch('/order/order-status', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                orderId: orderId,
+                status: 'Cancelled',
+                reason: reason
+            }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Cancelled',
+                text: result.message,
+            });
+            // Update the status in the table
+            document.querySelector(`.status-${orderId}`).textContent = 'Cancelled';
+            // Disable the cancel button
+            buttonElement.disabled = true;
+            buttonElement.textContent = 'No Action';
+            buttonElement.classList.remove('cancel-btn');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Cancellation Failed',
+                text: result.message,
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed to Cancel',
+            text: 'Failed to cancel the order.',
+        });
     }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Failed to return the order.');
-  }
+}
+
+
+
+// Add this function to your existing JavaScript
+async function returnOrder(orderId, buttonElement) {
+    const { value: reason } = await Swal.fire({
+        title: 'Return Reason',
+        input: 'textarea',
+        inputLabel: 'Please enter the reason for return:',
+        inputPlaceholder: 'Enter your reason here (minimum 15 characters)...',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        cancelButtonText: 'Cancel',
+        customClass: {
+            popup: 'large-swal-popup',
+            input: 'large-swal-input'
+        },
+        inputValidator: (value) => {
+            if (!value) {
+                return 'You need to write something!';
+            }
+            if (value.length < 15) {
+                return 'Your reason must be at least 15 characters long.';
+            }
+            if (/^\d+$/.test(value)) {
+                return 'Please provide a proper reason, not just numbers.';
+            }
+        }
+    });
+
+    if (reason) {
+        try {
+            const response = await fetch('/order/return-request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    orderId: orderId,
+                    reason: reason
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Return request submitted successfully',
+                    icon: 'success',
+                    customClass: {
+                        popup: 'large-swal-popup'
+                    }
+                });
+                // Update the button to show "Return Requested"
+                buttonElement.textContent = 'Return Requested';
+                buttonElement.disabled = true;
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: result.message || 'Failed to submit return request',
+                    icon: 'error',
+                    customClass: {
+                        popup: 'large-swal-popup'
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Failed to submit return request. Please try again later.',
+                icon: 'error',
+                customClass: {
+                    popup: 'large-swal-popup'
+                }
+            });
+        }
+    }
+}
+
+// Update your existing event listener for the return button
+document.querySelectorAll('.return-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const orderId = this.getAttribute('data-order-id');
+        returnOrder(orderId, this);
+    });
 });
 
 // Close the modal when clicking on the close button
 document.querySelectorAll('.close-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    document.querySelector('#orderDetailsModal').style.display = 'none';
-  });
+    button.addEventListener('click', () => {
+        document.querySelector('#orderDetailsModal').style.display = 'none';
+    });
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>

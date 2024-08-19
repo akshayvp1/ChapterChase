@@ -1,6 +1,130 @@
 <%- include('../layouts/header.ejs') %>
 
 
+
+<style>
+
+    /* Modal Header */
+    .modal-header {
+    background-color: #f1f1f1; /* Subtle background */
+    border-bottom: 1px solid #e0e0e0; /* Light border */
+    padding: 1rem; /* Adequate padding */
+  }
+  
+  .modal-title {
+    font-size: 1.5rem; /* Larger font size for title */
+    font-weight: 600; /* Slightly heavier font weight */
+  }
+  
+  .btn-close {
+    background: none; /* Remove default background */
+    border: none; /* Remove border */
+    font-size: 1.5rem; /* Larger close button */
+    color: #333; /* Dark color for close button */
+  }
+  
+  /* Modal Body */
+  .modal-body {
+    padding: 2rem; /* More padding for spacious feel */
+  }
+  
+  /* Form Styles */
+  .form-label {
+    font-weight: 600; /* Bold labels */
+    margin-bottom: .5rem; /* Space between label and input */
+  }
+  
+  .form-control {
+    border-radius: .375rem; /* Rounded corners */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-size: 1.125rem; /* Increased font size for input text */
+  }
+  
+  .form-control:focus {
+    border-color: #007bff; /* Focus border color */
+    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, 0.25); /* Focus shadow */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Primary color */
+    border-color: #007bff; /* Border color */
+    font-size: 1rem; /* Button font size */
+    padding: .75rem 1.5rem; /* Button padding */
+    border-radius: .375rem; /* Rounded corners */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker on hover */
+    border-color: #004085; /* Darker border on hover */
+  }
+  
+  .text-center {
+    text-align: center; /* Center alignment */
+  }
+  
+  /* Modal Dialog */
+  .modal-dialog {
+    max-width: 700px; /* Increased max width for larger modal */
+    margin: 1.75rem auto; /* Center modal vertically */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    border-radius: .375rem; /* Rounded corners for content */
+  }
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-dashboard {
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .card-title {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .actions {
+            margin-top: 10px;
+        }
+        
+        .actions a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        
+        .edit {
+            color: #28a745;
+        }
+        
+        .delete {
+            color: #dc3545;
+        }
+    
+    </style>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+
     <div class="page-wrapper">
         <header class="header">
             <div class="header-top">
@@ -45,41 +169,31 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25">
+                            <img src="assets/images/demos/demo-20/ChapterChase.png" alt="Molla Logo" width="105" height="25">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
                                     <a href="/home" class="sf-with-ul">Home</a>
-
-                                   
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                    
+                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="/products-list" class="sf-with-ul">Product</a>
-
-                                    
+                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>
-
-                                    
+                                    <a href="#" class="sf-with-ul">Pages</a>                                      
                                 </li>
                                 <li>
                                     <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                    
-                                </li>
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    
-                                </li>
+                                    <ul>
+                                        <li><a href="blog.html">Classic</a></li>
+                                        <li><a href="blog-listing.html">Listing</a></li>                                         
+                                    </ul>
+                                </li>                                   
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
@@ -97,9 +211,11 @@
                         
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" >
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count">
+                                    <%= cartCount %>
+                                </span>
                             </a>
 
                             
@@ -140,6 +256,7 @@
                                     <div class="address-header">
                                         <a href="/user-address" id="addNewAddress" class="btn btn-primary">Add New Address</a>
                                     </div>
+                                    
                         
                                     <div class="row" id="addressList">
                                         <% if (addresses && addresses.length > 0) { %>
@@ -176,6 +293,13 @@
                                     </div>
                         
                                 </div><!-- End .col-lg-9 -->
+
+
+
+                              
+                                
+                              
+
                         
                                 <aside class="col-lg-3">
                                     <div class="summary">
@@ -185,6 +309,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Product</th>
+                                                    <th></th>
+                                                    <th></th>
                                                     <th>Total</th>
                                                 </tr>
                                             </thead>
@@ -193,111 +319,72 @@
                                                 <% cartItems.forEach(item => { %>
                                                     <tr data-product-id="<%= item.product._id %>" data-product-qty="<%= item.quantity %>">
                                                         <td><a href="/product-details/<%= item.product._id %>"><%= item.product.productName %></a></td>
-                                                        <td >$<%= (item.product.price * item.quantity).toFixed(2) %></td>
-                                                        <!-- Add quantity column if needed -->
-                                                        
+                                                        <td>
+                                                            <% if (item.discountPercentage > 0) { %>
+                                                                <span class="product-price-discounted">
+                                                                </span>
+                                                                <span class="product-price-original">
+                                                                </span>
+                                                            
+                                                            <% } %>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>$<%= item.total.toFixed(2) %></td>
                                                     </tr>
                                                 <% }); %>
-                                                <!-- Example of subtotal and total rows -->
                                                 <tr class="summary-subtotal">
-                                                    <td>Subtotal:</td>
-                                                    <td>$<%= cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0).toFixed(2) %></td>
+                                                    <td colspan="3">Subtotal:</td>
+                                                    <td>$<%= subtotal.toFixed(2) %></td>
                                                 </tr>
                                                 <tr class="summary-total">
-                                                    <td>Total:</td>
-                                                    <td>$<%= cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0).toFixed(2) %></td>
+                                                    <td colspan="3">Total:</td>
+                                                    <td>$<%= total.toFixed(2) %></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                         
-                                        <div class="accordion-summary" id="accordion-payment">
-                                            <!-- Direct Bank Transfer -->
-                                            <div class="card">
-                                                <div class="card-header" id="heading-1">
-                                                    <h2 class="card-title">
-                                                        <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                                                            Direct bank transfer
-                                                        </a>
-                                                    </h2>
+                                        <form id="checkoutForm" method="POST" action="/place-order">
+                                            <div class="accordion-summary" id="accordion-payment">
+                                                <!-- Cash on Delivery -->
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-3">
+                                                        <h2 class="card-title">
+                                                            <a role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
+                                                                Cash on delivery
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                    <div id="collapse-3" class="collapse show" aria-labelledby="heading-3" data-parent="#accordion-payment">
+                                                        <div class="card-body">
+                                                            Pay with cash upon delivery of your order. No need for online payment.
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div id="collapse-1" class="collapse" aria-labelledby="heading-1" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                                        
+                                                <!-- RazorPay -->
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-5">
+                                                        <h2 class="card-title">
+                                                            <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
+                                                                RazorPay
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                    <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
+                                                        <div class="card-body">
+                                                            Secure online payment via RazorPay. Your payment information is processed securely.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                        
-                                            <!-- Check Payments -->
-                                            <div class="card">
-                                                <div class="card-header" id="heading-2">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                                                            Check payments
-                                                        </a>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    </div>
-                                                </div>
-                                            </div>
-                        
-                                            <!-- Cash on Delivery -->
-                                            <div class="card">
-                                                <div class="card-header" id="heading-3">
-                                                    <h2 class="card-title">
-                                                        <a role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
-                                                            Cash on delivery
-                                                        </a>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapse-3" class="collapse show" aria-labelledby="heading-3" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Pay with cash upon delivery of your order. No need for online payment.
-                                                    </div>
-                                                </div>
-                                            </div>
-                        
-                                            <!-- PayPal -->
-                                            <div class="card">
-                                                <div class="card-header" id="heading-4">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
-                                                            PayPal <small class="float-right paypal-link">What is PayPal?</small>
-                                                        </a>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
-                                                    </div>
-                                                </div>
-                                            </div>
-                        
-                                            <!-- Credit Card (Stripe) -->
-                                            <div class="card">
-                                                <div class="card-header" id="heading-5">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-                                                            Credit Card (Stripe)
-                                                            <img src="assets/images/payments-summary.png" alt="payments cards">
-                                                        </a>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Donec nec justo eget felis facilisis fermentum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                        
-                                        <!-- Place Order Button -->
-                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-                                            <span class="btn-text">Place Order</span>
-                                            <span class="btn-hover-text">Proceed to Checkout</span>
-                                        </button>
+                                        
+                                            <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                                <span class="btn-text">Place Order</span>
+                                                <span class="btn-hover-text">Proceed to Checkout</span>
+                                            </button>
+                                        </form>
+                                        
+                                        
                                     </div>
                                 </aside>
                             </div><!-- End .row -->
@@ -314,7 +401,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="assets/images/demos/demo-20/ChapterChase.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="social-icons">
@@ -684,6 +771,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <script>
 // document.getElementById('checkoutForm').addEventListener('submit', function(event) {
 //     event.preventDefault(); // Prevent the default form submission
@@ -766,16 +857,74 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
     });
     console.log('Total Price:', totalPrice);
 
+    // Determine the payment method based on which accordion section is open
+    const paymentMethod = document.querySelector('#accordion-payment .collapse.show').id === 'collapse-3' ? 'Cash on Delivery' : 'RazorPay';
+    console.log('Payment Method:', paymentMethod);
+
     // Prepare the data to send
     const orderData = {
         selectedAddress,
         cartItems,
-        totalPrice: totalPrice || 0, // Ensure totalPrice is not null
-        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Cash on Delivery'
+        totalPrice: totalPrice || 0,
+        paymentMethod
     };
     console.log('Order Data:', orderData);
 
-    // Send the data to the server
+    if (paymentMethod === 'RazorPay') {
+        // RazorPay payment flow
+        fetch('/create-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount: totalPrice })
+        })
+        .then(response => response.json())
+        .then(data => {
+            var options = {
+                key: '<%= process.env.RAZORPAY_KEY_ID %>', // Replace with your actual key
+                amount: data.amount,
+                currency: data.currency,
+                name: 'Your Company Name',
+                description: 'Purchase Description',
+                order_id: data.orderId,
+                handler: function(response) {
+                    // Add the Razorpay payment details to orderData
+                    orderData.razorpayPaymentId = response.razorpay_payment_id;
+                    orderData.razorpayOrderId = response.razorpay_order_id;
+                    orderData.razorpaySignature = response.razorpay_signature;
+
+                    // Now place the order with the Razorpay details
+                    placeOrder(orderData);
+                },
+                prefill: {
+                    name: 'Customer Name',
+                    email: 'customer@example.com',
+                    contact: '9999999999'
+                },
+                theme: {
+                    color: '#F37254'
+                }
+            };
+            var rzp = new Razorpay(options);
+            rzp.open();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to initialize RazorPay payment.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        });
+    } else {
+        // Cash on Delivery flow
+        placeOrder(orderData);
+    }
+});
+
+function placeOrder(orderData) {
     fetch('/place-order', {
         method: 'POST',
         headers: {
@@ -792,8 +941,7 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                // Optionally redirect or update the UI here
-                window.location.href = `/order-summary/${data.orderId}`; // Redirect to a confirmation page
+                window.location.href = `/order-summary/${data.orderId}`;
             });
         } else {
             Swal.fire({
@@ -813,7 +961,325 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
             confirmButtonText: 'OK'
         });
     });
-});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+// document.addEventListener('DOMContentLoaded', function() {
+//     const addressForm = document.getElementById('addressForm');
+    
+//     if (addressForm) {
+//         addressForm.addEventListener('submit', function(event) {
+//             event.preventDefault();
+//             console.log('Form submitted');
+
+//             var formData = new FormData(this);
+//             var plainFormData = Object.fromEntries(formData.entries());
+            
+//             // Convert pin to number
+//             plainFormData.addressPin = parseInt(plainFormData.addressPin, 10);
+
+//             console.log('Form data:', plainFormData);
+
+//             fetch('/add-address', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(plainFormData),
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log('Response data:', data);
+//                 if (data.error) {
+//                     Swal.fire({
+//                         icon: 'error',
+//                         title: 'Oops...',
+//                         text: data.error,
+//                     });
+//                 } else {
+//                     console.log('Address saved successfully');
+//                     Swal.fire({
+//                         icon: 'success',
+//                         title: 'Success!',
+//                         text: 'Address saved successfully!',
+//                     });
+                    
+//                     // Add the new address to the list
+//                     addAddressToList(data.address);
+                    
+//                     // Close the modal
+//                     $('#addressModal').modal('hide');
+                    
+//                     // Reset the form
+//                     addressForm.reset();
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Oops...',
+//                     text: 'An error occurred while saving the address. Please try again.',
+//                 });
+//             });
+//         });
+//     } else {
+//         console.error('Address form not found');
+//     }
+
+//     function addAddressToList(address) {
+//         const addressList = document.getElementById('addressList');
+//         const newAddressHtml = `
+//             <div class="col-lg-6">
+//                 <div class="card card-dashboard">
+//                     <div class="card-body">
+//                         <h3 class="card-title">${address.addressName}</h3>
+//                         <p>
+//                             ${address.addressHouse}<br>
+//                             ${address.addressStreet}<br>
+//                             ${address.addressPost}, ${address.addressCity}<br>
+//                             ${address.addressState}<br>
+//                             Pin: ${address.addressPin}<br>
+//                             ${address.addressEmail}<br>
+//                             Mobile: ${address.addressMobile}<br>
+//                         </p>
+//                         <div class="actions">
+//                             <a href="#" class="edit">Edit <i class="icon-edit"></i></a>
+//                             <a href="#" class="delete">Delete</a>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         `;
+//         addressList.insertAdjacentHTML('beforeend', newAddressHtml);
+//     }
+// });
+
+
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   // Event listener for edit buttons
+//   document.querySelectorAll('.edit').forEach(button => {
+//     button.addEventListener('click', async (event) => {
+//       event.preventDefault();
+//       const addressId = button.getAttribute('data-id');
+//       try {
+//         const response = await fetch(`/get-address/${addressId}`);
+//         if (response.ok) {
+//           const address = await response.json();
+//           console.log('Fetched address:', address); // Add this line
+//           populateEditModal(address);
+//         } else {
+//           console.error('Failed to fetch address details');
+//         }
+//       } catch (error) {
+//         console.error('Error fetching address details:', error);
+//       }
+//     });
+//   });
+
+//   function populateEditModal(address) {
+//     document.getElementById('editAddressId').value = address._id;
+//     document.getElementById('editAddressName').value = address.addressName;
+//     document.getElementById('editAddressEmail').value = address.addressEmail;
+//     document.getElementById('editAddressMobile').value = address.addressMobile;
+//     document.getElementById('editAddressHouse').value = address.addressHouse;
+//     document.getElementById('editAddressStreet').value = address.addressStreet;
+//     document.getElementById('editAddressPost').value = address.addressPost;
+//     document.getElementById('editAddressCity').value = address.addressCity;
+//     document.getElementById('editAddressDistrict').value = address.addressDistrict;
+//     document.getElementById('editAddressState').value = address.addressState;
+//     document.getElementById('editAddressPin').value = address.addressPin;
+
+//     const editAddressModal = new bootstrap.Modal(document.getElementById('editAddressModal'));
+//     editAddressModal.show();
+// }
+
+//   // Event listener for edit form submission
+//   document.getElementById('editAddressForm').addEventListener('submit', async (event) => {
+//   event.preventDefault();
+  
+//   const form = event.target;
+//   const formData = new FormData(form);
+//   const addressId = formData.get('addressId');
+  
+//   try {
+//     const response = await fetch(`/edit-address/${addressId}`, {
+//       method: 'PATCH',
+//       body: JSON.stringify(Object.fromEntries(formData)),
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json',
+//       }
+//     });
+
+//     const result = await response.json();
+
+//     if (response.ok) {
+//       console.log('Update successful:', result);
+      
+//       // Try to close the modal
+//       try {
+//         const editAddressModal = document.getElementById('editAddressModal');
+//         if (editAddressModal) {
+//           const bsModal = bootstrap.Modal.getInstance(editAddressModal);
+//           if (bsModal) {
+//             bsModal.hide();
+//           } else {
+//             editAddressModal.style.display = 'none';
+//             document.body.classList.remove('modal-open');
+//             const modalBackdrop = document.querySelector('.modal-backdrop');
+//             if (modalBackdrop) {
+//               modalBackdrop.remove();
+//             }
+//           }
+//         }
+//       } catch (modalError) {
+//         console.error('Error closing modal:', modalError);
+//       }
+
+//       // Update the address in the list
+//       updateAddressInList(result);
+      
+//       Swal.fire({
+//         icon: 'success',
+//         title: 'Success!',
+//         text: 'Address updated successfully!',
+//       });
+
+//       // Reload the page after a short delay
+//       setTimeout(() => {
+//         window.location.reload();
+//       }, 1500);
+
+//     } else {
+//       throw new Error(result.message || 'Failed to update address');
+//     }
+//   } catch (error) {
+//     console.error('Error updating address:', error);
+//     Swal.fire({
+//       icon: 'error',
+//       title: 'Oops...',
+//       text: `An error occurred while updating the address: ${error.message}`,
+//     });
+//   }
+// });
+
+// function updateAddressInList(updatedAddress) {
+//   try {
+//     const addressList = document.getElementById('addressList');
+//     const addressCards = addressList.querySelectorAll('.card-dashboard');
+
+//     addressCards.forEach(card => {
+//       const editButton = card.querySelector('.edit');
+//       if (editButton && editButton.getAttribute('data-id') === updatedAddress._id) {
+//         card.querySelector('.card-title').textContent = updatedAddress.addressName;
+//         const addressParagraph = card.querySelector('p');
+//         if (addressParagraph) {
+//           addressParagraph.innerHTML = `
+//             ${updatedAddress.addressHouse || ''}<br>
+//             ${updatedAddress.addressStreet || ''}<br>
+//             ${updatedAddress.addressPost || ''}, ${updatedAddress.addressCity || ''}<br>
+//             ${updatedAddress.addressState || ''}<br>
+//             Pin: ${updatedAddress.addressPin || ''}<br>
+//             ${updatedAddress.addressEmail || ''}<br>
+//             Mobile: ${updatedAddress.addressMobile || ''}<br>
+//           `;
+//         }
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error updating address in list:', error);
+//   }
+// }
+// });
+
+
+
+//    // Attach event listeners to delete buttons
+//    document.querySelectorAll('.delete').forEach(button => {
+//     button.addEventListener('click', function(e) {
+//       e.preventDefault();
+//       const addressId = this.dataset.id; // Get address ID from data attribute
+      
+//       // Show SweetAlert confirmation dialog
+//       Swal.fire({
+//         title: 'Are you sure?',
+//         text: "You won't be able to revert this!",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, delete it!'
+//       }).then((result) => {
+//         if (result.isConfirmed) {
+//           // Send DELETE request to the server
+//           fetch(`/delete-address/${addressId}`, {
+//             method: 'DELETE'
+//           })
+//           .then(response => response.json())
+//           .then(data => {
+//             if (data.success) {
+//               Swal.fire(
+//                 'Deleted!',
+//                 'The address has been deleted.',
+//                 'success'
+//               );
+//               // Optionally, remove the address from the UI
+//               this.closest('.col-lg-6').remove();
+//             } else {
+//               Swal.fire(
+//                 'Error!',
+//                 'There was an error deleting the address.',
+//                 'error'
+//               );
+//             }
+//           })
+//           .catch(error => {
+//             Swal.fire(
+//               'Error!',
+//               'There was an error deleting the address.',
+//               'error'
+//             );
+//           });
+//         }
+//       });
+//     });
+//   });
+
+
+
+
+
+//   document.addEventListener('DOMContentLoaded', function () {
+//     // Function to validate form fields
+//     function validateForm() {
+//       const forms = document.querySelectorAll('.needs-validation');
+//       forms.forEach(form => {
+//         form.addEventListener('submit', function (event) {
+//           if (!form.checkValidity()) {
+//             event.preventDefault();
+//             event.stopPropagation();
+//             form.classList.add('was-validated');
+//           }
+//         }, false);
+//       });
+//     }
+//     validateForm();
+//   });
 
 
         </script>

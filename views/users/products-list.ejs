@@ -138,106 +138,24 @@
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
                                     <a href="/home" class="sf-with-ul">Home</a>
-
-                                    
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                   
+                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
-
-                                    
+                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>
-
-                                    <ul>
-                                        <li>
-                                            <a href="about.html" class="sf-with-ul">About</a>
-
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html" class="sf-with-ul">Contact</a>
-
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
+                                    <a href="#" class="sf-with-ul">Pages</a>                                      
                                 </li>
                                 <li>
                                     <a href="blog.html" class="sf-with-ul">Blog</a>
 
                                     <ul>
                                         <li><a href="blog.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>
-                                        <li>
-                                            <a href="#">Grid</a>
-                                            <ul>
-                                                <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                                                <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                                                <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                                                <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Masonry</a>
-                                            <ul>
-                                                <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                                                <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                                                <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                                                <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Mask</a>
-                                            <ul>
-                                                <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                                <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Single Post</a>
-                                            <ul>
-                                                <li><a href="single.html">Default with sidebar</a></li>
-                                                <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                                                <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="blog-listing.html">Listing</a></li>                                         
                                     </ul>
-                                </li>
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    <ul>
-                                        <li><a href="elements-products.html">Products</a></li>
-                                        <li><a href="elements-typography.html">Typography</a></li>
-                                        <li><a href="elements-titles.html">Titles</a></li>
-                                        <li><a href="elements-banners.html">Banners</a></li>
-                                        <li><a href="elements-product-category.html">Product Category</a></li>
-                                        <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                        <li><a href="elements-buttons.html">Buttons</a></li>
-                                        <li><a href="elements-accordions.html">Accordions</a></li>
-                                        <li><a href="elements-tabs.html">Tabs</a></li>
-                                        <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                        <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                        <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                        <li><a href="elements-cta.html">Call to Action</a></li>
-                                        <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
-                                    </ul>
-                                </li>
+                                </li>                                   
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
@@ -457,50 +375,61 @@
                                                 <a href="/product-details/<%= product._id %>">
                                                     <img src="/assets/uploads/<%= product.images[0] %>" alt="Product image" class="product-image">
                                                 </a>
-                        
+                                
                                                 <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                    <a href="#" class="btn-product btn-product-icon btn-wishlist btn-expandable" title="Wishlist" data-product-id="<%= product._id %>">
+                                                        <span>Add to Wishlist</span>
+                                                    </a>
                                                     <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                                     <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
                                                 </div><!-- End .product-action-vertical -->
-                                                <form action="/add-to-cart" method="POST">
-                                                    <input type="hidden" name="productId" value="<%= product._id %>">
-                                                     <input type="hidden" name="quantity" id="qty" value="1">
-                                                      <button type="submit" class="btn-product btn-cart"><span>Add to Cart</span></button>
-                                                       </form>
-                                                <div class="product-action">
-                                                    
-                                                </div><!-- End .product-action -->
+                            
+                                                <% if (product.stock > 0) { %>
+                                                    <a href="" class="btn-product btn-cart add-to-cart-btn" data-product-id="<%= product._id %>" data-quantity="1">
+                                                        <span>Add to cart</span>
+                                                    </a>
+                                                <% } else { %>
+                                                    <span class="btn-product btn-cart disabled">Out of Stock</span>
+                                                <% } %>
+                            
+                                                <div class="product-action"></div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
-                        
+                            
                                             <div class="product-body">
                                                 <div class="product-cat">
                                                     <a href="#"><%= product.category %></a>
                                                 </div><!-- End .product-cat -->
                                                 <h3 class="product-title"><a href="<%= product.href %>"><%= product.productName %></a></h3><!-- End .product-title -->
                                                 <div class="product-price">
-                                                    <% if (product.offer) { %>
-                                                        <% 
-                                                            const originalPrice = product.price;
-                                                            const discountedPrice = product.offer;
-                                                            const discountPercentage = ((originalPrice - discountedPrice) / originalPrice * 100).toFixed(2);
-                                                        %>
+                                                    <% 
+                                                        let discountedPrice = product.price;
+                                                        let discountPercentage = 0;
+                                                
+                                                        const applicableOffer = offers.find(o => 
+                                                            o.offerType === 'category' &&
+                                                            o.categoryId.includes(product.category.toString())
+                                                        );
+                                                
+                                                        if (applicableOffer) {
+                                                            discountedPrice = product.price - (product.price * (applicableOffer.discount / 100));
+                                                            discountPercentage = applicableOffer.discount.toFixed(2);
+                                                        }
+                                                    %>
+                                                    
+                                                    <% if (discountedPrice < product.price) { %>
                                                         <span class="product-price-discounted">
                                                             ₹<%= discountedPrice.toFixed(2) %>
                                                         </span>
                                                         <span class="product-price-original">
-                                                            (₹<%= originalPrice.toFixed(2) %>
+                                                            ₹<%= product.price.toFixed(2) %>
                                                         </span>
-                                                        
                                                         <span class="product-price-discount">
-                                                            <%= discountPercentage %>% Off)
+                                                            <%= discountPercentage %>% Off
                                                         </span>
                                                     <% } else { %>
                                                         ₹<%= product.price.toFixed(2) %>
                                                     <% } %>
                                                 </div><!-- End .product-price -->
-                                                
-                                                <!-- End .product-price -->
                                                 
                                                 <div class="ratings-container">
                                                     <div class="ratings">
@@ -508,14 +437,13 @@
                                                     </div>
                                                     <span class="ratings-text">( 2 Reviews )</span>
                                                 </div>
-                        
-                                                
                                             </div><!-- End .product-body -->
                                         </div><!-- End .product -->
                                     </div><!-- End .col-sm-6 col-lg-4 -->
                                     <% }) %>
                                 </div><!-- End .row -->
                             </div><!-- End .products -->
+                            
 
 
 
@@ -577,23 +505,30 @@
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-1">
-										<div class="widget-body">
-											<div class="filter-items filter-items-count">
-
-												<% categories.forEach(category => { %>
-                                                    <div class="filter-item">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="cat-<%= category._id %>">
-                                                            <label class="custom-control-label" for="cat-<%= category._id %>"><%= category.title %></label>
-                                                        </div><!-- End .custom-checkbox -->
-                                                        <!-- <span class="item-count"></span> -->
-                                                    </div><!-- End .filter-item -->
-                                                <% }) %>
-                                                
-											</div><!-- End .filter-items -->
-										</div><!-- End .widget-body -->
-									</div><!-- End .collapse -->
+									<form id="filterForm" method="GET" action="/products-list">
+                                        <!-- Category filters -->
+                                        <div class="mb-3">
+                                          <% categories.forEach(category => { %>
+                                            <div class="filter-item">
+                                              <div class="custom-control custom-checkbox">
+                                                <input 
+                                                  type="checkbox" 
+                                                  class="custom-control-input" 
+                                                  name="categories" 
+                                                  value="<%= category._id %>" 
+                                                  id="cat-<%= category._id %>"
+                                                  <%= (selectedCategories.includes(category._id.toString())) ? 'checked' : '' %>
+                                                >
+                                                <label class="custom-control-label" for="cat-<%= category._id %>"><%= category.title %></label>
+                                              </div>
+                                            </div>
+                                          <% }) %>
+                                        </div>
+                                      
+                                      
+                                      
+                                      
+                                      
         						</div><!-- End .widget -->
 
         						
@@ -602,26 +537,84 @@
 
         						
 
-        						<div class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
-									        Price
-									    </a>
-									</h3><!-- End .widget-title -->
+        						 <!-- Sorting options -->
+  <div class="mb-3">
+    <div class="widget widget-collapsible">
+      <h3 class="widget-title">
+        <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
+          Sort By
+        </a>
+      </h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-5">
-										<div class="widget-body">
-                                            <div class="filter-price">
-                                                <div class="filter-price-text">
-                                                    Price Range:
-                                                    <span id="filter-price-range"></span>
-                                                </div><!-- End .filter-price-text -->
+      <div class="collapse show" id="widget-5">
+        <div class="widget-body">
+          <div class="filter-items">
+            <div class="filter-item">
+              <div class="custom-control custom-checkbox">
+                <input 
+                  type="checkbox" 
+                  class="custom-control-input" 
+                  name="sort" 
+                  value="priceLowToHigh" 
+                  id="sort-priceLowToHigh"
+                  <%= (sortOption === 'priceLowToHigh') ? 'checked' : '' %>
+                >
+                <label class="custom-control-label" for="sort-priceLowToHigh">Price: Low to High</label>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="custom-control custom-checkbox">
+                <input 
+                  type="checkbox" 
+                  class="custom-control-input" 
+                  name="sort" 
+                  value="priceHighToLow" 
+                  id="sort-priceHighToLow"
+                  <%= (sortOption === 'priceHighToLow') ? 'checked' : '' %>
+                >
+                <label class="custom-control-label" for="sort-priceHighToLow">Price: High to Low</label>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="custom-control custom-checkbox">
+                <input 
+                  type="checkbox" 
+                  class="custom-control-input" 
+                  name="sort" 
+                  value="aToZ" 
+                  id="sort-aToZ"
+                  <%= (sortOption === 'aToZ') ? 'checked' : '' %>
+                >
+                <label class="custom-control-label" for="sort-aToZ">A to Z</label>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="custom-control custom-checkbox">
+                <input 
+                  type="checkbox" 
+                  class="custom-control-input" 
+                  name="sort" 
+                  value="zToA" 
+                  id="sort-zToA"
+                  <%= (sortOption === 'zToA') ? 'checked' : '' %>
+                >
+                <label class="custom-control-label" for="sort-zToA">Z to A</label>
+              </div>
+            </div>
+          </div><!-- End .filter-items -->
+        </div><!-- End .widget-body -->
+      </div><!-- End .collapse -->
+    </div><!-- End .widget -->
+  </div>
 
-                                                <div id="price-slider"></div><!-- End #price-slider -->
-                                            </div><!-- End .filter-price -->
-										</div><!-- End .widget-body -->
-									</div><!-- End .collapse -->
-        						</div><!-- End .widget -->
+  <!-- Submit button (optional) -->
+  <!-- <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Apply Filters</button>
+  </div> -->
+</form>
+
+                                
+
                 			</div><!-- End .sidebar sidebar-shop -->
                 		</aside><!-- End .col-lg-3 -->
                 	</div><!-- End .row -->
@@ -898,6 +891,72 @@
 
 
     <script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const wishlistButtons = document.querySelectorAll('.btn-wishlist');
+    
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.getAttribute('data-product-id');
+            const span = this.querySelector('span');
+            const originalText = span.textContent;
+            
+            addToWishlist(productId, this);
+        });
+    });
+});
+
+function addToWishlist(productId, button) {
+    const span = button.querySelector('span');
+    const originalText = span.textContent;
+
+    fetch('/add-to-wishlist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            span.textContent = 'Added to Wishlist';
+            button.classList.add('added-to-wishlist');
+        } else {
+            span.textContent = data.message;
+        }
+        
+        // Reset the button text after 2 seconds
+        setTimeout(() => {
+            span.textContent = originalText;
+            button.classList.remove('added-to-wishlist');
+        }, 2000);
+    })
+    .catch(error => {
+        console.error('Wishlist error:', error);
+        span.textContent = 'Error occurred';
+        
+        // Reset the button text after 2 seconds
+        setTimeout(() => {
+            span.textContent = originalText;
+        }, 2000);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
         document.addEventListener('DOMContentLoaded', function () {
             const paginationLinks = document.querySelectorAll('.pagination-link');
 
@@ -914,6 +973,100 @@
                 });
             });
         });
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+    // Add event listeners to all checkboxes and sorting checkboxes
+    document.querySelectorAll('#filterForm input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', function () {
+        // Uncheck all other sorting checkboxes if one is checked
+        if (checkbox.name === 'sort') {
+          document.querySelectorAll('#filterForm input[name="sort"]').forEach(otherCheckbox => {
+            if (otherCheckbox !== checkbox) {
+              otherCheckbox.checked = false;
+            }
+          });
+        }
+
+        // Submit the form
+        document.getElementById('filterForm').submit();
+      });
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Function to update data-quantity attribute for a specific add-to-cart button
+    const updateQuantityForButton = (input) => {
+        const quantity = input.value;
+        const addToCartBtn = input.closest('.details-filter-row').nextElementSibling.querySelector('.add-to-cart-btn');
+        if (addToCartBtn) {
+            addToCartBtn.dataset.quantity = quantity;
+        }
+    };
+
+    // Event delegation for quantity input changes
+    document.addEventListener('input', (event) => {
+        if (event.target.classList.contains('quantity-input')) {
+            updateQuantityForButton(event.target);
+        }
+    });
+
+    // Event delegation for add to cart button clicks
+    document.addEventListener('click', async (event) => {
+        const addToCartBtn = event.target.closest('.add-to-cart-btn');
+        if (addToCartBtn) {
+            event.preventDefault();
+            const productId = addToCartBtn.dataset.productId;
+            const quantity = addToCartBtn.dataset.quantity || '1'; // Default to 1 if not set
+
+            try {
+                const response = await fetch('/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId, quantity })
+                });
+
+                if (response.ok) {
+                    // Item added successfully
+                    const originalText = addToCartBtn.innerHTML;
+                    addToCartBtn.innerHTML = '<span>Added to Cart</span>';
+                    setTimeout(() => {
+                        addToCartBtn.innerHTML = originalText;
+                    }, 2000);
+                } else {
+                    // Handle error
+                    console.error('Error adding item to cart');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    });
+});
+
+
+
+
+
+
+
     </script>
 
 
