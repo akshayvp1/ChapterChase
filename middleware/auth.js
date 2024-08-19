@@ -1,27 +1,23 @@
 const User = require('../models/userModel');
 
-const isLogin=async(req,res,next)=>{
 
-    try{
-      
 
-       if(req.session.user || req.isAuthenticated){
-        next();
+const isLogin = async (req, res, next) => {
+   try {
+       if (req.isAuthenticated && req.isAuthenticated()) { // If using Passport.js
+           return next();
        }
-       else{
-         
-          return res.redirect('/')
-       
+       if (req.session.user) { // If using session-based auth
+           return next();
        }
-      
-       
-    }catch(error){
+       return res.redirect('/'); // Redirect if not authenticated
+   } catch (error) {
+       console.error('Error in isLogin middleware:', error.message);
+       res.status(500).json({ message: 'Internal Server Error' });
+   }
+};
 
-       console.log(error.message);
 
-    }
-
-}
 const isLogout=async(req,res,next)=>{
 
    try{
@@ -40,54 +36,33 @@ const isLogout=async(req,res,next)=>{
 
 }
 
-const authMiddleware = async (req, res, next) => {
-   try {
-       if (req.session && req.session.user_id) {
-           const user = await User.findById(req.session.user_id);
-           if (user) {
-               res.locals.isAuthenticated = true;
-               res.locals.user = user;
-           } else {
-               res.locals.isAuthenticated = false;
-               res.locals.user = null;
-           }
-       } else {
-           res.locals.isAuthenticated = false;
-           res.locals.user = null;
-       }
-       next();
-   } catch (error) {
-       res.send(error.message);
-   }
-};
-// const checkUserStatus = async (req, res, next) => {
-//    if (req.session.user_id) {
-//        try {
+// const authMiddleware = async (req, res, next) => {
+//    try {
+//        if (req.session && req.session.user_id) {
 //            const user = await User.findById(req.session.user_id);
-//            if (user && user.is_blocked) {
-//                req.session.destroy((err) => {
-//                    if (err) {
-//                        console.error('Error destroying session:', err);
-//                    }
-//                    return res.redirect('/login');
-//                });
+//            if (user) {
+//                res.locals.isAuthenticated = true;
+//                res.locals.user = user;
 //            } else {
-//                next();
+//                res.locals.isAuthenticated = false;
+//                res.locals.user = null;
 //            }
-//        } catch (error) {
-//            console.error('Error checking user status:', error);
-//            next(error);
+//        } else {
+//            res.locals.isAuthenticated = false;
+//            res.locals.user = null;
 //        }
-//    } else {
 //        next();
+//    } catch (error) {
+//        res.send(error.message);
 //    }
 // };
+
 
 
 
 module.exports={
    isLogin,
    isLogout,
-   authMiddleware,
+   
    // checkUserStatus
 }

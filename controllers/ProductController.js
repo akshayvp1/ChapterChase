@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const User = require("../models/userModel");
 const { promisify } = require('util');
+const Order = require('../models/orderModel');
 
 
 
@@ -13,10 +14,26 @@ const { promisify } = require('util');
 const loadProduct = async (req, res) => {
   try {
     let admin = req.session.user
-    const products = await Product.find().populate('category');
-    const categories = await Category.find();
+    const page = parseInt(req.query.page) || 1; // Current page
+    const limit = parseInt(req.query.limit) || 10; // Number of items per page
+             
+    const products = await Product.find().populate('category')
+           .skip((page - 1) * limit)
+           .limit(limit);
+      const totalProduct = await Category.countDocuments();
+
+    const categories = await Category.find()
+        
+
     // const user = await User.find({is_admin:1})
-    res.render('product-list', { products, categories,admin }); 
+    res.render('product-list', {
+       products,
+        categories,
+        admin ,
+        currentPage: page,
+        totalPages: Math.ceil(totalProduct / limit),
+        limit
+      }); 
   } catch (error) {
     console.error('Error fetching products:', error.message);
     res.status(500).send('Server Error');
@@ -32,34 +49,33 @@ const loadAddProduct = async (req, res) => {
       res.render('product-add', { categories,admin });
     } catch (error) {
       console.error('Error fetching categories:', error);
-    //   res.status(500).send('Internal Server Error');
     }
   };
 
 //Load Order list page
-const loadOrderList = (req,res)=>{
-    try{
+// const loadOrderList = (req,res)=>{
+//     try{
         
-        res.render('order-list')
+//         res.render('order-list')
 
-    }
-    catch(error){
-        console.log(error.message);
-    }
-}
+//     }
+//     catch(error){
+//         console.log(error.message);
+//     }
+// }
 
-//Load Order list page
-const loadOrderDetails = (req,res)=>{
-    try{
-      let admin = req.session.user
+// Load all orders
+const loadOrderDetails = async (req, res) => {
+  try {
+    const orders = await Order.find({});
+    const admin = req.session.user;
+    res.render('order-list', { admin, orders });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
-        res.render('order-details',{admin})
-    }
-    catch(error){
-        console.log(error.message);
-
-    }
-}
 
 
 
@@ -68,11 +84,7 @@ const addProduct = async (req, res) => {
   try {
     const { productTitle, productDescription, productPrice, stock, category, isListed,productAuthor,productOffer } = req.body;
 
-    // console.log(req.files)
     const images = req.files.map(file => file.filename);
-
-
-
     const newProduct = new Product({
       productName: productTitle,
       category: category,
@@ -159,20 +171,112 @@ const addProduct = async (req, res) => {
     }
   };
   
-
+  // const adminOrderList = async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const { status } = req.body;
   
+  //     const validStatusTransitions = {
+  //       'Pending': ['Processing', 'Cancelled'],
+  //       'Processing': ['Shipped', 'Cancelled'],
+  //       'Shipped': ['Delivered', 'Cancelled'],
+  //       'Delivered': ['Cancelled'],
+  //       'Cancelled': []
+  //     };
+  
+  //     const order = await Order.findById(id);
+  
+  //     if (order && validStatusTransitions[order.order_status].includes(status)) {
+  //       order.order_status = status;
+  //       await order.save();
+  //       res.status(200).json({ message: 'Order status updated successfully.' });
+  //     } else {
+  //       res.status(400).json({ message: 'Invalid status transition.' });
+  //     }
+  //   } catch (error) {
+  //     console.error('Error updating order status:', error);
+  //     res.status(500).json({ message: 'Server error.' });
+  //   }
+  // };
+  
+
+//   const getOrderList = async (req, res) => {
+//     try {
+//       const order = await Order.findById(req.params.id).populate('items.product'); // Adjust if necessary
+//       console.log(order);
+      
+//       if (!order) {
+//         return res.status(404).json({ message: 'Order not found' });
+//       }
+//       res.json(order);
+//     } catch (error) {
+//       console.error('Error fetching order details:', error);
+//       res.status(500).json({ message: 'Server error' });
+//     }
+  
+// };
+
+const getOrderDetails = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).populate('items.product');
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching order details', error });
+  }
+};
+  
+  const updateOrderStatus = async (req, res) => {
+    try {
+      const { status } = req.body;
+      const order = await Order.findById(req.params.id);
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      
+      order.order_status = status;
+      await order.save();
+      
+      res.json({ message: 'Order status updated successfully', order });
+    } catch (error) {
+      res.status(500).json({ message: 'Error updating order status', error });
+    }
+  };
+  
+ const cancelOrder = async (req, res) => {
+    try {
+      const order = await Order.findById(req.params.id);
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      
+      order.order_status = 'Cancelled';
+      await order.save();
+      
+      res.json({ message: 'Order cancelled successfully', order });
+    } catch (error) {
+      res.status(500).json({ message: 'Error cancelling order', error });
+    }
+  };
   
 
 
 module.exports = {
     loadProduct,
     loadAddProduct,
-    loadOrderList,
+    // loadOrderList,
     loadOrderDetails,
     addProduct,
     updateProduct,
     getProductList,
-   
+    getOrderDetails,
+    updateOrderStatus,
+    cancelOrder
+    
+    // adminOrderList,
+    // getOrderList
 
     
 }

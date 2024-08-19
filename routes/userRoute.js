@@ -5,10 +5,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 const nocache = require('nocache');
-//  require('./config/passport'); 
 
-
-// const app = express()
+const orderController = require('../controllers/orderController')
 const userController = require('../controllers/userController');
 const auth=require("../middleware/auth")
 
@@ -31,7 +29,6 @@ userRoute.use(session({
 
 
 
-userRoute.use(auth.authMiddleware)
 userRoute.use(nocache());
 
 userRoute.use(bodyParser.json());
@@ -44,7 +41,7 @@ userRoute.use(bodyParser.urlencoded({ extended: true }));
 userRoute.use(passport.initialize());
 userRoute.use(passport.session());
 
-// existing routes
+
 userRoute.get("/", userController.loadHome);
 userRoute.get("/login", userController.loadLogin);
 userRoute.get("/register", userController.loadRegister);
@@ -56,13 +53,10 @@ userRoute.get("/resend-otp", userController.resendOTP);
 userRoute.post('/login', userController.verifyLogin);
 
 
-// userRoute.get('/forget-password',userController.loadForgetPassword)
-// userRoute.post('/forget-password',userController.forgetPassword)
-// userRoute.get('/reset-password/:token', userController.loadResetPassword);
-// userRoute.post('/reset-password/:token',userController.resetPassword)
 
 
-userRoute.get('/profile',auth.isLogin,userController.loadProfile)
+
+userRoute.get('/account',auth.isLogin,userController.loadAccount)
 userRoute.get('/logout',auth.isLogin,userController.logout)
 userRoute.get('/products-list',userController.loadProductsList)
 userRoute.get('/product-details/:id',userController.loadProductDetails)
@@ -77,10 +71,36 @@ userRoute.delete('/remove-from-cart', userController.removeFromCart);
 
 userRoute.get('/wishlist',auth.isLogin,userController.loadWishlist)
 userRoute.post('/add-to-wishlist', auth.isLogin, userController.addToWishlist);
-// userRoute.delete('/wishlist/:productId', userController.removeFromWishlist);;
+userRoute.patch('/update-user', auth.isLogin, userController.updateUser);
 
 
 
+userRoute.post('/add-address', auth.isLogin, userController.addAddress);
+userRoute.get('/dashboard-user',auth.isLogin,userController.loadUserDashboard)
+userRoute.get('/account-details',auth.isLogin,userController.loadAccountDetails)
+userRoute.get('/user-order',auth.isLogin,userController.loadUserOrder)
+userRoute.get('/user-download',auth.isLogin,userController.loadUserDownload)
+
+
+userRoute.get('/user-address',auth.isLogin,userController.loadUserAddress)
+
+userRoute.get('/get-address/:id',auth.isLogin, userController.getAddress);
+userRoute.patch('/edit-address/:id',auth.isLogin, userController.updateAddress);
+userRoute.delete('/delete-address/:id',auth.isLogin, userController.deleteAddres);
+
+userRoute.get('/change-password',auth.isLogin,userController.loadChangePassword)
+
+userRoute.post('/change-password', userController.loadPasswordChange);
+
+
+
+userRoute.get('/checkout',auth.isLogin,orderController.loadCheckout)
+userRoute.post('/place-order',auth.isLogin,orderController.placeOrder)
+
+userRoute.get('/order-summary/:order_id',auth.isLogin,orderController.loadOrderSummary)
+
+userRoute.patch('/order/order-status',auth.isLogin,userController. updateOrderStatus);
+userRoute.get('/order/:id',auth.isLogin,userController.getUserOrder)
 
 // Google OAuth routes
 userRoute.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -88,7 +108,6 @@ userRoute.get('/auth/google', passport.authenticate('google', { scope: ['profile
 userRoute.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful authentication, redirect to home.
     res.redirect('/home');
   }
 );

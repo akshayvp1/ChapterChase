@@ -1,13 +1,82 @@
 <%- include('../layouts/header.ejs') %>
 
+
+<style>
+
+.card-body {
+    width:800px; /* Set the fixed width for the card body */
+    padding: 20px; /* Optional: Adjust padding if needed */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    margin: 0 auto; /* Center the card body horizontally */
+    background: #fff; /* Optional: Set a background color if needed */
+    border-radius: 8px; /* Optional: Add border radius for rounded corners */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: Add shadow for better appearance */
+    height: 300px;
+}
+
+
+
+
+    .address-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .card-dashboard {
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .card-title {
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+    
+    .actions {
+        margin-top: 10px;
+    }
+    
+    .actions a {
+        margin-right: 15px;
+        text-decoration: none;
+    }
+    
+    .edit {
+        color: #28a745;
+    }
+    
+    .delete {
+        color: #dc3545;
+    }
+
+</style>
+
     <div class="page-wrapper">
         <header class="header">
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
                         <div class="header-dropdown">
+                            <!-- <a href="#">Usd</a> -->
+                            <div class="header-menu">
+                                <ul>
+                                    <!-- <li><a href="#">Eur</a></li>
+                                    <li><a href="#">Usd</a></li> -->
+                                </ul>
+                            </div><!-- End .header-menu -->
+                        </div><!-- End .header-dropdown -->
+
+                        <div class="header-dropdown">
                             <a href="#">Eng</a>
-                            
+                            <div class="header-menu">
+                                <ul>
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </div><!-- End .header-menu -->
                         </div><!-- End .header-dropdown -->
                     </div><!-- End .header-left -->
 
@@ -16,11 +85,11 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(0)</span></a></li>
+                                    <!-- <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li> -->
+                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                     <li><a href="about.html">About Us</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
                                     <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
-                                    
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
@@ -37,48 +106,40 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/demos/demo-20/ChapterChase.png"  alt="Molla Logo" width="105" height="25">
+                            <img src="assets/images/demos/demo-20/ChapterChase.png" alt="Molla Logo" width="105" height="25">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" class="sf-with-ul">Home</a>                                  
+                                    <a href="index.html" class="sf-with-ul">Home</a>
+
+                                    
                                 </li>
                                 <li>
                                     <a href="category.html" class="sf-with-ul">Shop</a>
+
+                                    
                                 </li>
                                 <li>
                                     <a href="product.html" class="sf-with-ul">Product</a>
+
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
 
-                                    <ul>
-                                        <li>
-                                            <a href="about.html" class="sf-with-ul">About</a>
-
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html" class="sf-with-ul">Contact</a>
-
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
+                                    
                                 </li>
                                 <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>                                 
+                                    <a href="blog.html" class="sf-with-ul">Blog</a>
+
+                                    
+                                </li>
+                                <li>
+                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
+
+                                    
                                 </li>
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
@@ -94,35 +155,15 @@
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
-                        <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="compare-products">
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                                    </li>
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                                    </li>
-                                </ul>
-
-                                <div class="compare-actions">
-                                    <a href="#" class="action-link">Clear All</a>
-                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                                </div>
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .compare-dropdown -->
+                        
 
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
-                            </a>                         
+                            </a>
+
+                            
                         </div><!-- End .cart-dropdown -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -132,117 +173,177 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        			<h1 class="page-title">My Account<span>Shop</span></h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-            	<div class="cart">
+            	<div class="dashboard">
 	                <div class="container">
 	                	<div class="row">
-	                		<div class="col-lg-9">
-	                			<table class="table table-cart table-mobile">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
+	                		<aside class="col-md-4 col-lg-3">
+	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+								    <li class="nav-item">
+								        <a class="nav-link active"  href="/dashboard-user" role="tab" >Dashboard</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Downloads</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link"  href="/account-details" role="tab" >Account Details</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" href="#">Sign Out</a>
+								    </li>
+								</ul>
+	                		</aside><!-- End .col-lg-3 -->
+
+	                		<div class="col-md-8 col-lg-9">
+	                			<div class="tab-content">
+								    
+
+								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+								    	<p>No order has been made yet.</p>
+								    	<a href="category.html" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+
+								    <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+								    	<p>No downloads available yet.</p>
+								    	<a href="category.html" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+
                                     
-                                       
-                                    <tbody>
-                                        <% cartItems.forEach(item => { %>
-                                        <tr data-product-id="<%= item.product._id %>">
-                                            <td class="product-col">
-                                                <div class="product">
-                                                    <figure class="product-media">
-                                                        <a href="/product-details/<%= item.product._id %>">
-                                                            <img src="/assets/uploads/<%= item.product.images[0] %>" alt="Product image" class="product-image">
-                                                        </a>
-                                                    </figure>
-                                                    <h3 class="product-title">
-                                                        <a href="/product/<%= item.product._id %>"><%= item.product.productName %></a>
-                                                    </h3>
+                                    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                                        <div class="address-header">
+                                            <button id="addNewAddress" class="btn btn-primary" data-toggle="modal" data-target="#addressModal">Add New Address</button>
+                                        </div>
+                                
+                                        <div class="row" id="addressList">
+                                            <% if (addresses && addresses.length > 0) { %>
+                                                <% addresses.forEach(function(address) { %>
+                                                    <div class="col-lg-6">
+                                                        <div class="card card-dashboard">
+                                                            <div class="card-body">
+                                                                <h3 class="card-title"><%= address.addressName %></h3>
+                                                                <p>
+                                                                    <%= address.addressHouse %><br>
+                                                                    <%= address.addressStreet %><br>
+                                                                    <%= address.addressPost %>, <%= address.addressCity %><br>
+                                                                    <%= address.addressState %><br>
+                                                                    Pin: <%= address.addressPin %><br>
+                                                                    <%= address.addressEmail %><br>
+                                                                    Mobile: <%= address.addressMobile %><br>
+                                                                </p>
+                                                                <div class="actions">
+                                                                    <a href="#" class="edit">Edit <i class="icon-edit"></i></a>
+                                                                    <a href="#" class="delete">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }); %>
+                                            <% } else { %>
+                                            <% } %>
+                                        </div>
+                                
+                                      <!-- Address Modal -->
+<div class="modal" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Add Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addressForm" action="/add-address" method="POST">
+                    <input type="text" name="addressName" placeholder="Name" required>
+                    <input type="email" name="addressEmail" placeholder="Email" required>
+                    <input type="tel" name="addressMobile" placeholder="Mobile" required>
+                    <input type="text" name="addressHouse" placeholder="House Number" required>
+                    <input type="text" name="addressStreet" placeholder="Street" required>
+                    <input type="text" name="addressPost" placeholder="Post" required>
+                    <input type="text" name="addressCity" placeholder="City" required>
+                    <input type="text" name="addressDistrict" placeholder="District" required>
+                    <input type="text" name="addressState" placeholder="State" required>
+                    <input type="text" name="addressPin" placeholder="Pin" required>   
+                    <button type="submit" id="saveAddress">Save Address</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+                                
+                                
+                                    
+                                    
+                                        
+                               
+								    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                                        <form id="userProfileForm" data-user='<%= JSON.stringify(user) %>'>
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <label>First Name *</label>
+                                                    <input class="form-control" id="fullName" name="name" readonly>
                                                 </div>
-                                            </td>
-                                            <td class="price-col">₹<%= item.product.price.toFixed(2) %></td>
-                                            <td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="<%= item.quantity %>" min="1" max="10" step="1" required>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <label>Display Name *</label>
+                                                    <input type="text" class="form-control" id="displayName" name="displayName" readonly>
+                                                    <small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
                                                 </div>
-                                            </td>
-                                            <td class="total-col">₹<%= item.total.toFixed(2) %></td>
-                                            <td class="remove-col">
-                                                <button class="btn-remove" data-product-id="<%= item.product._id %>"><i class="icon-close"></i></button>
-
-                                            </td>
-                                        </tr>
-                                        <% }); %>
-                                    </tbody>
-                                    
-                                    
-                                    </table>
-
-	                			<div class="cart-bottom">
-			            			<div class="cart-discount">
-			            				<form action="#">
-			            					<div class="input-group">
-				        						<input type="text" class="form-control" required placeholder="coupon code">
-				        						<div class="input-group-append">
-													<button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-												</div><!-- .End .input-group-append -->
-			        						</div><!-- End .input-group -->
-			            				</form>
-			            			</div><!-- End .cart-discount -->
-
-			            			<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
-		            			</div><!-- End .cart-bottom -->
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <label>Email *</label>
+                                                    <input type="email" class="form-control" id="email" name="email" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <label>Mobile *</label>
+                                                    <input type="number" class="form-control" id="mobile" name="mobile" readonly>
+                                                    <small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
+                                                </div>
+                                            </div>
+                                            <button type="button" id="editButton" class="btn btn-outline-primary-2" style="margin-top: 30px;">
+                                                <span>Edit</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <button type="button" id="saveButton" class="btn btn-outline-primary-2" style="margin-top: 30px; margin-left: 10px; display: none;">
+                                                <span>Save</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <button type="button" id="changePasswordButton" class="btn btn-outline-primary-2" style="margin-top: 30px; margin-left: 10px;">
+                                                <span>CHANGE Password</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                        </form>
+                                        
+                                        
+								    </div><!-- .End .tab-pane -->
+								</div>
 	                		</div><!-- End .col-lg-9 -->
-	                		<aside class="col-lg-3">
-                                <div class="summary summary-cart">
-                                    <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
-                            
-                                    <table class="table table-summary">
-                                        <tbody id="cart-summary">
-                                            <!-- Subtotal row -->
-                                            <tr class="summary-subtotal">
-                                                <td>Subtotal:</td>
-                                                <td id="subtotal"><%= subtotal.toFixed(2) %></td>
-                                            </tr><!-- End .summary-subtotal -->
-                            
-                                            <!-- Shipping options and total -->
-                                            <tr class="summary-shipping">
-                                                <td>Shipping:</td>
-                                                <td id="shipping-cost">$0.00</td> <!-- Will be updated dynamically based on user selection -->
-                                            </tr>
-                                            <tr class="summary-total">
-                                                <td>Total:</td>
-                                                <td id="total"><%= total.toFixed(2) %></td>
-                                            </tr><!-- End .summary-total -->
-                                        </tbody>
-                                    </table><!-- End .table table-summary -->
-                            
-                                    <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
-                                </div><!-- End .summary -->
-                            
-                                <a href="/products-list" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
-                            </aside><!-- End .col-lg-3 -->
-                            
 	                	</div><!-- End .row -->
 	                </div><!-- End .container -->
-                </div><!-- End .cart -->
+                </div><!-- End .dashboard -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
 
@@ -616,135 +717,197 @@
     <script src="assets/js/jquery.waypoints.min.js"></script>
     <script src="assets/js/superfish.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/bootstrap-input-spinner.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+
+
+
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     
+
     <script>
-       
-       
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to update the database with the new quantity
-    async function updateCart(productId, quantity) {
+ document.addEventListener('DOMContentLoaded', function () {
+    const userProfileForm = document.getElementById('userProfileForm');
+    const userData = userProfileForm.dataset.user;
+    console.log('Form Data-User:', userData); // Check the raw data
+
+    try {
+        const userDetails = JSON.parse(userData);
+        console.log('Parsed User Details:', userDetails); // Check the parsed data
+
+        if (userDetails) {
+            // Populate form fields with user data
+            document.getElementById('fullName').value = userDetails.name || '';
+            document.getElementById('email').value = userDetails.email || '';
+            document.getElementById('mobile').value = userDetails.mobile || '';
+            document.getElementById('displayName').value = userDetails.name || '';
+        }
+    } catch (error) {
+        console.error('Error parsing user data:', error);
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const editButton = document.getElementById('editButton');
+    const saveButton = document.getElementById('saveButton');
+    const fullName = document.getElementById('fullName');
+    const displayName = document.getElementById('displayName');
+    const email = document.getElementById('email');
+    const mobile = document.getElementById('mobile');
+
+    editButton.addEventListener('click', function () {
+        // Enable editing
+        fullName.removeAttribute('readonly');
+        displayName.removeAttribute('readonly');
+        mobile.removeAttribute('readonly');
+        email.setAttribute('readonly', 'readonly'); // Keep email read-only
+
+        // Show save button and hide edit button
+        editButton.style.display = 'none';
+        saveButton.style.display = 'inline-block';
+    });
+
+    saveButton.addEventListener('click', async function () {
+        // Collect form data
+        const updatedUser = {
+            name: fullName.value,
+            displayName: displayName.value,
+            mobile: mobile.value
+        };
+
         try {
-            const response = await fetch('/update-cart', {
+            const response = await fetch('/update-user', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ productId, quantity })
+                body: JSON.stringify(updatedUser)
             });
 
-            const result = await response.json();
             if (response.ok) {
-                console.log(result.message);
+                const result = await response.json();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: result.message
+                });
+
+                // Reset button states and form fields
+                fullName.setAttribute('readonly', 'readonly');
+                displayName.setAttribute('readonly', 'readonly');
+                mobile.setAttribute('readonly', 'readonly');
+                email.setAttribute('readonly', 'readonly'); // Keep email read-only
+
+                editButton.style.display = 'inline-block';
+                saveButton.style.display = 'none';
             } else {
-                console.error(result.message);
+                const error = await response.json();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message
+                });
             }
         } catch (error) {
-            console.error('Error updating cart:', error);
-        }
-    }
-
-    // Function to update totals and cart
-    function updateTotals() {
-        let subtotal = 0;
-        const cartRows = document.querySelectorAll('tbody tr:not(.summary-subtotal):not(.summary-total)');
-
-        cartRows.forEach(row => {
-            const price = parseFloat(row.querySelector('.price-col').innerText.replace('₹', ''));
-            const quantityInput = row.querySelector('.quantity-col input');
-            const quantity = parseInt(quantityInput.value);
-            const total = price * quantity;
-
-            row.querySelector('.total-col').innerText = `₹${total.toFixed(2)}`;
-            subtotal += total;
-
-            // Update cart when quantity changes
-            quantityInput.addEventListener('change', () => {
-                updateCart(row.dataset.productId, quantityInput.value);
-                updateTotals(); // Ensure totals are updated when quantity changes
+            console.error('Error updating user:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while updating user details.'
             });
-        });
-
-        // Update subtotal
-        document.querySelector('#subtotal').innerText = `₹${subtotal.toFixed(2)}`;
-
-        // Update shipping cost based on selected option
-        let shippingCost = 0;
-        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-        if (selectedShipping) {
-            shippingCost = parseFloat(selectedShipping.nextElementSibling.innerText.replace('$', ''));
         }
-
-        // Update total
-        const total = subtotal + shippingCost;
-        document.querySelector('#total').innerText = `$${total.toFixed(2)}`;
-    }
-
-    // Event listeners for quantity changes
-    document.querySelectorAll('.quantity-col input').forEach(input => {
-        input.addEventListener('input', updateTotals);
     });
-
-    // Event listeners for shipping options
-    document.querySelectorAll('input[name="shipping"]').forEach(input => {
-        input.addEventListener('change', updateTotals);
-    });
-
-    // Initial update on page load
-    updateTotals();
 });
-
-
-
-
-
-
 
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to handle item removal
-    async function removeFromCart(productId) {
-        try {
-            const response = await fetch('/remove-from-cart', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId })
-            });
+    const addressForm = document.getElementById('addressForm');
+    
+    if (addressForm) {
+        addressForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Form submitted');
 
-            const result = await response.json();
-            if (response.ok) {
-                // Remove the item from the DOM
-                document.querySelector(`tr[data-product-id="${productId}"]`).remove();
-                console.log(result.message);
-                updateTotals(); // Optionally update totals after removal
-            } else {
-                console.error(result.message);
-            }
-        } catch (error) {
-            console.error('Error removing item from cart:', error);
-        }
+            var formData = new FormData(this);
+            var plainFormData = Object.fromEntries(formData.entries());
+            
+            console.log('Form data:', plainFormData);
+
+            fetch('/add-address', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(plainFormData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    console.log('Address saved successfully');
+                    alert('Address saved successfully!');
+                    
+                    // Add the new address to the list
+                    addAddressToList(data.address);
+                    
+                    // Close the modal if you're using one
+                    $('#addressModal').modal('hide');
+                    
+                    // Reset the form
+                    addressForm.reset();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while saving the address. Please try again.');
+            });
+        });
+    } else {
+        console.error('Address form not found');
     }
 
-    // Attach event listener to remove buttons
-    document.querySelectorAll('.btn-remove').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            const productId = this.dataset.productId;
-            removeFromCart(productId);
-        });
-    });
+    function addAddressToList(address) {
+        const addressList = document.getElementById('addressList');
+        const newAddressHtml = `
+            <div class="col-lg-6">
+                <div class="card card-dashboard">
+                    <div class="card-body">
+                        <h3 class="card-title">${address.addressName}</h3>
+                        <p>
+                            ${address.addressHouse}<br>
+                            ${address.addressStreet}<br>
+                            ${address.addressPost}, ${address.addressCity}<br>
+                            ${address.addressState}<br>
+                            Pin: ${address.addressPin}<br>
+                            ${address.addressEmail}<br>
+                            Mobile: ${address.addressMobile}<br>
+                        </p>
+                        <div class="actions">
+                            <a href="#" class="edit">Edit <i class="icon-edit"></i></a>
+                            <a href="#" class="delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        addressList.insertAdjacentHTML('beforeend', newAddressHtml);
+    }
 });
 
+    </script>
+    
 
-</script>
+    <%- include('../layouts/footer.ejs') %>
 
 
 
-
-  <%- include('../layouts/footer.ejs') %>

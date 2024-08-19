@@ -10,12 +10,21 @@ require('./config/passport');
 
 const app = express();
 const port = process.env.PORT;
-
+// MongoDB connection
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+        console.error('Error connecting to MongoDB:', error.message);
+    });
 
 // Static files
 app.use('/assets', express.static(path.join(__dirname, './assets')));
 app.use('/dashboard-assets', express.static(path.join(__dirname, 'dashboard-assets')));
-
+// Uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 const userRoute = require('./routes/userRoute');
@@ -29,19 +38,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// MongoDB connection
-const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI)
-    .then(() => {
-        console.log('Connected to MongoDB');
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error.message);
-    });
+
 
     
-// Uploads directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

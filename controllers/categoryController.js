@@ -29,10 +29,6 @@ const loadCategoryList = async (req, res) => {
 };
 
 
-
-
-
-
 //add category
 const AddCategory = async (req, res) => {
   const { title } = req.body;

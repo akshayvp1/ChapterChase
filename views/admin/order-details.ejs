@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css">
-    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/sweetalert2/sweetalert2.css" />
-    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/%40form-validation/form-validation.css" />
-    <link rel="stylesheet" href="/dashboard-assets/vendor/libs/select2/select2.css" />
 
     <!-- Page CSS -->
     
@@ -33,10 +30,13 @@
   <!-- End Google Tag Manager (noscript) -->
   
   <!-- Layout wrapper -->
-  <div class="layout-wrapper layout-content-navbar  ">
+<div class="layout-wrapper layout-content-navbar  ">
   <div class="layout-container">
 <!-- Menu -->
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+  
   <div class="app-brand demo ">
     <a href="index.html" class="app-brand-link">
       <span class="app-brand-logo demo me-1">
@@ -62,7 +62,6 @@
       <i class="menu-toggle-icon d-xl-block align-middle"></i>
     </a>
   </div>
-
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-1">
     <!-- e-commerce-app menu start -->
@@ -104,12 +103,12 @@
             <div data-i18n="Order">Order</div>
           </a>
           <ul class="menu-sub">
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="/admin/order-list" class="menu-link">
                 <div data-i18n="Order List">Order List</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="/admin/order-details" class="menu-link">
                 <div data-i18n="Order Details">Order Details</div>
               </a>
@@ -614,475 +613,118 @@
         <i class="ri-close-fill search-toggler cursor-pointer"></i>
       </div> 
      </nav>
-<!-- / Navbar -->
-<!-- Content wrapper -->
- <div class="content-wrapper">
-  <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y">            
-<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 gap-3">
-  <div class="d-flex flex-column justify-content-center">
-    <div class="d-flex align-items-center mb-1">
-      <h5 class="mb-0">Order #32543</h5>
-      <span class="badge bg-label-success me-2 ms-2 rounded-pill">Paid</span>
-      <span class="badge bg-label-info rounded-pill">Ready to Pickup</span>
-    </div>
-    <p class="mt-1 mb-3">Aug 17, <span id="orderYear"></span>, 5:48 (ET)</p>
-  </div>
-  <div class="d-flex align-content-center flex-wrap gap-2">
-    <button class="btn btn-outline-danger delete-order">Delete Order</button>
-  </div>
-</div>
 
-<!-- Order Details Table -->
+     <!-- / Navbar -->
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
 
-<div class="row">
-  <div class="col-12 col-lg-8">
-    <div class="card mb-6">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Order details</h5>
-        <h6 class="m-0"><a href=" javascript:void(0)">Edit</a></h6>
-      </div>
-      <div class="card-datatable table-responsive">
-        <table class="datatables-order-details table">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th class="w-50">products</th>
-              <th>price</th>
-              <th>qty</th>
-              <th>total</th>
-            </tr>
-          </thead>
-        </table>
-        <div class="d-flex justify-content-end align-items-center m-4 p-1 mb-0 pb-0">
-          <div class="order-calculations">
-            <div class="d-flex justify-content-start gap-4 mb-2">
-              <span class="w-px-100 text-heading">Subtotal:</span>
-              <h6 class="mb-0">$5000.25</h6>
+        <!-- Content -->
+        
+      <div class="container-xxl flex-grow-1 container-p-y">
+            
+            
+<!-- Order List Widget -->
+
+<div class="card mb-6">
+  <div class="card-widget-separator-wrapper">
+    <div class="card-body card-widget-separator">
+      <div class="row gy-4 gy-sm-1">
+        <div class="col-sm-6 col-lg-3">
+          <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
+            <div>
+              <h4 class="mb-0">56</h4>
+              <p class="mb-0">Pending Payment</p>
             </div>
-            <div class="d-flex justify-content-start gap-4 mb-2">
-              <span class="w-px-100 text-heading">Discount:</span>
-              <h6 class="mb-0">$00.00</h6>
+            <div class="avatar me-sm-6">
+              <span class="avatar-initial rounded bg-label-secondary text-heading">
+                <i class="ri-calendar-2-line ri-24px"></i>
+              </span>
             </div>
-            <div class="d-flex justify-content-start gap-4 mb-2">
-              <span class="w-px-100 text-heading">Tax:</span>
-              <h6 class="mb-0">$100.00</h6>
+          </div>
+          <hr class="d-none d-sm-block d-lg-none me-6">
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-4 pb-sm-0">
+            <div>
+              <h4 class="mb-0">12,689</h4>
+              <p class="mb-0">Completed</p>
             </div>
-            <div class="d-flex justify-content-start gap-4">
-              <h6 class="w-px-100 mb-0">Total:</h6>
-              <h6 class="mb-0">$5100.25</h6>
+            <div class="avatar me-lg-6">
+              <span class="avatar-initial rounded bg-label-secondary text-heading">
+                <i class="ri-check-double-line ri-24px"></i>
+              </span>
+            </div>
+          </div>
+          <hr class="d-none d-sm-block d-lg-none">
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="d-flex justify-content-between align-items-start border-end pb-4 pb-sm-0 card-widget-3">
+            <div>
+              <h4 class="mb-0">124</h4>
+              <p class="mb-0">Refunded</p>
+            </div>
+            <div class="avatar me-sm-6">
+              <span class="avatar-initial rounded bg-label-secondary text-heading">
+                <i class="ri-wallet-3-line ri-24px"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h4 class="mb-0">32</h4>
+              <p class="mb-0">Failed</p>
+            </div>
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-secondary text-heading">
+                <i class="ri-error-warning-line ri-24px"></i>
+              </span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card mb-6">
-      <div class="card-header">
-        <h5 class="card-title m-0">Shipping activity</h5>
-      </div>
-      <div class="card-body mt-3">
-        <ul class="timeline pb-0 mb-0">
-          <li class="timeline-item timeline-item-transparent border-primary">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Order was placed (Order ID: #32543)</h6>
-                <small class="text-muted">Tuesday 11:29 AM</small>
-              </div>
-              <p class="mt-1 mb-3">Your order has been placed successfully</p>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent border-primary">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Pick-up</h6>
-                <small class="text-muted">Wednesday 11:29 AM</small>
-              </div>
-              <p class="mt-1 mb-3">Pick-up scheduled with courier</p>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent border-primary">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Dispatched</h6>
-                <small class="text-muted">Thursday 11:29 AM</small>
-              </div>
-              <p class="mt-1 mb-3">Item has been picked up by courier</p>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent border-primary">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Package arrived</h6>
-                <small class="text-muted">Saturday 15:20 AM</small>
-              </div>
-              <p class="mt-1 mb-3">Package arrived at an Amazon facility, NY</p>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Dispatched for delivery</h6>
-                <small class="text-muted">Today 14:12 PM</small>
-              </div>
-              <p class="mt-1 mb-3">Package has left an Amazon facility, NY</p>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent border-transparent pb-0">
-            <span class="timeline-point timeline-point-secondary"></span>
-            <div class="timeline-event pb-0">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Delivery</h6>
-              </div>
-              <p class="mt-1 mb-3">Package will be delivered by tomorrow</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-lg-4">
-    <div class="card mb-6">
-      <div class="card-body">
-        <h5 class="card-title mb-6">Customer details</h5>
-        <div class="d-flex justify-content-start align-items-center mb-6">
-          <div class="avatar me-3">
-            <img src="/dashboard-assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-          </div>
-          <div class="d-flex flex-column">
-            <a href="app-user-view-account.html">
-              <h6 class="mb-0">Shamus Tuttle</h6>
-            </a>
-            <span>Customer ID: #58909</span></div>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-6">
-          <span class="avatar rounded-circle bg-label-success me-3 d-flex align-items-center justify-content-center"><i class='ri-shopping-cart-line ri-24px'></i></span>
-          <h6 class="text-nowrap mb-0">12 Orders</h6>
-        </div>
-        <div class="d-flex justify-content-between">
-          <h6 class="mb-1">Contact info</h6>
-          <h6 class="mb-1"><a href=" javascript:;" data-bs-toggle="modal" data-bs-target="#editUser">Edit</a></h6>
-        </div>
-        <p class="mb-1">Email: Shamus889@yahoo.com</p>
-        <p class="mb-0">Mobile: +1 (609) 972-22-22</p>
-      </div>
-    </div>
-
-    <div class="card mb-6">
-
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title mb-1">Shipping address</h5>
-        <h6 class="m-0"><a href=" javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addNewAddress">Edit</a></h6>
-      </div>
-      <div class="card-body">
-        <p class="mb-0">45 Roker Terrace <br>Latheronwheel <br>KW5 8NW,London <br>UK</p>
-      </div>
-
-    </div>
-    <div class="card mb-6">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title mb-1">Billing address</h5>
-        <h6 class="m-0"><a href=" javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addNewAddress">Edit</a></h6>
-      </div>
-      <div class="card-body">
-        <p class="mb-6">45 Roker Terrace <br>Latheronwheel <br>KW5 8NW,London <br>UK</p>
-        <h5 class="mb-0 pb-1">Mastercard</h5>
-        <p class="mb-0">Card Number: ******4291</p>
-      </div>
-
     </div>
   </div>
 </div>
 
-<!-- Edit User Modal -->
-<div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="text-center mb-6">
-          <h4 class="mb-2">Edit User Information</h4>
-          <p class="mb-6">Updating user details will receive a privacy audit.</p>
-        </div>
-        <form id="editUserForm" class="row g-5" onsubmit="return false">
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" value="Oliver" placeholder="Oliver" />
-              <label for="modalEditUserFirstName">First Name</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control" value="Queen" placeholder="Queen" />
-              <label for="modalEditUserLastName">Last Name</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalEditUserName" name="modalEditUserName" class="form-control" value="oliver.queen" placeholder="oliver.queen" />
-              <label for="modalEditUserName">Username</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalEditUserEmail" name="modalEditUserEmail" class="form-control" value="oliverqueen@gmail.com" placeholder="oliverqueen@gmail.com" />
-              <label for="modalEditUserEmail">Email</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <select id="modalEditUserStatus" name="modalEditUserStatus" class="form-select" aria-label="Default select example">
-                <option value="1" selected>Active</option>
-                <option value="2">Inactive</option>
-                <option value="3">Suspended</option>
-              </select>
-              <label for="modalEditUserStatus">Status</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id" placeholder="123 456 7890" />
-              <label for="modalEditTaxID">Tax ID</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="input-group input-group-merge">
-              <span class="input-group-text">US (+1)</span>
-              <div class="form-floating form-floating-outline">
-                <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" value="+1 609 933 4422" placeholder="+1 609 933 4422" />
-                <label for="modalEditUserPhone">Phone Number</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <select id="modalEditUserLanguage" name="modalEditUserLanguage" class="select2 form-select" multiple>
-                <option value="">Select</option>
-                <option value="english" selected>English</option>
-                <option value="spanish">Spanish</option>
-                <option value="french">French</option>
-                <option value="german">German</option>
-                <option value="dutch">Dutch</option>
-                <option value="hebrew">Hebrew</option>
-                <option value="sanskrit">Sanskrit</option>
-                <option value="hindi">Hindi</option>
-              </select>
-              <label for="modalEditUserLanguage">Language</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <select id="modalEditUserCountry" name="modalEditUserCountry" class="select2 form-select" data-allow-clear="true">
-                <option value="">Select</option>
-                <option value="Australia">Australia</option>
-                <option value="Bangladesh">Bangladesh</option>
-                <option value="Belarus">Belarus</option>
-                <option value="Brazil">Brazil</option>
-                <option value="Canada">Canada</option>
-                <option value="China">China</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="India" selected>India</option>
-                <option value="Indonesia">Indonesia</option>
-                <option value="Israel">Israel</option>
-                <option value="Italy">Italy</option>
-                <option value="Japan">Japan</option>
-                <option value="Korea">Korea, Republic of</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Philippines">Philippines</option>
-                <option value="Russia">Russian Federation</option>
-                <option value="South Africa">South Africa</option>
-                <option value="Thailand">Thailand</option>
-                <option value="Turkey">Turkey</option>
-                <option value="Ukraine">Ukraine</option>
-                <option value="United Arab Emirates">United Arab Emirates</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="United States">United States</option>
-              </select>
-              <label for="modalEditUserCountry">Country</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-check form-switch">
-              <input type="checkbox" class="form-check-input" id="editBillingAddress" />
-              <label for="editBillingAddress" class="text-heading">Use as a billing address?</label>
-            </div>
-          </div>
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary me-3">Submit</button>
-            <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
+<!-- Order List Table -->
+<div class="card">
+  <div class="card-datatable table-responsive">
+    <table class="datatables-order table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>order</th>
+          <th>date</th>
+          <th>customers</th>
+          <th>payment</th>
+          <th>status</th>
+          <th>method</th>
+          <th>actions</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
-<!--/ Edit User Modal -->
-
-<!-- Add New Address Modal -->
-<div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="text-center mb-6">
-          <h4 class="address-title mb-2">Add New Address</h4>
-          <p class="address-subtitle">Add new address for express delivery</p>
-        </div>
-        <form id="addNewAddressForm" class="row g-5" onsubmit="return false">
-
-          <div class="col-12">
-            <div class="row g-5">
-              <div class="col-md mb-md-0">
-                <div class="form-check custom-option custom-option-basic">
-                  <label class="form-check-label custom-option-content" for="customRadioHome">
-                    <input name="customRadioTemp" class="form-check-input" type="radio" value="" id="customRadioHome" checked />
-                    <span class="custom-option-header">
-                      <span class="h6 mb-0 d-flex align-items-center"><i class="ri-home-smile-2-line ri-20px me-1"></i>Home</span>
-                    </span>
-                    <span class="custom-option-body">
-                      <small>Delivery time (9am – 9pm)</small>
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <div class="col-md mb-md-0">
-                <div class="form-check custom-option custom-option-basic">
-                  <label class="form-check-label custom-option-content" for="customRadioOffice">
-                    <input name="customRadioTemp" class="form-check-input" type="radio" value="" id="customRadioOffice" />
-                    <span class="custom-option-header">
-                      <span class="h6 mb-0 d-flex align-items-center"><i class="ri-building-line ri-20px me-1"></i>Office</span>
-                    </span>
-                    <span class="custom-option-body">
-                      <small>Delivery time (9am – 5pm) </small>
-                    </span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressFirstName" name="modalAddressFirstName" class="form-control" placeholder="John" />
-              <label for="modalAddressFirstName">First Name</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressLastName" name="modalAddressLastName" class="form-control" placeholder="Doe" />
-              <label for="modalAddressLastName">Last Name</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-floating form-floating-outline">
-              <select id="modalAddressCountry" name="modalAddressCountry" class="select2 form-select" data-allow-clear="true">
-                <option value="">Select</option>
-                <option value="Australia">Australia</option>
-                <option value="Bangladesh">Bangladesh</option>
-                <option value="Belarus">Belarus</option>
-                <option value="Brazil">Brazil</option>
-                <option value="Canada">Canada</option>
-                <option value="China">China</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="India">India</option>
-                <option value="Indonesia">Indonesia</option>
-                <option value="Israel">Israel</option>
-                <option value="Italy">Italy</option>
-                <option value="Japan">Japan</option>
-                <option value="Korea">Korea, Republic of</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Philippines">Philippines</option>
-                <option value="Russia">Russian Federation</option>
-                <option value="South Africa">South Africa</option>
-                <option value="Thailand">Thailand</option>
-                <option value="Turkey">Turkey</option>
-                <option value="Ukraine">Ukraine</option>
-                <option value="United Arab Emirates">United Arab Emirates</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="United States">United States</option>
-              </select>
-              <label for="modalAddressCountry">Country</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressAddress1" name="modalAddressAddress1" class="form-control" placeholder="12, Business Park" />
-              <label for="modalAddressAddress1">Address Line 1</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressAddress2" name="modalAddressAddress2" class="form-control" placeholder="Mall Road" />
-              <label for="modalAddressAddress2">Address Line 2</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressLandmark" name="modalAddressLandmark" class="form-control" placeholder="Nr. Hard Rock Cafe" />
-              <label for="modalAddressLandmark">Landmark</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressCity" name="modalAddressCity" class="form-control" placeholder="Los Angeles" />
-              <label for="modalAddressCity">City</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressState" name="modalAddressState" class="form-control" placeholder="California" />
-              <label for="modalAddressLandmark">State</label>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddressZipCode" name="modalAddressZipCode" class="form-control" placeholder="99950" />
-              <label for="modalAddressZipCode">Zip Code</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-check form-switch">
-              <input type="checkbox" class="form-check-input" id="billingAddress" />
-              <label for="billingAddress">Use as a billing address?</label>
-            </div>
-          </div>
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary me-3">Submit</button>
-            <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 </div>
-<!--/ Add New Address Modal -->
-
-
-
-          </div>
-          <!-- / Content -->
+<!-- / Content -->
 
           
-          
-
-<!-- Footer -->
-<footer class="content-footer footer bg-footer-theme">
-  <div class="container-xxl">
-  </div>
-</footer>
-<!-- / Footer -->
-  <div class="content-backdrop fade"></div>
-    </div>
-       <!-- Content wrapper -->
+  <!-- Footer -->
+   <footer class="content-footer footer bg-footer-theme">
+      <div class="container-xxl">
         </div>
-          <!-- / Layout page -->
-         </div>
+          </footer>
+            <!-- / Footer -->
+            <div class="content-backdrop fade"></div>
+               </div>
+             <!-- Content wrapper -->
+              </div>
+              <!-- / Layout page -->
+               </div>
+
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
     
@@ -1092,15 +734,6 @@
     
   </div>
   <!-- / Layout wrapper -->
-
-  
-  <!-- <div class="buy-now">
-    <a href="https://themeselection.com/item/materio-bootstrap-html-admin-template/" target="_blank" class="btn btn-danger btn-buy-now">Buy Now</a>
-  </div> -->
-  
-
-  
-
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
   <script src="/dashboard-assets/vendor/libs/jquery/jquery.js"></script>
@@ -1117,27 +750,18 @@
 
   <!-- Vendors JS -->
   <script src="/dashboard-assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-<script src="/dashboard-assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
-<script src="/dashboard-assets/vendor/libs/cleavejs/cleave.js"></script>
-<script src="/dashboard-assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-<script src="/dashboard-assets/vendor/libs/%40form-validation/popular.js"></script>
-<script src="/dashboard-assets/vendor/libs/%40form-validation/bootstrap5.js"></script>
-<script src="/dashboard-assets/vendor/libs/%40form-validation/auto-focus.js"></script>
-<script src="/dashboard-assets/vendor/libs/select2/select2.js"></script>
 
   <!-- Main JS -->
   <script src="/dashboard-assets/js/main.js"></script>
   
 
   <!-- Page JS -->
-  <script src="/dashboard-assets/js/app-ecommerce-order-details.js"></script>
-<script src="/dashboard-assets/js/modal-add-new-address.js"></script>
-<script src="/dashboard-assets/js/modal-edit-user.js"></script>
+  <script src="/dashboard-assets/js/app-ecommerce-order-list.js"></script>
   
 </body>
 
 
-<!-- Mirrored from demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-order-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 05:50:34 GMT -->
+<!-- Mirrored from demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-order-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 05:50:33 GMT -->
 </html>
 
 <!-- beautify ignore:end -->

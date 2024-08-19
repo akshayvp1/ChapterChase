@@ -1,13 +1,22 @@
 <%- include('../layouts/header.ejs') %>
 
+
     <div class="page-wrapper">
         <header class="header">
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
+                        
+
                         <div class="header-dropdown">
                             <a href="#">Eng</a>
-                            
+                            <div class="header-menu">
+                                <ul>
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </div><!-- End .header-menu -->
                         </div><!-- End .header-dropdown -->
                     </div><!-- End .header-left -->
 
@@ -16,11 +25,10 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(0)</span></a></li>
+                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                     <li><a href="about.html">About Us</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
                                     <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
-                                    
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
@@ -37,48 +45,40 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/demos/demo-20/ChapterChase.png"  alt="Molla Logo" width="105" height="25">
+                            <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" class="sf-with-ul">Home</a>                                  
+                                    <a href="/home" class="sf-with-ul">Home</a>
+
+                                   
                                 </li>
                                 <li>
                                     <a href="category.html" class="sf-with-ul">Shop</a>
+
+                                    
                                 </li>
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
+                                    <a href="/products-list" class="sf-with-ul">Product</a>
+
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
 
-                                    <ul>
-                                        <li>
-                                            <a href="about.html" class="sf-with-ul">About</a>
-
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html" class="sf-with-ul">Contact</a>
-
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
+                                    
                                 </li>
                                 <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>                                 
+                                    <a href="blog.html" class="sf-with-ul">Blog</a>
+
+                                    
+                                </li>
+                                <li>
+                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
+
+                                    
                                 </li>
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
@@ -94,35 +94,15 @@
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
-                        <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="compare-products">
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                                    </li>
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                                    </li>
-                                </ul>
-
-                                <div class="compare-actions">
-                                    <a href="#" class="action-link">Clear All</a>
-                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                                </div>
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .compare-dropdown -->
+                        
 
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
-                            </a>                         
+                            </a>
+
+                            
                         </div><!-- End .cart-dropdown -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -132,7 +112,7 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        			<h1 class="page-title">Checkout<span>Shop</span></h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -140,109 +120,191 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-            	<div class="cart">
+            	<div class="checkout">
 	                <div class="container">
-	                	<div class="row">
-	                		<div class="col-lg-9">
-	                			<table class="table table-cart table-mobile">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    
-                                       
-                                    <tbody>
-                                        <% cartItems.forEach(item => { %>
-                                        <tr data-product-id="<%= item.product._id %>">
-                                            <td class="product-col">
-                                                <div class="product">
-                                                    <figure class="product-media">
-                                                        <a href="/product-details/<%= item.product._id %>">
-                                                            <img src="/assets/uploads/<%= item.product.images[0] %>" alt="Product image" class="product-image">
+            			<div class="checkout-discount">
+            				<form action="#">
+        						<input type="text" class="form-control" required id="checkout-discount-input">
+            					<label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
+            				</form>
+            			</div><!-- End .checkout-discount -->
+                        <form id="checkoutForm" method="POST" action="/place-order">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="address-header">
+                                        <a href="/user-address" id="addNewAddress" class="btn btn-primary">Add New Address</a>
+                                    </div>
+                        
+                                    <div class="row" id="addressList">
+                                        <% if (addresses && addresses.length > 0) { %>
+                                            <% addresses.forEach(function(address, index) { %>
+                                                <div class="col-lg-6">
+                                                    <div class="card card-dashboard">
+                                                        <div class="card-body">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="selectedAddress" id="address<%= index %>" value="<%= address._id %>" <%= index === 0 ? 'checked' : '' %>>
+                                                                <label class="form-check-label" for="address<%= index %>">
+                                                                    <h3 class="card-title"><%= address.addressName %></h3>
+                                                                    <p>
+                                                                        <%= address.addressHouse %><br>
+                                                                        <%= address.addressStreet %><br>
+                                                                        <%= address.addressPost %>, <%= address.addressCity %><br>
+                                                                        <%= address.addressState %><br>
+                                                                        Pin: <%= address.addressPin %><br>
+                                                                        <%= address.addressEmail %><br>
+                                                                        Mobile: <%= address.addressMobile %><br>
+                                                                    </p>
+                                                                </label>
+                                                            </div>
+                                                            <div class="actions">
+                                                                <a href="#" class="edit" data-id="<%= address._id %>">Edit <i class="icon-edit"></i></a>
+                                                                <a href="#" class="delete" data-id="<%= address._id %>">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <p>No addresses found. Please add an address.</p>
+                                        <% } %>
+                                    </div>
+                        
+                                </div><!-- End .col-lg-9 -->
+                        
+                                <aside class="col-lg-3">
+                                    <div class="summary">
+                                        <h3 class="summary-title">Your Order</h3>
+                        
+                                        <table class="table table-summary">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                        
+                                            <tbody>
+                                                <% cartItems.forEach(item => { %>
+                                                    <tr data-product-id="<%= item.product._id %>" data-product-qty="<%= item.quantity %>">
+                                                        <td><a href="/product-details/<%= item.product._id %>"><%= item.product.productName %></a></td>
+                                                        <td >$<%= (item.product.price * item.quantity).toFixed(2) %></td>
+                                                        <!-- Add quantity column if needed -->
+                                                        
+                                                    </tr>
+                                                <% }); %>
+                                                <!-- Example of subtotal and total rows -->
+                                                <tr class="summary-subtotal">
+                                                    <td>Subtotal:</td>
+                                                    <td>$<%= cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0).toFixed(2) %></td>
+                                                </tr>
+                                                <tr class="summary-total">
+                                                    <td>Total:</td>
+                                                    <td>$<%= cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0).toFixed(2) %></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                        
+                                        <div class="accordion-summary" id="accordion-payment">
+                                            <!-- Direct Bank Transfer -->
+                                            <div class="card">
+                                                <div class="card-header" id="heading-1">
+                                                    <h2 class="card-title">
+                                                        <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                                                            Direct bank transfer
                                                         </a>
-                                                    </figure>
-                                                    <h3 class="product-title">
-                                                        <a href="/product/<%= item.product._id %>"><%= item.product.productName %></a>
-                                                    </h3>
+                                                    </h2>
                                                 </div>
-                                            </td>
-                                            <td class="price-col">₹<%= item.product.price.toFixed(2) %></td>
-                                            <td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="<%= item.quantity %>" min="1" max="10" step="1" required>
+                                                <div id="collapse-1" class="collapse" aria-labelledby="heading-1" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td class="total-col">₹<%= item.total.toFixed(2) %></td>
-                                            <td class="remove-col">
-                                                <button class="btn-remove" data-product-id="<%= item.product._id %>"><i class="icon-close"></i></button>
-
-                                            </td>
-                                        </tr>
-                                        <% }); %>
-                                    </tbody>
-                                    
-                                    
-                                    </table>
-
-	                			<div class="cart-bottom">
-			            			<div class="cart-discount">
-			            				<form action="#">
-			            					<div class="input-group">
-				        						<input type="text" class="form-control" required placeholder="coupon code">
-				        						<div class="input-group-append">
-													<button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-												</div><!-- .End .input-group-append -->
-			        						</div><!-- End .input-group -->
-			            				</form>
-			            			</div><!-- End .cart-discount -->
-
-			            			<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
-		            			</div><!-- End .cart-bottom -->
-	                		</div><!-- End .col-lg-9 -->
-	                		<aside class="col-lg-3">
-                                <div class="summary summary-cart">
-                                    <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
-                            
-                                    <table class="table table-summary">
-                                        <tbody id="cart-summary">
-                                            <!-- Subtotal row -->
-                                            <tr class="summary-subtotal">
-                                                <td>Subtotal:</td>
-                                                <td id="subtotal"><%= subtotal.toFixed(2) %></td>
-                                            </tr><!-- End .summary-subtotal -->
-                            
-                                            <!-- Shipping options and total -->
-                                            <tr class="summary-shipping">
-                                                <td>Shipping:</td>
-                                                <td id="shipping-cost">$0.00</td> <!-- Will be updated dynamically based on user selection -->
-                                            </tr>
-                                            <tr class="summary-total">
-                                                <td>Total:</td>
-                                                <td id="total"><%= total.toFixed(2) %></td>
-                                            </tr><!-- End .summary-total -->
-                                        </tbody>
-                                    </table><!-- End .table table-summary -->
-                            
-                                    <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
-                                </div><!-- End .summary -->
-                            
-                                <a href="/products-list" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
-                            </aside><!-- End .col-lg-3 -->
-                            
-	                	</div><!-- End .row -->
+                                            </div>
+                        
+                                            <!-- Check Payments -->
+                                            <div class="card">
+                                                <div class="card-header" id="heading-2">
+                                                    <h2 class="card-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                                            Check payments
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
+                                                    </div>
+                                                </div>
+                                            </div>
+                        
+                                            <!-- Cash on Delivery -->
+                                            <div class="card">
+                                                <div class="card-header" id="heading-3">
+                                                    <h2 class="card-title">
+                                                        <a role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
+                                                            Cash on delivery
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapse-3" class="collapse show" aria-labelledby="heading-3" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Pay with cash upon delivery of your order. No need for online payment.
+                                                    </div>
+                                                </div>
+                                            </div>
+                        
+                                            <!-- PayPal -->
+                                            <div class="card">
+                                                <div class="card-header" id="heading-4">
+                                                    <h2 class="card-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
+                                                            PayPal <small class="float-right paypal-link">What is PayPal?</small>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
+                                                    </div>
+                                                </div>
+                                            </div>
+                        
+                                            <!-- Credit Card (Stripe) -->
+                                            <div class="card">
+                                                <div class="card-header" id="heading-5">
+                                                    <h2 class="card-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
+                                                            Credit Card (Stripe)
+                                                            <img src="assets/images/payments-summary.png" alt="payments cards">
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Donec nec justo eget felis facilisis fermentum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                        <!-- Place Order Button -->
+                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                            <span class="btn-text">Place Order</span>
+                                            <span class="btn-hover-text">Proceed to Checkout</span>
+                                        </button>
+                                    </div>
+                                </aside>
+                            </div><!-- End .row -->
+                        </form>
+                        
 	                </div><!-- End .container -->
-                </div><!-- End .cart -->
+                </div><!-- End .checkout -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
 
@@ -252,7 +314,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="assets/images/demos/demo-20/ChapterChase.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="social-icons">
@@ -616,135 +678,146 @@
     <script src="assets/js/jquery.waypoints.min.js"></script>
     <script src="assets/js/superfish.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/bootstrap-input-spinner.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
+
     <script>
-       
-       
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to update the database with the new quantity
-    async function updateCart(productId, quantity) {
-        try {
-            const response = await fetch('/update-cart', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId, quantity })
-            });
+// document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); // Prevent the default form submission
 
-            const result = await response.json();
-            if (response.ok) {
-                console.log(result.message);
-            } else {
-                console.error(result.message);
-            }
-        } catch (error) {
-            console.error('Error updating cart:', error);
+//     // Get the selected address
+//     const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked')?.value;
+//     console.log('Selected Address:', selectedAddress);
+
+//     // Get the cart items
+//     const cartItems = Array.from(document.querySelectorAll('tr[data-product-id]')).map(row => {
+//         return {
+//             productId: row.getAttribute('data-product-id'),
+//             quantity: row.querySelector('.quantity-col input') ? row.querySelector('.quantity-col input').value : 1
+//         };
+//     });
+//     console.log('Cart Items:', cartItems);
+
+//     // Calculate total price
+//     let totalPrice = 0;
+//     document.querySelectorAll('.summary-total td').forEach(td => {
+//         const priceText = td.innerText.replace('$', '');
+//         const price = parseFloat(priceText);
+//         if (!isNaN(price)) totalPrice += price;
+//     });
+//     console.log('Total Price:', totalPrice);
+
+//     // Prepare the data to send
+//     const orderData = {
+//         selectedAddress,
+//         cartItems,
+//         totalPrice: totalPrice || 0, // Ensure totalPrice is not null
+//         paymentMethod: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Cash on Delivery'
+//     };
+//     console.log('Order Data:', orderData);
+
+//     // Send the data to the server
+//     fetch('/place-order', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(orderData)
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             alert('Order placed successfully!');
+//             // Redirect to order confirmation page or update the UI as needed
+//         } else {
+//             alert('Failed to place the order. Reason: ' + (data.message || 'Unknown error'));
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('An error occurred while placing the order.');
+//     });
+// });
+document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the selected address
+    const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked')?.value;
+    console.log('Selected Address:', selectedAddress);
+
+    // Get the cart items
+    const cartItems = Array.from(document.querySelectorAll('tr[data-product-id]')).map(row => {
+        return {
+            productId: row.getAttribute('data-product-id'),
+            quantity: row.getAttribute('data-product-qty')
+        };
+    });
+    console.log('Cart Items:', cartItems);
+
+    // Calculate total price
+    let totalPrice = 0;
+    document.querySelectorAll('.summary-total td').forEach(td => {
+        const priceText = td.innerText.replace('$', '');
+        const price = parseFloat(priceText);
+        if (!isNaN(price)) totalPrice += price;
+    });
+    console.log('Total Price:', totalPrice);
+
+    // Prepare the data to send
+    const orderData = {
+        selectedAddress,
+        cartItems,
+        totalPrice: totalPrice || 0, // Ensure totalPrice is not null
+        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Cash on Delivery'
+    };
+    console.log('Order Data:', orderData);
+
+    // Send the data to the server
+    fetch('/place-order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Order placed successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Optionally redirect or update the UI here
+                window.location.href = `/order-summary/${data.orderId}`; // Redirect to a confirmation page
+            });
+        } else {
+            Swal.fire({
+                title: 'Failed!',
+                text: 'Failed to place the order. Reason: ' + (data.message || 'Unknown error'),
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
-    }
-
-    // Function to update totals and cart
-    function updateTotals() {
-        let subtotal = 0;
-        const cartRows = document.querySelectorAll('tbody tr:not(.summary-subtotal):not(.summary-total)');
-
-        cartRows.forEach(row => {
-            const price = parseFloat(row.querySelector('.price-col').innerText.replace('₹', ''));
-            const quantityInput = row.querySelector('.quantity-col input');
-            const quantity = parseInt(quantityInput.value);
-            const total = price * quantity;
-
-            row.querySelector('.total-col').innerText = `₹${total.toFixed(2)}`;
-            subtotal += total;
-
-            // Update cart when quantity changes
-            quantityInput.addEventListener('change', () => {
-                updateCart(row.dataset.productId, quantityInput.value);
-                updateTotals(); // Ensure totals are updated when quantity changes
-            });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            title: 'Error!',
+            text: 'An error occurred while placing the order.',
+            icon: 'error',
+            confirmButtonText: 'OK'
         });
-
-        // Update subtotal
-        document.querySelector('#subtotal').innerText = `₹${subtotal.toFixed(2)}`;
-
-        // Update shipping cost based on selected option
-        let shippingCost = 0;
-        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-        if (selectedShipping) {
-            shippingCost = parseFloat(selectedShipping.nextElementSibling.innerText.replace('$', ''));
-        }
-
-        // Update total
-        const total = subtotal + shippingCost;
-        document.querySelector('#total').innerText = `$${total.toFixed(2)}`;
-    }
-
-    // Event listeners for quantity changes
-    document.querySelectorAll('.quantity-col input').forEach(input => {
-        input.addEventListener('input', updateTotals);
     });
-
-    // Event listeners for shipping options
-    document.querySelectorAll('input[name="shipping"]').forEach(input => {
-        input.addEventListener('change', updateTotals);
-    });
-
-    // Initial update on page load
-    updateTotals();
 });
 
 
+        </script>
+        
 
 
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to handle item removal
-    async function removeFromCart(productId) {
-        try {
-            const response = await fetch('/remove-from-cart', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId })
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                // Remove the item from the DOM
-                document.querySelector(`tr[data-product-id="${productId}"]`).remove();
-                console.log(result.message);
-                updateTotals(); // Optionally update totals after removal
-            } else {
-                console.error(result.message);
-            }
-        } catch (error) {
-            console.error('Error removing item from cart:', error);
-        }
-    }
-
-    // Attach event listener to remove buttons
-    document.querySelectorAll('.btn-remove').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            const productId = this.dataset.productId;
-            removeFromCart(productId);
-        });
-    });
-});
-
-
-</script>
-
-
-
-
-  <%- include('../layouts/footer.ejs') %>
+    <%- include('../layouts/footer.ejs') %>

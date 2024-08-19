@@ -13,6 +13,10 @@ require('dotenv').config();
 const Cart = require('../models/cartModel');
 const Wishlist = require('../models/wishlistModel');
 const mongoose = require('mongoose');
+const Address = require('../models/addressModel');
+const { log } = require('console');
+const Order = require('../models/orderModel');
+
 
 // Secure Password function
 const securePassword = async (password) => {
@@ -297,16 +301,38 @@ const logout = (req, res) => {
 };
 
 //Load profile with user name
-const loadProfile = (req,res)=>{
-    try{
-        const user = req.user || req.session.user;
-        console.log(user);
-        res.render('profile', { user })
+// const loadAccount = (req, res) => {
+//     try {
+//         const user = req.user || req.session.user;
+//         // console.log('User Data from server:', user); 
+//         res.render('user-dashboard', { user });
+//     } catch (error) {
+//         console.log('Error:', error.message);
+//     }
+// }
+
+const loadAccount = async (req, res) => {
+    try {
+        const userId = req.session.user.id;
+        if (!userId) {
+            return res.redirect('/login');
+        }
+
+        // Fetch addresses for the logged-in user
+        const addresses = await Address.find({ userId: userId });
+        console.log('Fetched addresses:', addresses); // Debug log
+
+        // Render the view and pass both user and addresses
+        res.render('dashboard-user', { 
+            user: req.session.user, 
+            addresses: addresses 
+        });
+    } catch (error) {
+        console.error('Error loading account:', error.message);
+        res.status(500).send('Error loading account');
     }
-    catch(error){
-        console.log(error.message);
-    }
-}
+};
+
 
 
 //load product list
@@ -434,12 +460,9 @@ const addToCart = async (req, res) => {
         }
 
         const userId = req.session.user.id;
-        console.log('Searching for cart with userId:', userId);
         let cart = await Cart.findOne({ userId: userId });
-        console.log('Existing cart:', cart);
 
         if (!cart) {
-            console.log('Creating new cart for user:', userId);
             cart = new Cart({ userId: userId, items: [] });
         }
 
@@ -447,14 +470,11 @@ const addToCart = async (req, res) => {
         console.log('Existing item index:', existingItemIndex);
 
         if (existingItemIndex > -1) {
-            console.log('Updating existing item quantity');
             cart.items[existingItemIndex].quantity += parseInt(quantity);
         } else {
-            console.log('Adding new item to cart');
             cart.items.push({ productId: productId, quantity: parseInt(quantity) });
         }
 
-        console.log('Cart before saving:', cart);
         const savedCart = await cart.save();
         console.log('Saved cart:', savedCart);
 
@@ -603,6 +623,332 @@ const addToWishlist = async (req, res) => {
 //     }
 //   };
 
+const updateUser = async (req, res) => {
+    const { name, displayName, mobile } = req.body; // Exclude email from the body
+
+    try {
+        const userId = req.session.user.id; 
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { name, displayName, mobile }, // Update only these fields
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ message: 'User details updated successfully', user });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Error updating user' });
+    }
+};
+const addAddress = async (req, res) => {
+    try {
+        console.log('User session:', req.session);
+        
+        const userId = req.session.user?.id;
+        console.log('User ID from session:', userId);
+
+        if (!userId) {
+            return res.status(401).json({ error: 'User not authenticated. Please log in again.' });
+        }
+
+        const { addressName, addressEmail, addressMobile, addressHouse, addressStreet, addressPost, addressCity, addressDistrict, addressState, addressPin } = req.body;
+
+        console.log('Received addressPin:', addressPin);
+         
+        // Validate pin code
+        const pin = parseInt(addressPin, 10);
+        console.log('Processed pin:', pin);
+
+        if (isNaN(pin) || pin < 100000 || pin > 999999) {
+            return res.status(400).json({ error: `Invalid pin code: "${addressPin}". Please enter a 6-digit number.` });
+        }
+
+        // Create new address
+        const newAddress = new Address({
+            userId,
+            addressName,
+            addressEmail,
+            addressMobile,
+            addressHouse,
+            addressStreet,
+            addressPost,
+            addressCity,
+            addressDistrict,
+            addressState,
+            addressPin: pin
+        });
+
+        const savedAddress = await newAddress.save();
+        res.status(200).json({ address: savedAddress });
+    } catch (error) {
+        console.error('Error saving address:', error);
+        res.status(500).json({ error: 'Error saving address. Please try again.' });
+    }
+};
+
+const loadUserDashboard = async(req,res)=>{
+    try{
+    res.render('dashboard-user')
+    }
+    catch(error){
+
+        console.log(error.message);
+        
+    }
+    
+}
+const loadAccountDetails = async(req,res)=>{
+
+    try {
+        const userId = req.session.user.id;
+        if (!userId) {
+            return res.redirect('/login');
+        }
+
+      
+
+        // Render the view and pass both user and addresses
+        res.render('account-details', { 
+            user: req.session.user
+           
+        });
+    } catch (error) {
+        console.error('Error loading account:', error.message);
+        res.status(500).send('Error loading account');
+    }
+
+}
+const loadUserAddress = async(req,res)=>{
+    try {
+        const userId = req.session.user.id;
+        if (!userId) {
+            return res.redirect('/login');
+        }
+
+        // Fetch addresses for the logged-in user
+        const addresses = await Address.find({ userId: userId });
+        console.log('Fetched addresses:', addresses); // Debug log
+
+        // Render the view and pass both user and addresses
+        res.render('address-user', { 
+            user: req.session.user, 
+            addresses: addresses 
+        });
+    } catch (error) {
+        console.error('Error loading account:', error.message);
+        res.status(500).send('Error loading account');
+    }
+}
+
+// const loadUserOrder = async(req,res)=>{
+//     try{
+//         res.render('order-user')
+//     }
+//     catch(error){
+//         console.log(error.message);
+        
+//     }
+// }
+
+const loadUserOrder = async (req, res) => {
+    try {
+        const userId = req.session.user.id; // Fetch user ID from session
+
+        if (!userId) {
+            return res.status(400).send('<h1>400 - Bad Request</h1><p>User ID is missing in session.</p>');
+        }
+
+        console.log('User ID:', userId); // Debugging line
+
+        // Fetch the orders for the given userId                                                    
+        const orders = await Order.find({ userId }).populate('items.product');
+
+        console.log('Orders:', orders); // Debugging line
+
+        if (orders.length === 0) {
+            return res.render('order-user', { message: 'No orders found for this user.' });
+        }
+
+        res.render('order-user', { orders });
+    } catch (error) {
+        console.error('Error loading user orders:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+const loadUserDownload = async(req,res)=>{
+    try{
+        res.render('download-user')
+    }
+    catch(error){
+        console.log(error.message);
+        
+    }
+}
+
+const getAddress = async (req, res) => {
+    try {
+      const addressId = req.params.id;
+      const address = await Address.findById(addressId);
+  
+      if (!address) {
+        return res.status(404).json({ message: 'Address not found' });
+      }
+  
+      res.status(200).json(address);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching address', error });
+    }
+  };
+
+  const updateAddress = async (req, res) => {
+    try {
+      const addressId = req.params.id;
+      console.log(addressId);
+      
+      const updatedData = req.body;
+  
+      const address = await Address.findByIdAndUpdate(addressId, updatedData, { new: true });
+  
+      if (!address) {
+        return res.status(404).json({ message: 'Address not found' });
+      }
+  
+      res.status(200).json(address);
+    } catch (error) {
+      res.status(500).json({ message: 'Error updating address', error });
+    }
+  };
+
+  const deleteAddres = async (req, res) => {
+    try {
+      const addressId = req.params.id;
+      const address = await Address.findByIdAndDelete(addressId);
+  
+      if (!address) {
+        return res.status(404).json({ success: false, message: 'Address not found' });
+      }
+  
+      res.status(200).json({ success: true, message: 'Address deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Error deleting address', error });
+    }
+  };
+  
+  const loadChangePassword = async(req,res)=>{
+    try{
+        res.render('change-password')
+    }
+    catch(error){
+        console.log(error.message);
+        
+    }
+  }
+  const loadPasswordChange = async (req, res) => {
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+    const userId = req.session.user.id; // Use session-based user ID
+  
+    // Log request body to verify data
+    console.log('Request Body:', req.body);
+  
+    // Check if new passwords match
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ success: false, message: 'New passwords do not match' });
+    }
+  
+    // Ensure the old password is provided
+    if (!oldPassword) {
+      return res.status(400).json({ success: false, message: 'Old password is required' });
+    }
+  
+    try {
+      // Retrieve user from the database
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      // Log the stored password hash for debugging
+      console.log('Stored Password Hash:', user.password);
+  
+      // Verify old password
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+  
+      if (!isMatch) {
+        return res.status(400).json({ success: false, message: 'Old password is incorrect' });
+      }
+  
+      // Hash new password and update user
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await user.save();
+  
+      res.status(200).json({ success: true, message: 'Password changed successfully' });
+    } catch (error) {
+      console.error('Error changing password:', error); // Log the error for debugging
+      res.status(500).json({ success: false, message: 'Error changing password', error: error.message });
+    }
+  };
+
+ const updateOrderStatus=async(req, res)=> {
+    try {
+        const { orderId, status, reason } = req.body;
+
+        // Validate orderId format
+        if (!mongoose.Types.ObjectId.isValid(orderId)) {
+            return res.status(400).json({ message: 'Invalid Order ID.' });
+        }
+
+        const updateFields = { order_status: status };
+        
+        // If the status is 'Cancelled', include the reason
+        if (status === 'Cancelled' && reason) {
+            updateFields.cancellationReason = reason;
+        }
+
+        const order = await Order.findByIdAndUpdate(orderId, updateFields, { new: true });
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found.' });
+        }
+
+        res.json({ message: 'Order status updated successfully.' });
+    } catch (error) {
+        console.error('Error updating order status:', error.message);
+        res.status(500).json({ message: 'Error updating order status.' });
+    }
+
+    
+    
+    }
+    
+  
+const getUserOrder = async(req,res)=>{
+    try {
+        const orderId = req.params.id;
+        const order = await Order.findById(orderId)
+            .populate('items.product') // Populate product details
+            .exec();
+
+        if (!order) {
+            return res.status(404).send('Order not found');
+        }
+
+        res.json(order);
+    } catch (error) {
+        console.error('Error fetching order details:', error.message);
+        res.status(500).send('Error fetching order details');
+    }
+
+    };
+
+
 module.exports = {
     loadHome,
     loadLogin,
@@ -615,7 +961,7 @@ module.exports = {
     loginSuccess,
     loginFailure,
     logout,
-    loadProfile,
+    loadAccount,
     loadProductsList,
     loadProductDetails,
     loadWishlist,
@@ -624,6 +970,20 @@ module.exports = {
     updateCart,
     removeFromCart,
     addToWishlist,
+    updateUser,
+    addAddress,
+    loadUserDashboard,
+    loadAccountDetails,
+    loadUserAddress,
+    loadUserOrder,
+    loadUserDownload,
+    getAddress,
+    updateAddress,
+    deleteAddres,
+    loadChangePassword,
+    loadPasswordChange,
+    updateOrderStatus,
+    getUserOrder
     // removeFromWishlist
    
 };
