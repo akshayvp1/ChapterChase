@@ -58,26 +58,19 @@
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/home" class="sf-with-ul">Home</a>
+                                <li class="megamenu-container ">
+                                    <a href="/home" class="">Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                    <a href="category.html" class="">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                    <a href="/products-list" class="">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>                                      
+                                    <a href="#" class="">Pages</a>                                      
                                 </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                    <ul>
-                                        <li><a href="blog.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>                                         
-                                    </ul>
-                                </li>                                   
+                                                               
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
@@ -255,40 +248,31 @@
 							    <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
 
                                     
-                                    <% 
-                                    if(typeof message !== 'undefined'){
-                                  %>
-                                  <p style="color: red;margin-left: 150px;"><%= message  %></p>
-                                  <%
-                                    }
-                                  %>
+                                   
 
-							    	<form action="/login"  method="post">
-							    		<div class="form-group">
-							    			<label for="register-email-2">Your email address *</label>
-							    			<input type="email" class="form-control" id="register-email-2" name="email" required>
-							    		</div><!-- End .form-group -->
-
-							    		<div class="form-group">
-							    			<label for="register-password-2">Password *</label>
-							    			<input type="password" class="form-control" id="register-password-2" name="password" required>
-							    		</div><!-- End .form-group -->
-
-							    		<div class="form-footer">
-							    			<button type="submit" class="btn btn-outline-primary-2">
-			                					<span>SIGN UP</span>
-			            						<i class="icon-long-arrow-right"></i>
-			                				</button>
-                                            <a href="/register">Dont have any account register now</a>
-                                            <div style="padding-top: 40px;">
-                                                <a href="/forgot-password">Forget password</a>
-                                            </div>
-                                           
-
-
-			                				<!-- End .custom-checkbox -->
-							    		</div><!-- End .form-footer -->
-							    	</form>
+                                  <form action="/login" method="post">
+                                    <div class="form-group">
+                                        <p id="message-display" style="color: red; margin-bottom: 15px; margin-left: 150px"><%= message %></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="register-email-2">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email-2" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="register-password-2">Password *</label>
+                                        <input type="password" class="form-control" id="register-password-2" name="password" required>
+                                    </div>
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+                                        <a href="/register">Don't have an account? Register now</a>
+                                        <div style="padding-top: 40px;">
+                                            <a href="/forgot-password">Forgot password?</a>
+                                        </div>
+                                    </div>
+                                </form>
 							    	<div class="form-choice">
 								    	<p class="text-center">or sign in with</p>
 								    	<div class="row">

@@ -2,12 +2,18 @@ const User = require('../../models/userModel');
 require('dotenv').config();
 const Cart = require('../../models/cartModel');
 const Order = require('../../models/orderModel');
+const Wishlist = require('../../models/wishlistModel');
+const Wallet = require('../../models/walletModel')
+
 
 
 //load user dashboard
 const loadUserDashboard = async (req, res) => {
     try {
         const userId = req.session.user.id;
+        
+
+        const wallet = await Wallet.findOne({ userId: userId });
 
         let uniqueProductCount = 0;
 
@@ -18,9 +24,21 @@ const loadUserDashboard = async (req, res) => {
             
             uniqueProductCount = cart.items.length;
         }
+        let wishlist=null;
+        let wishlistCount=0;
+
+       
+            wishlist=await Wishlist.findOne({userId: userId})
+            if(wishlist && wishlist.products){
+                wishlistCount=wishlist.products.length
+            
+        }
 
         res.render('dashboard-user', { 
-            cartCount: uniqueProductCount 
+            cartCount: uniqueProductCount ,
+            wishlistCount,
+            userId,
+            wallet
         });
     } catch (error) {
         console.log('Error details:', error.message);
@@ -45,9 +63,18 @@ const loadAccountDetails = async(req,res)=>{
         if (cart && cart.items) {
             uniqueProductCount = cart.items.length;
         }
+        let wishlist=null;
+        let wishlistCount=0;
+
+       
+            wishlist=await Wishlist.findOne({userId: userId})
+            if(wishlist && wishlist.products){
+                wishlistCount=wishlist.products.length
+            
+        }
 
         res.render('account-details', { 
-            user: req.session.user, cartCount: uniqueProductCount
+            user: req.session.user, cartCount: uniqueProductCount,wishlistCount
            
         });
     } catch (error) {
@@ -84,12 +111,12 @@ const updateUser = async (req, res) => {
 
 
 
-
+//load user order
 const loadUserOrder = async (req, res) => {
     try {
         const userId = req.session.user.id;
         const page = parseInt(req.query.page) || 1;
-        const limit = 10;
+        const limit = 7;
         const skip = (page - 1) * limit;
         const searchQuery = req.query.search || ''; 
 
@@ -110,7 +137,7 @@ const loadUserOrder = async (req, res) => {
 
         const orders = await Order.find(searchCriteria)
             .populate('items.product')
-            .sort({ createdAt: -1 }) // Sort by latest orders first
+            .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);
 
@@ -119,9 +146,20 @@ const loadUserOrder = async (req, res) => {
         if (cart && cart.items) {
             uniqueProductCount = cart.items.length;
         }
+        let wishlist=null;
+        let wishlistCount=0;
+
+       
+            wishlist=await Wishlist.findOne({userId: userId})
+            if(wishlist && wishlist.products){
+                wishlistCount=wishlist.products.length
+            
+        }
 
         res.render('order-user', { 
             orders, 
+            user:req.session.user.id,
+            wishlistCount,
             page, 
             totalPages, 
             cartCount: uniqueProductCount, 
@@ -142,19 +180,26 @@ const loadUserDownload = async (req, res) => {
     try {
         const userId = req.session.user.id;
 
-        // Initialize variable for cart item count
         let uniqueProductCount = 0;
 
-        // Fetch the user's cart
         const cart = await Cart.findOne({ userId: userId });
 
         if (cart && cart.items) {
-            // Count the number of unique products in the cart
             uniqueProductCount = cart.items.length;
+        }
+        let wishlist=null;
+        let wishlistCount=0;
+
+       
+            wishlist=await Wishlist.findOne({userId: userId})
+            if(wishlist && wishlist.products){
+                wishlistCount=wishlist.products.length
+            
         }
 
         res.render('download-user', { 
-            cartCount: uniqueProductCount // Pass the unique product count to the view
+            cartCount: uniqueProductCount ,
+            wishlistCount
         });
     } catch (error) {
         console.error('Error loading user downloads:', error);

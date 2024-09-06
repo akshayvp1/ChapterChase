@@ -23,7 +23,6 @@ mongoose.connect(mongoURI)
 // Static files
 app.use('/assets', express.static(path.join(__dirname, './assets')));
 app.use('/dashboard-assets', express.static(path.join(__dirname, 'dashboard-assets')));
-// Uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
@@ -45,7 +44,7 @@ app.use(passport.session());
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error(err.stack,'this is the error u got there');
     res.status(500).send('Something broke!');
 });
 

@@ -190,31 +190,24 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/demos/demo-20/ChapterChase.png" alt="Molla Logo" width="105" height="25">
+                            <img src="assets/images/demos/demo-20/ChapterChase.png" alt="Chapter " width="105" height="25">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/home" class="sf-with-ul">Home</a>
+                                <li class="megamenu-container ">
+                                    <a href="/home" class="">Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                    <a href="category.html" class="">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                    <a href="/products-list" class="">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>                                      
+                                    <a href="#" class="">Pages</a>                                      
                                 </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                    <ul>
-                                        <li><a href="blog.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>                                         
-                                    </ul>
-                                </li>                                   
+                                                                 
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
@@ -291,26 +284,15 @@
                 </tr>
             </thead>
             <tbody>
-                <% let subtotal = 0; %>
                 <% order.items.forEach((item, index) => { %>
                     <% const product = item.product; %>
                     <% if (product) { %>
-                        <% const itemTotal = item.discountedPrice * item.quantity; %>
-                        <% subtotal += itemTotal; %>
                         <tr>
                             <td><%= index + 1 %></td>
-                            <td><%= product.productName %></td>
+                            <td><%= product.productName %></td> <!-- Assuming productName exists in the Product model -->
                             <td><%= item.quantity %></td>
-                            <td>
-                                <% if (item.discountPercentage > 0) { %>
-                                    <span class="price-discounted">₹<%= item.discountedPrice.toFixed(2) %></span>
-                                    <span class="price-original"></span>
-                                    <span class="discount-percentage">(-<%= item.discountPercentage %>%)</span>
-                                <% } else { %>
-                                    ₹<%= item.originalPrice.toFixed(2) %>
-                                <% } %>
-                            </td>
-                            <td>₹<%= itemTotal.toFixed(2) %></td>
+                            <td>₹<%= item.price/item.quantity %></td> <!-- Displaying half the price -->
+                            <td>₹<%= item.price %></td> <!-- Displaying full price -->
                         </tr>
                     <% } else { %>
                         <tr>
@@ -322,25 +304,27 @@
             <tfoot>
                 <tr>
                     <td colspan="4">Subtotal</td>
-                    <td>₹<%= subtotal.toFixed(2) %></td>
+                    <td>₹<%= totalPrice %></td> <!-- Displaying the totalPrice -->
+                </tr>
+                <tr>
+                    <td colspan="4"><strong>Final Total</strong></td>
+                    <td><strong>₹<%= totalPrice %></strong></td> <!-- Displaying the final total price -->
                 </tr>
             </tfoot>
         </table>
         
-
-
         <div class="order-summary-footer">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <!-- <h6>Subtotal: <span>₹<%= subtotal.toFixed(2) %></span></h6> -->
-                    <h4 class="mt-4">Grand Total: <span>₹<%= subtotal.toFixed(2) %></span></h4>
+                    <h4 class="mt-4">Grand Total: <span>₹<%= totalPrice %></span></h4> <!-- Displaying grand total -->
                 </div>
             </div>
         </div>
+        
 
         <div class="text-center mt-4">
             <a href="/products-list" class="btn btn-md mr-2">Continue Shopping</a>
-            <a href="/download-invoice/<%= order.orderId %>" class="btn btn-md">Download Invoice</a>
+            <a href="/user-order" class="btn btn-md">Go to orderlist</a>
         </div>
     </div>
 </main><!-- End .main -->

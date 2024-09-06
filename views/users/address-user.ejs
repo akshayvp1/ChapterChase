@@ -156,11 +156,13 @@
                         <li>
                             <a href="#">Links</a>
                             <ul>
-                                <!-- <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li> -->
-                                <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                               <% if(user){ %>
+                                <li><%= user.name||user.displayName %></li>
+                                <% }else{ %>
+                                  <li>Login</li>
+                                  <% } %>
+
+                                  
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
@@ -182,40 +184,30 @@
 
                     <nav class="main-nav">
                       <ul class="menu sf-arrows">
-                          <li class="megamenu-container active">
-                              <a href="/home" class="sf-with-ul">Home</a>
+                          <li class="megamenu-container">
+                              <a href="/home" class="">Home</a>
                           </li>
                           <li>
-                              <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                              <a href="category.html" class="">Shop</a>                                 
                           </li>
                           <li>
-                              <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                              <a href="/products-list" class="">Product</a>                                     
                           </li>
                           <li>
-                              <a href="#" class="sf-with-ul">Pages</a>                                      
+                              <a href="#" class="">Pages</a>                                      
                           </li>
-                          <li>
-                              <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                              <ul>
-                                  <li><a href="blog.html">Classic</a></li>
-                                  <li><a href="blog-listing.html">Listing</a></li>                                         
-                              </ul>
-                          </li>                                   
+                                                        
                       </ul><!-- End .menu -->
                   </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->
 
                 <div class="header-right">
-                    <div class="header-search">
-                        <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                        <form action="#" method="get">
-                            <div class="header-search-wrapper">
-                                <label for="q" class="sr-only">Search</label>
-                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                            </div><!-- End .header-search-wrapper -->
-                        </form>
-                    </div><!-- End .header-search -->
+                  <div class="dropdown cart-dropdown">
+                    <a href="/wishlist" class="dropdown-toggle" >
+                            <i class="icon-heart-o"></i>
+                            <span class="cart-count"><%= wishlistCount %></span>
+                    </a>
+                </div><!-- End .cart-dropdown -->
                     
 
                     <div class="dropdown cart-dropdown">
@@ -255,22 +247,22 @@
                     <div class="row">
                         <aside class="col-md-4 col-lg-3">
                             <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link "  href="/dashboard-user" role="tab" >Dashboard</a>
-                                </li>
+                              <li class="nav-item">
+                                <a class="nav-link "  href="/account-details" role="tab" >Account Details</a>
+                                
+                            </li>
                                 <li class="nav-item">
                                     <a class="nav-link"  href="/user-order" role="tab" >Orders</a>
                                 </li>
+                                
                                 <li class="nav-item">
-                                    <a class="nav-link"  href="/user-download" role="tab" >Downloads</a>
+                                    <a class="nav-link active"   href="/user-address" role="tab">Address</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="tab-address-link"  href="#tab-address" role="tab">Adresses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link "  href="/account-details" role="tab" >Account Details</a>
-                                    
-                                </li>
+                                <li class="nav-item active">
+                                  <a class="nav-link"  href="/wallet" role="tab" >wallet</a>
+                                  
+                              </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Sign Out</a>
                                 </li>
@@ -389,77 +381,77 @@
     </div>
   </div>
   
-  <!-- Edit Address Modal -->
-  <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editAddressForm">
-            <input type="hidden" id="editAddressId" name="addressId">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="editAddressName" class="form-label">Name</label>
-                <input type="text" id="editAddressName" name="addressName" class="form-control" required pattern="[A-Za-z ]+" title="Name can only contain letters and spaces.">
-                <div class="invalid-feedback">Name can only contain letters and spaces.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressEmail" class="form-label">Email</label>
-                <input type="email" id="editAddressEmail" name="addressEmail" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Email must be a valid Gmail address.">
-                <div class="invalid-feedback">Email must be a valid Gmail address.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressMobile" class="form-label">Mobile</label>
-                <input type="tel" id="editAddressMobile" name="addressMobile" class="form-control" required pattern="[6789][0-9]{9}" title="Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.">
-                <div class="invalid-feedback">Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressHouse" class="form-label">House Number</label>
-                <input type="text" id="editAddressHouse" name="addressHouse" class="form-control" required pattern="\d+" title="House number can only contain numbers.">
-                <div class="invalid-feedback">House number can only contain numbers.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressStreet" class="form-label">Street</label>
-                <input type="text" id="editAddressStreet" name="addressStreet" class="form-control" required pattern="[A-Za-z ]+" title="Street can only contain letters and spaces.">
-                <div class="invalid-feedback">Street can only contain letters and spaces.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressPost" class="form-label">Post</label>
-                <input type="text" id="editAddressPost" name="addressPost" class="form-control" required pattern="[A-Za-z ]+" title="Post can only contain letters and spaces.">
-                <div class="invalid-feedback">Post can only contain letters and spaces.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressCity" class="form-label">City</label>
-                <input type="text" id="editAddressCity" name="addressCity" class="form-control" required pattern="[A-Za-z ]+" title="City can only contain letters and spaces.">
-                <div class="invalid-feedback">City can only contain letters and spaces.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressDistrict" class="form-label">District</label>
-                <input type="text" id="editAddressDistrict" name="addressDistrict" class="form-control" required pattern="[A-Za-z ]+" title="District can only contain letters and spaces.">
-                <div class="invalid-feedback">District can only contain letters and spaces.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressState" class="form-label">State</label>
-                <input type="text" id="editAddressState" name="addressState" class="form-control" required pattern="[A-Za-z ]+" title="State can only contain letters and spaces.">
-                <div class="invalid-feedback">State can only contain letters and spaces.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="editAddressPin" class="form-label">Pin</label>
-                <input type="text" id="editAddressPin" name="addressPin" class="form-control" required pattern="\d{6}" title="Pin must be exactly 6 digits.">
-                <div class="invalid-feedback">Pin must be exactly 6 digits.</div>
-              </div>
-            </div>
-            <div class="text-center mt-3">
-              <button type="submit" id="updateAddress" class="btn btn-primary">Update Address</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+                        <!-- Edit Address Modal -->
+                        <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form id="editAddressForm">
+                                  <input type="hidden" id="editAddressId" name="addressId">
+                                  <div class="row g-3">
+                                    <div class="col-md-6">
+                                      <label for="editAddressName" class="form-label">Name</label>
+                                      <input type="text" id="editAddressName" name="addressName" class="form-control" required pattern="[A-Za-z ]+" title="Name can only contain letters and spaces.">
+                                      <div class="invalid-feedback">Name can only contain letters and spaces.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressEmail" class="form-label">Email</label>
+                                      <input type="email" id="editAddressEmail" name="addressEmail" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Email must be a valid Gmail address.">
+                                      <div class="invalid-feedback">Email must be a valid Gmail address.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressMobile" class="form-label">Mobile</label>
+                                      <input type="tel" id="editAddressMobile" name="addressMobile" class="form-control" required pattern="[6789][0-9]{9}" title="Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.">
+                                      <div class="invalid-feedback">Mobile number must start with 6, 7, 8, or 9 and be 10 digits long.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressHouse" class="form-label">House Number</label>
+                                      <input type="text" id="editAddressHouse" name="addressHouse" class="form-control" required pattern="\d+" title="House number can only contain numbers.">
+                                      <div class="invalid-feedback">House number can only contain numbers.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressStreet" class="form-label">Street</label>
+                                      <input type="text" id="editAddressStreet" name="addressStreet" class="form-control" required pattern="[A-Za-z ]+" title="Street can only contain letters and spaces.">
+                                      <div class="invalid-feedback">Street can only contain letters and spaces.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressPost" class="form-label">Post</label>
+                                      <input type="text" id="editAddressPost" name="addressPost" class="form-control" required pattern="[A-Za-z ]+" title="Post can only contain letters and spaces.">
+                                      <div class="invalid-feedback">Post can only contain letters and spaces.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressCity" class="form-label">City</label>
+                                      <input type="text" id="editAddressCity" name="addressCity" class="form-control" required pattern="[A-Za-z ]+" title="City can only contain letters and spaces.">
+                                      <div class="invalid-feedback">City can only contain letters and spaces.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressDistrict" class="form-label">District</label>
+                                      <input type="text" id="editAddressDistrict" name="addressDistrict" class="form-control" required pattern="[A-Za-z ]+" title="District can only contain letters and spaces.">
+                                      <div class="invalid-feedback">District can only contain letters and spaces.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressState" class="form-label">State</label>
+                                      <input type="text" id="editAddressState" name="addressState" class="form-control" required pattern="[A-Za-z ]+" title="State can only contain letters and spaces.">
+                                      <div class="invalid-feedback">State can only contain letters and spaces.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="editAddressPin" class="form-label">Pin</label>
+                                      <input type="text" id="editAddressPin" name="addressPin" class="form-control" required pattern="\d{6}" title="Pin must be exactly 6 digits.">
+                                      <div class="invalid-feedback">Pin must be exactly 6 digits.</div>
+                                    </div>
+                                  </div>
+                                  <div class="text-center mt-3">
+                                    <button type="submit" id="updateAddress" class="btn btn-primary">Update Address</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
   
                                 
                                 
@@ -856,6 +848,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <script>
@@ -1163,6 +1156,35 @@ function updateAddressInList(updatedAddress) {
     }
     validateForm();
   });
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoutLink = document.querySelector('a[href="/logout"]');
+
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to recover your session!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, sign out!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the logout URL
+                    window.location.href = '/logout';
+                }
+            });
+        });
+    }
+});
+
+
 
 
 </script>

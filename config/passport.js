@@ -1,7 +1,6 @@
-
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/userModel'); 
+const User = require('../models/userModel');
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -17,15 +16,22 @@ async (accessToken, refreshToken, profile, done) => {
         displayName: profile.displayName || "N/A",
         name: profile.displayName || "N/A",
         email: profile.emails[0].value,
-        password: "N/A", 
+        password: "N/A",
         mobile: "N/A",
         is_verified: 1,
-        is_admin: false
+        is_admin: false,
+        isListed: true
       });
       await user.save();
     }
+    
+    if (!user.isListed) {
+      return done(null, false, { message: 'Your account is blocked.' });
+    }
+    
     return done(null, user);
   } catch (err) {
+    console.error('Error in Google Strategy:', err.message);
     return done(err, false);
   }
 }));
@@ -39,12 +45,8 @@ passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     done(null, user);
   } catch (err) {
-    done(err, false);
+    done(err, null);
   }
 });
 
 module.exports = passport;
-
-
-
-

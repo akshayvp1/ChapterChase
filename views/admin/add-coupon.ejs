@@ -3,6 +3,109 @@
 
 
 <style>
+/*  */
+body {
+  background-color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+}
+
+.text-dark {
+  color: #343a40;
+}
+
+/* Card Styles */
+.card {
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.card-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Input and Select Styles */
+.form-control,
+.form-select {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-lg {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Card and Button Shadows */
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.rounded-custom {
+  border-radius: 12px;
+}
+
+.border-light {
+  border-color: #e9ecef;
+}
+
+/* Custom Hover Effects */
+.form-control:hover,
+.form-select:hover {
+  border-color: #adb5bd;
+}
+
+.form-control:focus:hover,
+.form-select:focus:hover {
+  border-color: #80bdff;
+}
+
+
+
+
+/*  */
+
+
   body {
     font-family: Arial, sans-serif;
     background-color: #f4f7f8;
@@ -57,6 +160,12 @@
     background-color: #0056b3;
 }
 
+
+
+.error-message {
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
 
 
 </style>
@@ -114,249 +223,245 @@
 
   
   
-    <div class="app-brand demo ">
-    <a href="index.html" class="app-brand-link">
-      <img src="/assets/images/demos/demo-20/chapterChase-rbg.png" alt="" style="width:60px">
-      <h5 style="margin-top: 15px;">ChapterChase</h5>
+  <div class="app-brand demo ">
+  <a href="index.html" class="app-brand-link">
+    <img src="/assets/images/demos/demo-20/chapterChase-rbg.png" alt="" style="width:60px">
+    <h5 style="margin-top: 15px;">ChapterChase</h5>
+  </a>
+
+  <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+    <i class="menu-toggle-icon d-xl-block align-middle"></i>
+  </a>
+</div>
+
+<div class="menu-inner-shadow"></div>
+<ul class="menu-inner py-1">
+  
+  <!-- e-commerce-app menu start -->
+  <li class="menu-item active open">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
+      <div data-i18n="eCommerce">eCommerce</div>
     </a>
-
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-      <i class="menu-toggle-icon d-xl-block align-middle"></i>
-    </a>
-  </div>
-
-  <div class="menu-inner-shadow"></div>
-  <ul class="menu-inner py-1">
-    
-    <!-- e-commerce-app menu start -->
-    <li class="menu-item active open">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
-        <div data-i18n="eCommerce">eCommerce</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="/admin/dashboard" class="menu-link">
-            <div data-i18n="Dashboard">Dashboard</div>
-          </a>
-        </li>
-        <li class="menu-item active open">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Products">Products</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/product-list" class="menu-link">
-                <div data-i18n="Product List">Product List</div>
-              </a>
-            </li>
-            <li class="menu-item active">
-              <a href="/admin/add-product" class="menu-link">
-                <div data-i18n="Add Product">Add Product</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/category-list" class="menu-link">
-                <div data-i18n="Category List">Category List</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Order">Order</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/order-list" class="menu-link">
-                <div data-i18n="Order List">Order List</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/order-details" class="menu-link">
-                <div data-i18n="Order Details">Order Details</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Customer">Customer</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/customer-list" class="menu-link">
-                <div data-i18n="All Customers">All Customers</div>
-              </a>
-            </li>
-           
-          </ul>
-        </li>
-
-
-
-
-
-
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <div data-i18n="Coupon">Coupon</div>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="/admin/dashboard" class="menu-link">
+          <div data-i18n="Dashboard">Dashboard</div>
+        </a>
+      </li>
+      <li class="menu-item ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Products">Products</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/admin/product-list" class="menu-link">
+              <div data-i18n="Product List">Product List</div>
             </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="/admin/add-coupon" class="menu-link">
-                  <div data-i18n="Add Coupon">Add coupon</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="/admin/coupon-list" class="menu-link">
-                  <div data-i18n="Coupon List">Coupon List</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="/admin/add-offer" class="menu-link">
-                  <div data-i18n="Add Offer">Add offer</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="/admin/offer-list" class="menu-link">
-                  <div data-i18n="Offer List">Offer List</div>
-                </a>
-              </li>
-            </ul>
           </li>
+          <li class="menu-item ">
+            <a href="/admin/add-product" class="menu-link">
+              <div data-i18n="Add Product">Add Product</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/admin/category-list" class="menu-link">
+              <div data-i18n="Category List">Category List</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Order">Order</div>
+        </a>
+        <ul class="menu-sub">
+         
+          <li class="menu-item">
+            <a href="/admin/order-details" class="menu-link">
+              <div data-i18n="Order Details">Order Details</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Customer">Customer</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/admin/customer-list" class="menu-link">
+              <div data-i18n="All Customers">All Customers</div>
+            </a>
+          </li>
+         
+        </ul>
+      </li>
 
 
 
 
 
-        <li class="menu-item">
-          <a href="app-ecommerce-manage-reviews.html" class="menu-link">
-            <div data-i18n="Manage Reviews">Manage Reviews</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-ecommerce-referral.html" class="menu-link">
-            <div data-i18n="Referrals">Referrals</div>
-          </a>
-        </li>
-        <li class="menu-item">
+
+      <li class="menu-item active open">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Settings">Settings</div>
+            <div data-i18n="Coupon">Coupon</div>
           </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-detail.html" class="menu-link">
-                <div data-i18n="Store Details">Store Details</div>
+          <ul class="menu-item ">
+            <li class="menu-item active open">
+              <a href="/admin/add-coupon" class="menu-link">
+                <div data-i18n="Add Coupon">Add coupon</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="app-ecommerce-settings-payments.html" class="menu-link">
-                <div data-i18n="Payments">Payments</div>
+              <a href="/admin/coupon-list" class="menu-link">
+                <div data-i18n="Coupon List">Coupon List</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="app-ecommerce-settings-checkout.html" class="menu-link">
-                <div data-i18n="Checkout">Checkout</div>
+              <a href="/admin/add-offer" class="menu-link">
+                <div data-i18n="Add Offer">Add offer</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="app-ecommerce-settings-shipping.html" class="menu-link">
-                <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-locations.html" class="menu-link">
-                <div data-i18n="Locations">Locations</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
+              <a href="/admin/offer-list" class="menu-link">
+                <div data-i18n="Offer List">Offer List</div>
               </a>
             </li>
           </ul>
         </li>
-      </ul>
-    </li>
-    
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-bill-line'></i>
-        <div data-i18n="Invoice">Invoice</div>
-        <div class="badge bg-danger rounded-pill ms-auto"></div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-invoice-list.html" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-preview.html" class="menu-link">
-            <div data-i18n="Preview">Preview</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-edit.html" class="menu-link">
-            <div data-i18n="Edit">Edit</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-add.html" class="menu-link">
-            <div data-i18n="Add">Add</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-user-line"></i>
-        <div data-i18n="Users">Users</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-user-list.html" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
 
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="View">View</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="app-user-view-account.html" class="menu-link">
-                <div data-i18n="Account">Account</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-security.html" class="menu-link">
-                <div data-i18n="Security">Security</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-billing.html" class="menu-link">
-                <div data-i18n="Billing & Plans">Billing & Plans</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-connections.html" class="menu-link">
-                <div data-i18n="Connections">Connections</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    
-  </ul>
+
+
+
+
+      <!-- <li class="menu-item">
+        <a href="app-ecommerce-manage-reviews.html" class="menu-link">
+          <div data-i18n="Manage Reviews">Manage Reviews</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-ecommerce-referral.html" class="menu-link">
+          <div data-i18n="Referrals">Referrals</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Settings">Settings</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-detail.html" class="menu-link">
+              <div data-i18n="Store Details">Store Details</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-payments.html" class="menu-link">
+              <div data-i18n="Payments">Payments</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-checkout.html" class="menu-link">
+              <div data-i18n="Checkout">Checkout</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-shipping.html" class="menu-link">
+              <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-locations.html" class="menu-link">
+              <div data-i18n="Locations">Locations</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Notifications</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li> -->
+  
+  <!-- <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class='menu-icon tf-icons ri-bill-line'></i>
+      <div data-i18n="Invoice">Invoice</div>
+      <div class="badge bg-danger rounded-pill ms-auto"></div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="app-invoice-list.html" class="menu-link">
+          <div data-i18n="List">List</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-preview.html" class="menu-link">
+          <div data-i18n="Preview">Preview</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-edit.html" class="menu-link">
+          <div data-i18n="Edit">Edit</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-add.html" class="menu-link">
+          <div data-i18n="Add">Add</div>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class="menu-icon tf-icons ri-user-line"></i>
+      <div data-i18n="Users">Users</div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="app-user-list.html" class="menu-link">
+          <div data-i18n="List">List</div>
+        </a>
+      </li>
+
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="View">View</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="app-user-view-account.html" class="menu-link">
+              <div data-i18n="Account">Account</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-security.html" class="menu-link">
+              <div data-i18n="Security">Security</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-billing.html" class="menu-link">
+              <div data-i18n="Billing & Plans">Billing & Plans</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Notifications</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-connections.html" class="menu-link">
+              <div data-i18n="Connections">Connections</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li> -->
+  
+</ul>
 </aside>
 <!-- / Menu -->
 <!-- Layout container -->
@@ -446,76 +551,86 @@
   <!-- Content -->
   <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="app-ecommerce">
-            <!-- Add Coupon -->
-            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-6 gap-4">
-                <h4 class="mb-1">Add a New Coupon</h4>
-            </div>
-
-            <div class="container py-4">
-                <form id="addCouponForm" enctype="multipart/form-data">
-                    <!-- Coupon Information -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h5 class="card-title mb-0 text-primary">Coupon Information</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="couponcode" class="form-label">Coupon Code:</label>
-                                        <input type="text" class="form-control" id="couponcode" name="couponcode" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="description" class="form-label">Description:</label>
-                                        <input type="text" class="form-control" id="description" name="description" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Price and Stock -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="redeemamount" class="form-label">Redeem Amount:</label>
-                                        <input type="number" class="form-control" id="redeemamount" name="redeemamount" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="minimumamount" class="form-label">Minimum Amount:</label>
-                                        <input type="number" class="form-control" id="minimumamount" name="minimumamount" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="expirydate" class="form-label">Expiry Date:</label>
-                                        <input type="date" class="form-control" id="expirydate" name="expirydate" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="publishStatus" class="form-label">Status</label>
-                                        <select class="form-select" id="publishStatus" name="isListed" required>
-                                            <option value="" disabled selected>Select status</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Submit Button -->
-                            <div class="d-flex justify-content-center mt-4">
-                                <button type="submit" class="btn btn-primary">Add Coupon</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+      <div class="app-ecommerce">
+        <!-- Add Coupon Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-5 gap-3">
+          <h2 class="text-dark">Add a New Coupon</h2>
         </div>
+  
+        <div class="container py-4">
+          <form id="addCouponForm">
+            <!-- Coupon Information -->
+            <div class="card shadow-sm mb-5 rounded-custom border-light">
+              <div class="card-header py-3 bg-primary text-white">
+                <h5 class="card-title mb-0">Coupon Information</h5>
+              </div>
+              <div class="card-body">
+                <!-- Coupon Code and Description -->
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="couponCode" class="form-label">Coupon Code</label>
+                      <input type="text" class="form-control" id="couponCode" name="couponCode" required placeholder="Enter coupon code">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="description" class="form-label">Description</label>
+                      <input type="text" class="form-control" id="description" name="description" required placeholder="Enter description">
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Redeem Percentage and Minimum Amount -->
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="redeemAmount" class="form-label">Redeem Percentage (%)</label>
+                      <input type="number" class="form-control" id="redeemAmount" name="redeemAmount" required placeholder="Enter redeem percentage">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="minAmount" class="form-label">Minimum Amount</label>
+                      <input type="number" class="form-control" id="minAmount" name="minAmount" required placeholder="Enter minimum amount">
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Expiry Date and Status -->
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="expiryDate" class="form-label">Expiry Date</label>
+                      <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="publishStatus" class="form-label">Status</label>
+                      <select class="form-select" id="publishStatus" name="publishStatus" required>
+                          <option value="" selected>Select status</option>
+                          <option value="Active">Active</option>
+                          <option value="Inactive">Inactive</option>
+                      </select>
+                  </div>
+                  </div>
+                </div>
+  
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary btn-lg px-5">Add Coupon</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  
+  
+  
 
 
  
@@ -596,7 +711,140 @@
    <!-- SweetAlert2 -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- Custom JS -->
-   
+   <script>
+
+
+document.getElementById('addCouponForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    let isValid = true;
+
+    // Clear previous error messages
+    clearErrorMessages();
+
+    // Coupon Code validation
+    const couponCode = document.getElementById('couponCode');
+    if (couponCode.value.trim().length !== 6) {
+        showError(couponCode, 'Coupon code must be exactly 6 characters');
+        isValid = false;
+    }
+
+    // Description validation (check for only spaces)
+    const description = document.getElementById('description');
+    if (description.value.trim().length === 0) {
+        showError(description, 'Description cannot be empty or contain only spaces');
+        isValid = false;
+    }
+
+    // Redeem Amount validation (as percentage)
+    const redeemAmount = document.getElementById('redeemAmount');
+    const redeemValue = redeemAmount.value.trim();
+    if (isNaN(redeemValue) || redeemValue < 1 || redeemValue > 100) {
+        showError(redeemAmount, 'The redeem amount must be a valid percentage between 1 and 100');
+        isValid = false;
+    }
+
+    // Minimum Amount validation
+    const minAmount = document.getElementById('minAmount');
+    if (isNaN(minAmount.value.trim()) || minAmount.value.trim().length < 1) {
+        showError(minAmount, "Give proper input for minimum amount");
+        isValid = false;
+    }
+
+    // Expiry Date validation (must be a future date)
+    const expiryDate = document.getElementById('expiryDate');
+    const selectedDate = new Date(expiryDate.value);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Ignore time for comparison
+
+    if (!expiryDate.value || selectedDate < currentDate) {
+        showError(expiryDate, "Please select a valid expiry date");
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return;
+    }
+
+    // // Convert status to boolean
+    // const publishStatus = document.getElementById('publishStatus').value;
+    // const isListed = publishStatus === "Active";
+
+    // If all validations pass, proceed with form submission
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    // Log form data to check if publishStatus is included
+    console.log('Form Data:', data);
+
+    try {
+        const response = await fetch('/admin/add-coupon', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: result.message,
+                showConfirmButton: true
+            }).then(() => {
+                window.location.href = '/admin/add-coupon';
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: result.message,
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'An unexpected error occurred. Please try again.',
+        });
+    }
+});
+
+
+
+function showError(input, message) {
+    const formControl = input.closest('.mb-3');
+    let errorDisplay = formControl.querySelector('.error-message');
+    
+    if (!errorDisplay) {
+        errorDisplay = document.createElement('div');
+        errorDisplay.className = 'error-message text-danger';
+        formControl.appendChild(errorDisplay);
+    }
+    
+    errorDisplay.textContent = message;
+    input.classList.add('is-invalid');
+}
+
+function clearErrorMessages() {
+    document.querySelectorAll('.error-message').forEach(element => {
+        element.remove();
+    });
+    document.querySelectorAll('.is-invalid').forEach(element => {
+        element.classList.remove('is-invalid');
+    });
+}
+
+// Restrict past dates in expiry date input
+const expiryDateInput = document.getElementById('expiryDate');
+const today = new Date().toISOString().split('T')[0];
+expiryDateInput.setAttribute('min', today);
+
+   </script>
 </body>
 
 <!-- Mirrored from demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-product-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 05:50:31 GMT -->

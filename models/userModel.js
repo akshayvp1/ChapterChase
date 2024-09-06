@@ -43,6 +43,14 @@ const userSchema = new mongoose.Schema({
     isListed:{
         type:Boolean
     },
+    usedCoupons: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Coupon'
+        }
+        ],
+    googleId: { type: String },
+    isListed: { type: Boolean, default: true },
     // resetPasswordToken: {type:String}
     resetPasswordToken: String,
     resetPasswordExpires: Date

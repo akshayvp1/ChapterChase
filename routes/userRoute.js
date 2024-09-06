@@ -16,6 +16,8 @@ const productController = require('../controllers/user/productController')
 const changePasswordController = require('../controllers/user/changePasswordController')
 const profileController = require('../controllers/user/profileController')
 const walletController = require('../controllers/user/walletController')
+const retryPaymentController = require('../controllers/user/retryPaymentController') 
+const orderInvoiceController = require('../controllers/user/orderInvoiceController') 
 
 userRoute.set('view engine', 'ejs');
 userRoute.set('views', './views/users');
@@ -39,12 +41,12 @@ userRoute.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-
-
 userRoute.use(passport.initialize());
 userRoute.use(passport.session());
 
 
+
+//authentication
 userRoute.get("/", userController.loadHome);
 userRoute.get("/login", userController.loadLogin);
 userRoute.get("/register", userController.loadRegister);
@@ -57,7 +59,7 @@ userRoute.post('/login', userController.verifyLogin);
 
 
 
-
+//forgot password
 userRoute.get('/forgot-password',userController.loadForgot)
 userRoute.post('/forgot-password', userController.forgotPassword);
 userRoute.get('/reset-password/:token', userController.getResetPassword);
@@ -65,13 +67,14 @@ userRoute.post('/reset-password/:token', userController.postResetPassword);
 
 
 
-
 userRoute.get('/account',auth.isLogin,userController.loadAccount)
 userRoute.get('/logout',auth.isLogin,userController.logout)
+
 
 //product
 userRoute.get('/products-list',productController.loadProductsList)
 userRoute.get('/product-details/:id',productController.loadProductDetails)
+
 
 
 //cart
@@ -80,11 +83,11 @@ userRoute.post('/add-to-cart',auth.isLogin, cartController.addToCart);
 userRoute.patch('/update-cart',auth.isLogin,cartController. updateCart);
 userRoute.delete('/remove-from-cart',auth.isLogin, cartController.removeFromCart);
 
+
 //wishlist
 userRoute.get('/wishlist',auth.isLogin,wishlistController.loadWishlist)
 userRoute.post('/add-to-wishlist', auth.isLogin, wishlistController.addToWishlist);
 userRoute.delete('/remove-from-wishlist/:productId', wishlistController.removeFromWishlist);
-
 
 
 
@@ -97,6 +100,7 @@ userRoute.get('/user-download',auth.isLogin,profileController.loadUserDownload)
 
 
 
+
 //address
 userRoute.post('/add-address', auth.isLogin, addressController.addAddress);
 userRoute.get('/user-address',auth.isLogin,addressController.loadUserAddress)
@@ -105,9 +109,11 @@ userRoute.patch('/edit-address/:id', auth.isLogin, addressController.updateAddre
 userRoute.delete('/delete-address/:id',auth.isLogin, addressController.deleteAddres);
 
 
+
 //change password
 userRoute.get('/change-password',auth.isLogin,changePasswordController.loadChangePassword)
 userRoute.post('/change-password', changePasswordController.loadPasswordChange);
+
 
 
 //order
@@ -117,6 +123,20 @@ userRoute.get('/order-summary/:order_id',auth.isLogin,orderController.loadOrderS
 userRoute.patch('/order/order-status',auth.isLogin,orderController. updateOrderStatus);
 userRoute.get('/order/:id',auth.isLogin,orderController.getUserOrder)
 userRoute.post('/order/return-request', auth.isLogin, orderController.submitReturnRequest);
+userRoute.post('/apply-coupon',auth.isLogin,orderController.applyCoupon)
+
+
+
+//razorpay
+userRoute.post('/create-order',auth.isLogin, orderController.createOrder);
+userRoute.post('/verify-payment',auth.isLogin, orderController.verifyPayment);
+userRoute.get('/search',productController.searchProduct)
+
+
+
+//razorpay2
+userRoute.post('/create-razorpay-retry-order',auth.isLogin, retryPaymentController.retryOrder)
+userRoute.post('/verify-razorpay-retry-payment',auth.isLogin, retryPaymentController.razorpayRetryPayment)
 
 
 
@@ -124,19 +144,35 @@ userRoute.post('/order/return-request', auth.isLogin, orderController.submitRetu
 userRoute.get('/wallet',auth.isLogin,walletController.loadWallet)
 
 
-//razorpay
-userRoute.post('/create-order',auth.isLogin, orderController.createOrder);
-userRoute.post('/verify-payment',auth.isLogin, orderController.verifyPayment);
 
+//invoice
+userRoute.get('/invoice',auth.isLogin,orderInvoiceController.orderInvoice)
+// userRoute.get('/wallet/balance',auth.isLogin,walletController.checkBalance)
+userRoute.post('/debit-wallet',auth.isLogin,walletController.walletPayment)
 
 
 // Google OAuth routes
 userRoute.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 userRoute.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/login', failureMessage: true }),
   (req, res) => {
-    res.redirect('/home');
+    if (req.user && req.user.isListed) {
+      req.session.user = {
+        id: req.user._id,
+        email: req.user.email,
+        name: req.user.name,
+        mobile: req.user.mobile || 'N/A'
+      };
+      res.redirect('/home');
+    } else {
+      req.logout((err) => {
+        if (err) {
+          console.error('Error logging out:', err);
+        }
+        res.redirect('/login?message=' + encodeURIComponent('Your account is blocked.'));
+      });
+    }
   }
 );
 

@@ -42,47 +42,37 @@
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/home" class="sf-with-ul">Home</a>
+                                <li class="megamenu-container ">
+                                    <a href="/home" class="">Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                    <a href="category.html" class="">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                    <a href="/products-list" class="">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>                                      
+                                    <a href="#" class="">Pages</a>                                      
                                 </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                    <ul>
-                                        <li><a href="blog.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>                                         
-                                    </ul>
-                                </li>                                   
+                                                                   
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
-                        <div class="header-search">
-                            <!-- <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a> -->
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
-                                    <!-- <label for="q" class="sr-only">Search</label> -->
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
+                        <div class="dropdown cart-dropdown">
+                            <a href="/wishlist" class="dropdown-toggle" >
+                                    <i class="icon-heart-o"></i>
+                                    <span class="cart-count"><%= wishlistCount %></span>
+                            </a>
+                        </div><!-- End .cart-dropdown -->
                         
 
                         <div class="dropdown cart-dropdown">
-                            <!-- <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
-                            </a>                          -->
+                                <span class="cart-count"><%= cartCount %></span>
+                            </a>                         
                         </div><!-- End .cart-dropdown -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -90,20 +80,32 @@
         </header><!-- End .header -->
 
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-        		<div class="container">
-        			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
-        		</div><!-- End .container -->
-        	</div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav">
-                <div class="container">
+        	<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                        <% breadcrumbs.forEach(crumb => { %>
+                            <% if (crumb.url) { %>
+                                <li class="breadcrumb-item"><a href="<%= crumb.url %>"><%= crumb.title %></a></li>
+                            <% } else { %>
+                                <li class="breadcrumb-item active" aria-current="page"><%= crumb.title %></li>
+                            <% } %>
+                        <% }); %>
                     </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
+            
+                    <nav class="product-pager ml-auto" aria-label="Product">
+                        <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                            <i class="icon-angle-left"></i>
+                            <span>Prev</span>
+                        </a>
+            
+                        <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                            <span>Next</span>
+                            <i class="icon-angle-right"></i>
+                        </a>
+                    </nav>
+                </div>
+            </nav>
+            
 
             <div class="page-content">
             	<div class="cart">
@@ -123,6 +125,18 @@
                                     
                                        
                                     <tbody>
+
+                                        <% if (cartItems.length === 0) { %>
+                                            <tr>
+                                                <td colspan="5" class="text-center">
+                                                    <a href="products-list">
+                                                        <img src="assets/images/empty-cart.png" alt="Your wishlist is empty" style="max-width: 150px; margin-left: 420px;">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                                        
+
                                         <% cartItems.forEach(item => { %>
                                         <tr data-product-id="<%= item.product._id %>">
                                             <td class="product-col">
@@ -140,26 +154,71 @@
                                     
                                             <!-- Price and Discount Logic -->
                                             <td class="price-col">
-                                                <% if (item.discountPercentage > 0) { %>
+                                                <% 
+                                                    let discountedPrice = item.product.price;
+                                                    let bestDiscountPercentage = 0;
+                                                    
+                                                    // Find the best product-specific offer (if any)
+                                                    const productOffers = offers.filter(o => 
+                                                        o.offerType === 'product' && o.productId.includes(item.product._id.toString())
+                                                    );
+                                                    
+                                                    // Check if there's any product-specific offer
+                                                    if (productOffers.length > 0) {
+                                                        // Find the product-specific offer with the highest discount
+                                                        const bestProductOffer = productOffers.reduce((max, offer) => 
+                                                            offer.discount > max.discount ? offer : max, productOffers[0]);
+                                                        
+                                                        bestDiscountPercentage = bestProductOffer.discount;
+                                                        discountedPrice = item.product.price - (item.product.price * (bestDiscountPercentage / 100));
+                                                    }
+                                                    
+                                                    // Now check all category offers and see if any offer a better discount
+                                                    offers.forEach(offer => {
+                                                        if (offer.offerType === 'category' && offer.categoryId.includes(item.product.category.toString())) {
+                                                            const currentDiscountPercentage = offer.discount;
+                                                            if (currentDiscountPercentage > bestDiscountPercentage) {
+                                                                bestDiscountPercentage = currentDiscountPercentage;
+                                                                discountedPrice = item.product.price - (item.product.price * (bestDiscountPercentage / 100));
+                                                            }
+                                                        }
+                                                    });
+                                                %>
+                                                
+                                                <% if (bestDiscountPercentage > 0) { %>
                                                     <span class="product-price-discounted">
-                                                        ₹<%= (item.product.price - (item.product.price * (item.discountPercentage / 100))).toFixed(2) %>
+                                                        ₹<%= discountedPrice.toFixed(2) %>
                                                     </span>
                                                     <p class="product-price-original">
                                                         ₹<%= item.product.price.toFixed(2) %>
                                                     </p>
                                                     <p class="product-price-discount">
-                                                        <%= item.discountPercentage %>% Off
+                                                        <%= bestDiscountPercentage %>% Off
                                                     </p>
                                                 <% } else { %>
                                                     ₹<%= item.product.price.toFixed(2) %>
                                                 <% } %>
                                             </td>
+                                            
                                     
                                             <td class="quantity-col">
                                                 <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="<%= item.quantity %>" min="1" max="10" step="1" required>
+                                                    <input 
+                                                        type="number" 
+                                                        class="form-control" 
+                                                        value="<%= item.quantity %>" 
+                                                        min="1" 
+                                                        max="10" 
+                                                        step="1" 
+                                                        required
+                                                        data-product-id="<%= item.product._id %>" 
+                                                        data-product-stock="<%= item.product.stock %>" 
+                                                    />
                                                 </div>
                                             </td>
+                                            
+                                            
+                                            
                                     
                                             <td class="total-col">
                                                 <% if (item.discountPercentage > 0) { %>
@@ -180,20 +239,7 @@
                                     
                                     </table>
 
-	                			<div class="cart-bottom">
-			            			<div class="cart-discount">
-			            				<form action="#">
-			            					<div class="input-group">
-				        						<input type="text" class="form-control" required placeholder="coupon code">
-				        						<div class="input-group-append">
-													<button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-												</div><!-- .End .input-group-append -->
-			        						</div><!-- End .input-group -->
-			            				</form>
-			            			</div><!-- End .cart-discount -->
-
-			            			<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
-		            			</div><!-- End .cart-bottom -->
+	                			
 	                		</div><!-- End .col-lg-9 -->
 	                		<aside class="col-lg-3">
                                 <div class="summary summary-cart">
@@ -604,119 +650,230 @@
     <script src="assets/js/bootstrap-input-spinner.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     
     <script>
-       
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to handle item removal
+ document.addEventListener('DOMContentLoaded', function() {
+    // Function to handle item removal with confirmation
     async function removeFromCart(productId) {
         try {
-            const response = await fetch('/remove-from-cart', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId })
+            // Show confirmation dialog
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you really want to remove this item from your cart?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
             });
 
-            const result = await response.json();
-            if (response.ok) {
-                // Remove the item from the DOM
-                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-                if (row) {
-                    row.remove();
+            // If the user confirms, proceed with removal
+            if (result.isConfirmed) {
+                const response = await fetch('/remove-from-cart', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    // Remove the item from the DOM
+                    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                    if (row) {
+                        row.remove();
+                    }
+                    Swal.fire(
+                        'Removed!',
+                        'The item has been removed from your cart.',
+                        'success'
+                    );
+                    setTimeout(()=>{
+                    window.location.reload();
+                },2000)
+                    updateTotals(); // Update totals after removal
+                } else {
+                    Swal.fire(
+                        'Error!',
+                        result.message || 'There was a problem removing the item.',
+                        'error'
+                    );
                 }
-                console.log(result.message);
-                updateTotals(); // Update totals after removal
-            } else {
-                console.error(result.message);
             }
         } catch (error) {
             console.error('Error removing item from cart:', error);
+            Swal.fire(
+                'Error!',
+                'An unexpected error occurred.',
+                'error'
+            );
         }
     }
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const quantityInputs = document.querySelectorAll('.form-control');
+        const MAX_QUANTITY = 10;
 
+        quantityInputs.forEach(input => {
+            const productId = input.dataset.productId;
+            const stock = parseInt(input.dataset.productStock, 10);
 
+            // Set the initial state of the plus button
+            var plusButton = input.closest('tr').querySelector('.btn-plus');
+            if (parseInt(input.value, 10) >= stock) {
+                plusButton.disabled = true;
+            }
 
-    async function updateCart(productId, quantity) {
-    try {
-        const response = await fetch('/update-cart', {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                productId: productId,
-                quantity: quantity
-            })
-        });
+            input.addEventListener('input', async (event) => {
+                let newQuantity = parseInt(event.target.value, 10);
 
-        const data = await response.json();
-        if (response.ok) {
-            console.log('Cart updated successfully:', data);
-        } else {
-            console.error('Error updating cart:', data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+                if (newQuantity > stock) {
+                    event.target.value = stock;
+                    newQuantity = stock;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Stock Limit Exceeded',
+                        text: `Only ${stock} product(s) left in stock.`,
+                    });
+                } else if (newQuantity > MAX_QUANTITY) {
+                    event.target.value = MAX_QUANTITY;
+                    newQuantity = MAX_QUANTITY;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Quantity Limit Exceeded',
+                        text: `You can add up to ${MAX_QUANTITY} product(s) only.`,
+                    });
+                }
 
+                // Update the plus button state
+                if (newQuantity >= stock) {
+                    event.target.closest('tr').querySelector('.btn-plus').disabled = true;
+                } else {
+                    event.target.closest('tr').querySelector('.btn-plus').disabled = false;
+                }
 
+                // Update the cart with the new quantity
+                await updateCart(productId, newQuantity);
+            });
 
+            // Handle click events for the plus and minus buttons
+            const minusButton = input.closest('tr').querySelector('.btn-minus');
+            var plusButton = input.closest('tr').querySelector('.btn-plus');
 
+            minusButton.addEventListener('click', async () => {
+                let currentQuantity = parseInt(input.value, 10);
+                if (currentQuantity > 1) {
+                    input.value = currentQuantity - 1;
+                    await updateCart(productId, currentQuantity - 1);
+                }
+            });
 
-    // Function to update totals and cart
-    function updateTotals() {
-    let subtotal = 0;
-    const cartRows = document.querySelectorAll('tbody tr[data-product-id]');
-
-    cartRows.forEach(row => {
-        const price = parseFloat(row.querySelector('.price-col').innerText.replace('₹', ''));
-        const quantityInput = row.querySelector('.quantity-col input');
-        const quantity = parseInt(quantityInput.value);
-        const total = price * quantity;
-
-        row.querySelector('.total-col').innerText = `₹${total.toFixed(2)}`;
-        subtotal += total;
-
-        // Update cart when quantity changes
-        quantityInput.addEventListener('change', () => {
-            updateCart(row.dataset.productId, quantityInput.value);
-            updateTotals(); // Ensure totals are updated when quantity changes
+            plusButton.addEventListener('click', async () => {
+                let currentQuantity = parseInt(input.value, 10);
+                if (currentQuantity < stock) {
+                    input.value = currentQuantity + 1;
+                    await updateCart(productId, currentQuantity + 1);
+                }
+            });
         });
     });
 
-    // Update subtotal
-    document.querySelector('#subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+    async function updateCart(productId, quantity) {
+        try {
+            const response = await fetch('/update-cart', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity
+                })
+            });
 
-    // Update shipping cost based on selected option
-    let shippingCost = 0;
-    const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-    if (selectedShipping) {
-        shippingCost = parseFloat(selectedShipping.nextElementSibling.innerText.replace('$', ''));
+            const data = await response.json();
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cart Updated',
+                    text: 'The cart has been updated successfully.',
+                });
+               
+            } else {
+                Swal.fire({
+                icon: 'error',
+                title: 'Update Failed',
+                text: data.message || 'An error occurred while updating the cart.',
+            }).then(() => {
+                // Set timeout to reload the page after 3 seconds
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000); // 3000 milliseconds = 3 seconds
+            });
+        }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An unexpected error occurred.',
+            });
+        }
     }
 
-    // Update total
-    const total = subtotal + shippingCost;
-    document.querySelector('#total').innerText = `₹${total.toFixed(2)}`;
-}
+    // Function to update totals and cart
+    function updateTotals() {
+        let subtotal = 0;
+        const cartRows = document.querySelectorAll('tbody tr[data-product-id]');
 
-// Event listener for quantity changes
-document.querySelectorAll('.quantity-col input').forEach(input => {
-    input.addEventListener('input', updateTotals);
-});
+        cartRows.forEach(row => {
+            const price = parseFloat(row.querySelector('.price-col').innerText.replace('₹', ''));
+            const quantityInput = row.querySelector('.quantity-col input');
+            const quantity = parseInt(quantityInput.value);
+            const total = price * quantity;
 
-// Event listeners for shipping options
-document.querySelectorAll('input[name="shipping"]').forEach(input => {
-    input.addEventListener('change', updateTotals);
-});
+            row.querySelector('.total-col').innerText = `₹${total.toFixed(2)}`;
+            subtotal += total;
 
-// Initial update on page load
-updateTotals();
+            // Update cart when quantity changes
+            quantityInput.addEventListener('change', () => {
+                updateCart(row.dataset.productId, quantityInput.value);
+                updateTotals(); // Ensure totals are updated when quantity changes
+            });
+        });
 
+        // Update subtotal
+        document.querySelector('#subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+
+        // Update shipping cost based on selected option
+        let shippingCost = 0;
+        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+        if (selectedShipping) {
+            shippingCost = parseFloat(selectedShipping.nextElementSibling.innerText.replace('$', ''));
+        }
+
+        // Update total
+        const total = subtotal + shippingCost;
+        document.querySelector('#total').innerText = `₹${total.toFixed(2)}`;
+    }
+
+    // Event listener for quantity changes
+    document.querySelectorAll('.quantity-col input').forEach(input => {
+        input.addEventListener('input', updateTotals);
+    });
+
+    // Event listeners for shipping options
+    document.querySelectorAll('input[name="shipping"]').forEach(input => {
+        input.addEventListener('change', updateTotals);
+    });
+
+    // Initial update on page load
+    updateTotals();
 
     // Attach event listener to remove buttons
     document.querySelectorAll('.btn-remove').forEach(button => {
@@ -727,6 +884,12 @@ updateTotals();
         });
     });
 });
+
+
+
+
+
+
 
 
 

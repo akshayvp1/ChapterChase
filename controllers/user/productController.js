@@ -3,6 +3,8 @@ const Product = require('../../models/productModel');
 const Category = require('../../models/categoryModel');
 require('dotenv').config();
 const Offer = require('../../models/offerModel');
+const Cart = require('../../models/cartModel');
+const Wishlist = require('../../models/wishlistModel');
 
 
 
@@ -16,14 +18,32 @@ const loadProductsList = async (req, res) => {
       const limit = parseInt(req.query.limit, 9) || 9;
       const skip = (page - 1) * limit;
 
-      // Fetch all offers
+      
+      let cart = null;
+      let cartCount = 0;
+
+      if (user && user.id) {
+          cart = await Cart.findOne({ userId: user.id });
+          if (cart && cart.items) {
+              cartCount = cart.items.length;
+          }
+      }
+      let wishlist=null;
+      let wishlistCount=0;
+
+      if(user&& user.id){
+          wishlist=await Wishlist.findOne({userId: user.id})
+          if(wishlist && wishlist.products){
+              wishlistCount=wishlist.products.length
+              
+          }
+      }
+
       const offers = await Offer.find({ status: 'active' });
 
-      // Get selected categories and sort option from query parameters
       const selectedCategories = req.query.categories || [];
       const sortOption = req.query.sort || '';
 
-      // Determine the sorting criteria
       let sortCriteria = {};
       switch (sortOption) {
           case 'priceLowToHigh':
@@ -39,10 +59,9 @@ const loadProductsList = async (req, res) => {
               sortCriteria = { productName: -1 };
               break;
           default:
-              sortCriteria = {}; // Default sorting (if any)
+              sortCriteria = {}; 
       }
 
-      // Fetch paginated and sorted products with category filter
       const products = await Product.find({
           status: 'Active',
           ...(selectedCategories.length > 0 ? { category: { $in: selectedCategories } } : {})
@@ -57,12 +76,13 @@ const loadProductsList = async (req, res) => {
       });
       const totalPages = Math.ceil(totalProducts / limit);
 
-      // Render the product list view with pagination and sorting data
       res.render('products-list', {
           categories,
           user,
+          cartCount,
+          wishlistCount,
           products,
-          offers, // Pass offers for processing in the EJS template
+          offers, 
           currentPage: page,
           totalPages,
           limit,
@@ -81,21 +101,37 @@ const loadProductsList = async (req, res) => {
 };
 
 
-  
-
-  
-//load product details
+//product details
 // const loadProductDetails = async (req, res) => {
 //     try {
-//         // const product = await Product.find({ status: 'Active' });
-//         const offers = await Offer.find({ status: 'active' });
-
 //         const productId = req.params.id; 
-//         const product = await Product.findById(productId).exec(); 
+//         const product = await Product.findById(productId).exec();
+//         const offers = await Offer.find({ status: 'active' });
 //         const user = req.user || req.session.user;
 
+//         let cart = null;
+//         let cartCount = 0;
+  
+//         if (user && user.id) {
+//             cart = await Cart.findOne({ userId: user.id });
+//             if (cart && cart.items) {
+//                 cartCount = cart.items.length;
+//             }
+//         }
+//         let wishlist=null;
+//         let wishlistCount=0;
+
+//         if(user&& user.id){
+//             wishlist=await Wishlist.findOne({userId: user.id})
+//             if(wishlist && wishlist.products){
+//                 wishlistCount=wishlist.products.length
+//                 console.log("daaa",wishlistCount);
+                
+//             }
+//         }
+
 //         if (!product) {
-//              res.status(404).send('Product not found');
+//             return res.status(404).send('Product not found');
 //         }
 
 //         const relatedProducts = await Product.find({
@@ -104,30 +140,49 @@ const loadProductsList = async (req, res) => {
 //             status: 'Active'
 //         }).limit(4).exec();
 
-//          res.render('product-details', {
+//         res.render('product-details', {
 //             user,
+//             cartCount,
 //             product,
 //             relatedProducts,
 //             offers,
+//             wishlistCount,
 //             breadcrumbs: [
 //                 { title: 'Home', url: '/' },
 //                 { title: 'Products', url: '/products-list' },
-//                 { title: 'Products-Details', url: '#' }
+//                 { title: 'Product Details', url: '#' }
 //             ]
 //         });
 //     } catch (error) {
 //         console.error(error); 
-//          res.status(500).send('Server Error'); 
+//         res.status(500).send('Server Error'); 
 //     }
 // };
-
-
 const loadProductDetails = async (req, res) => {
     try {
         const productId = req.params.id; 
         const product = await Product.findById(productId).exec();
         const offers = await Offer.find({ status: 'active' });
         const user = req.user || req.session.user;
+
+        let cart = null;
+        let cartCount = 0;
+  
+        if (user && user.id) {
+            cart = await Cart.findOne({ userId: user.id });
+            if (cart && cart.items) {
+                cartCount = cart.items.length;
+            }
+        }
+        let wishlist = null;
+        let wishlistCount = 0;
+
+        if (user && user.id) {
+            wishlist = await Wishlist.findOne({ userId: user.id });
+            if (wishlist && wishlist.products) {
+                wishlistCount = wishlist.products.length;
+            }
+        }
 
         if (!product) {
             return res.status(404).send('Product not found');
@@ -139,11 +194,15 @@ const loadProductDetails = async (req, res) => {
             status: 'Active'
         }).limit(4).exec();
 
+        // Ensure the product's stock is sent to the frontend
         res.render('product-details', {
             user,
+            cartCount,
             product,
             relatedProducts,
             offers,
+            wishlistCount,
+            stock: product.stock, // Send stock to the frontend
             breadcrumbs: [
                 { title: 'Home', url: '/' },
                 { title: 'Products', url: '/products-list' },
@@ -157,10 +216,50 @@ const loadProductDetails = async (req, res) => {
 };
 
 
+//search product
+const searchProduct = async (req, res) => {
+  try {
+    const query = req.query.q.toLowerCase();
+    console.log('Search query:', query);
+    
+    const products = await Product.find({
+      $or: [
+        { productName: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } }
+      ]
+    }).limit(10);
+
+    console.log('Found products:', JSON.stringify(products, null, 2));
+    console.log('Total products found:', products.length);
+
+    const results = products.map((product) => ({
+      id: product._id,
+      productName: product.productName,
+      description: product.description,
+      price: product.price,
+      image: product.images[0],
+    }));
+
+    console.log('Formatted results:', JSON.stringify(results, null, 2));
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error in product search:", error);
+    res.status(500).json({ error: "An error occurred while searching for products" });
+  }
+}
+  
+  
+  
+  
+  
+  
+
 
 
 module.exports = {
     loadProductsList,
-    loadProductDetails
+    loadProductDetails,
+    searchProduct
 
 }

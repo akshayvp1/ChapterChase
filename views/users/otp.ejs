@@ -103,7 +103,7 @@
             </div>
         </div>
         
-        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
         let countdownElement = document.getElementById('countdown');
@@ -152,32 +152,44 @@
         startCountdown();
 
         form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const jsonData = Object.fromEntries(formData.entries());
+    e.preventDefault();
+    const formData = new FormData(form);
+    const jsonData = Object.fromEntries(formData.entries());
 
-        fetch('/verify-otp', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jsonData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                errorMessage.textContent = data.error;
-                errorMessage.style.display = 'block';
-            } else if (data.success) {
-                window.location.href = '/home';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            errorMessage.textContent = 'An error occurred. Please try again.';
+    fetch('/verify-otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            errorMessage.textContent = data.error;
             errorMessage.style.display = 'block';
-        });
+        } else if (data.success) {
+            // Show SweetAlert on success
+            Swal.fire({
+                title: 'Success!',
+                text: 'OTP verified successfully. ',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                // Redirect to login page after the user clicks "OK"
+                if (result.isConfirmed) {
+                    window.location.href = data.redirect || '/login';
+                }
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        errorMessage.textContent = 'An error occurred. Please try again.';
+        errorMessage.style.display = 'block';
     });
+});
+    
         resendLink.addEventListener('click', function(e) {
             e.preventDefault();
             const email = document.getElementById('email').value;

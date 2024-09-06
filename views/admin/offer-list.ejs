@@ -73,6 +73,7 @@
 </style>
 
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -152,7 +153,7 @@
             <div data-i18n="Dashboard">Dashboard</div>
           </a>
         </li>
-        <li class="menu-item active open">
+        <li class="menu-item ">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <div data-i18n="Products">Products</div>
           </a>
@@ -162,7 +163,7 @@
                 <div data-i18n="Product List">Product List</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item ">
               <a href="/admin/add-product" class="menu-link">
                 <div data-i18n="Add Product">Add Product</div>
               </a>
@@ -179,11 +180,7 @@
             <div data-i18n="Order">Order</div>
           </a>
           <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/order-list" class="menu-link">
-                <div data-i18n="Order List">Order List</div>
-              </a>
-            </li>
+           
             <li class="menu-item">
               <a href="/admin/order-details" class="menu-link">
                 <div data-i18n="Order Details">Order Details</div>
@@ -210,7 +207,7 @@
 
 
 
-        <li class="menu-item">
+        <li class="menu-item active open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <div data-i18n="Coupon">Coupon</div>
             </a>
@@ -230,7 +227,7 @@
                   <div data-i18n="Add Offer">Add offer</div>
                 </a>
               </li>
-              <li class="menu-item">
+              <li class="menu-item active open">
                 <a href="/admin/offer-list" class="menu-link">
                   <div data-i18n="Offer List">Offer List</div>
                 </a>
@@ -242,7 +239,7 @@
 
 
 
-        <li class="menu-item">
+        <!-- <li class="menu-item">
           <a href="app-ecommerce-manage-reviews.html" class="menu-link">
             <div data-i18n="Manage Reviews">Manage Reviews</div>
           </a>
@@ -366,7 +363,7 @@
           </ul>
         </li>
       </ul>
-    </li>
+    </li> -->
     
   </ul>
 </aside>
@@ -458,33 +455,29 @@
   
 <div class="card">
     <div class="card-datatable table-responsive">
-        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            <div class="card-header d-flex rounded-0 flex-wrap pb-md-0 pt-0">
-                <div class="me-5 pe-5">
-                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                        <label>
-                            <input type="search" id="search-coupon" class="form-control form-control-sm ms-0" 
-                                   placeholder="Search Coupon" aria-controls="DataTables_Table_0">
-                        </label>
-                        <button class="btn btn-secondary add-new btn-primary waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" style="margin-left: 1150px;" onclick="location.href='/admin/add-product'">
-                            <span><i class="ri-add-line ri-16px me-0 me-sm-2 align-baseline"></i>
-                            <span class="d-none d-sm-inline-block">Add Product</span></span>
-                          </button>
-                          
-                    </div>
-                    
-                </div>
-                <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
-                    <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center gap-4 pt-0">
-                        <div class="dataTables_length my-0" id="DataTables_Table_0_length">
-                        </div>
-                        <div class="dt-buttons btn-group flex-wrap d-flex">
-                            <div class="btn-group">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="card-header d-flex rounded-0 flex-wrap pb-md-0 pt-0">
+        <div class="me-5 pe-5">
+          <div class="dataTables_filter">
+            <label>
+              <input type="search" id="search-offer" class="form-control form-control-sm ms-0" 
+                     placeholder="Search Offer" aria-controls="DataTables_Table_0" value="<%= search %>">
+            </label>
+            <button class="btn btn-secondary add-new btn-primary waves-effect waves-light" 
+                    onclick="searchOffers()">Search</button>
+          </div>
+        </div>
+        <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
+          <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center gap-4 pt-0">
+            <div class="dataTables_length my-0" id="DataTables_Table_0_length">
             </div>
+            <div class="dt-buttons btn-group flex-wrap d-flex">
+              <div class="btn-group">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
             <!-- views/admin/coupon-list.ejs -->
             <table class="datatables-coupons table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
@@ -506,8 +499,6 @@
                           <td><%= offer.offerName %></td>
                           <td><%= offer.offerType %></td>
                           <td><%= offer.discount %></td>
-              
-                          <!-- Check if offer is of type 'product' and display associated products -->
                           <td>
                               <% if (offer.offerType === 'product' && offer.productId && offer.productId.length > 0) { %>
                                   <%= offer.productId.map(product => product.productName).join(', ') %>
@@ -517,128 +508,47 @@
                                   No associated products or categories
                               <% } %>
                           </td>
-              
                           <td><%= offer.status %></td>
                           <td>
-                              <button class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-offer-button" 
-                              data-offer-id="<%= offer._id %>">
-                                  <i class="ri-edit-box-line ri-20px"></i>
-                              </button>
+                            <button class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-offer-button" 
+                            data-offer-id="<%= offer._id %>">
+                            <i class="ri-edit-box-line ri-20px"></i>
+                        </button>
+                        
                           </td>
                       </tr>
                   <% }) %>
               </tbody>
-              
-              
-              
-            </table>
-        </div>
-    </div>
-
-
-
-
-    <!-- Edit Offer Modal -->
-    <div class="modal fade" id="editOfferModal" tabindex="-1" aria-labelledby="editOfferModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="editOfferModalLabel">Edit Offer</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form id="editOfferForm" method="post">
-                  <div class="modal-body">
-                      <!-- Offer Information -->
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="offerTypeEdit" class="form-label">Offer Type:</label>
-                                  <select class="form-select" id="offerTypeEdit" name="offerType" required>
-                                      <option value="" disabled>Select Offer Type</option>
-                                      <option value="product">Product Offer</option>
-                                      <option value="category">Category Offer</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="offerNameEdit" class="form-label">Offer Name:</label>
-                                  <input type="text" class="form-control" id="offerNameEdit" name="offerName" required>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- Discount and Status -->
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="discountEdit" class="form-label">Discount (%):</label>
-                                  <input type="number" class="form-control" id="discountEdit" name="discount" required>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="statusEdit" class="form-label">Status:</label>
-                                  <select class="form-select" id="statusEdit" name="status" required>
-                                      <option value="active">Active</option>
-                                      <option value="inactive">Inactive</option>
-                                  </select>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- Category and Product -->
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="mb-3" id="categoryGroup">
-                                  <label for="categoryEdit" class="form-label">Category:</label>
-                                  <select class="form-select select2-multiple" id="categoryEdit" name="categoryId" multiple>
-                                      <!-- Options will be added dynamically -->
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="mb-3" id="productGroup">
-                                  <label for="productEdit" class="form-label">Product:</label>
-                                  <select class="form-select select2-multiple" id="productEdit" name="productId" multiple>
-                                      <!-- Options will be added dynamically -->
-                                  </select>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
-              </form>
+          </table>
+          <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+            Showing <%= (currentPage - 1) * limit + 1 %> to <%= Math.min(currentPage * limit, totalOffers) %> of <%= totalOffers %> entries
           </div>
-      </div>
-    </div>
-    
-
-
-
-
-
-
-
-  
-  
-  
-
-
-
-
-
-    <!-- Footer -->
-    <footer class="content-footer footer bg-footer-theme">
-        <div class="container-xxl">
-            <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-                <!-- Footer content here -->
-            </div>
-        </div>
-    </footer>
-    <!-- / Footer -->
-    <div class="content-backdrop fade"></div>
+          <div class="dataTables_paginate paging_simple_numbers justify-content-center" id="DataTables_Table_0_paginate">
+            <ul class="pagination justify-content-center">
+              <% if (currentPage > 1) { %>
+              <li class="paginate_button page-item previous" id="DataTables_Table_0_previous">
+                <a href="/admin/offer-list?page=<%= currentPage - 1 %>&limit=<%= limit %>&search=<%= search %>" class="page-link">Previous</a>
+              </li>
+              <% } %>
+          
+              <% let startPage = Math.max(1, currentPage - 2); %>
+              <% let endPage = Math.min(totalPages, currentPage + 2); %>
+          
+              <% for (let i = startPage; i <= endPage; i++) { %>
+              <li class="paginate_button page-item <%= i === currentPage ? 'active' : '' %>">
+                <a href="/admin/offer-list?page=<%= i %>&limit=<%= limit %>&search=<%= search %>" class="page-link"><%= i %></a>
+              </li>
+              <% } %>
+          
+              <% if (currentPage < totalPages) { %>
+              <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                <a href="/admin/offer-list?page=<%= currentPage + 1 %>&limit=<%= limit %>&search=<%= search %>" class="page-link">Next</a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+          
+                 
 </div>
 
 
@@ -656,6 +566,70 @@
     
   </div>
   <!-- / Layout wrapper -->
+
+   
+
+
+  <!-- Edit Offer Modal -->
+  <div id="editOfferModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Offer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editOfferForm">
+                    <div class="mb-3">
+                        <label for="offerName" class="form-label">Offer Name</label>
+                        <input type="text" class="form-control" id="offerName" name="offerName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="offerType" class="form-label">Offer Type</label>
+                        <select class="form-control" id="offerType" name="offerType">
+                            <option value="product">Product</option>
+                            <option value="category">Category</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productSelect" class="form-label">Select Products</label>
+                        <select class="form-control select2-multiple" id="productSelect" name="productId[]" multiple>
+                            <% products.forEach(product => { %>
+                                <option value="<%= product._id %>"><%= product.productName %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categorySelect" class="form-label">Select Categories</label>
+                        <select class="form-control select2-multiple" id="categorySelect" name="categoryId[]" multiple>
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category._id %>"><%= category.title %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="discount" class="form-label">Discount (%)</label>
+                        <input type="number" class="form-control" id="discount" name="discount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
   <!-- Core JS -->
@@ -700,13 +674,134 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- Custom JS -->
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
 
    <script>
+$(document).ready(function() {
+    // Initialize Select2
+    $('.select2-multiple').select2({
+        placeholder: "Select options",
+        allowClear: true,
+        tags: true,
+        tokenSeparators: [',', ' '],
+        maximumSelectionLength: 10  // Optional: limit the number of selections
+    });
+  })
 
+
+
+
+$(document).ready(function() {
+    // Attach click event to all edit buttons
+    $('.edit-offer-button').on('click', function() {
+        // Get the offer ID from the data attribute of the clicked button
+        const offerId = $(this).data('offer-id');
+
+        // Make an AJAX request to fetch the offer data
+        $.ajax({
+    url: `/admin/get-offer/${offerId}`, // Ensure this URL is correct
+    type: 'GET',
+    success: function(response) {
+        if (response.success) {
+            const offer = response.offer;
+
+            // Populate the modal with the fetched data
+            $('#editOfferModal #offerName').val(offer.offerName);
+            $('#editOfferModal #offerType').val(offer.offerType);
+            $('#editOfferModal #discount').val(offer.discount);
+            $('#editOfferModal #status').val(offer.status);
+
+            // Handle the selection for product or category based on offerType
+            if (offer.offerType === 'product') {
+                $('#productSelect').show();
+                $('#categorySelect').hide();
+
+                // Empty and populate the product select dropdown
+                $('#editOfferModal #productSelect').empty();
+                offer.productId.forEach(product => {
+                    $('#editOfferModal #productSelect').append(
+                        `<option value="${product._id}" selected>${product.productName}</option>`
+                    );
+                });
+
+            } else if (offer.offerType === 'category') {
+                $('#categorySelect').show();
+                $('#productSelect').hide();
+
+                // Empty and populate the category select dropdown
+                $('#editOfferModal #categorySelect').empty();
+                offer.categoryId.forEach(category => {
+                    $('#editOfferModal #categorySelect').append(
+                        `<option value="${category._id}" selected>${category.title}</option>`
+                    );
+                });
+            }
+
+            // Show the modal
+            $('#editOfferModal').modal('show');
+        } else {
+            alert('Failed to load offer data');
+        }
+    },
+    error: function(err) {
+        console.error('Error fetching offer data:', err); // Log detailed error information
+        alert('An error occurred while fetching offer data. Please try again.');
+    }
+});
+
+
+    });
+
+    // Handle form submission for saving changes
+    $('#editOfferForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the form from submitting the traditional way
+
+        // Get the offer ID from a hidden input or another source
+        const offerId = $('#editOfferModal').data('offer-id');
+
+        // Serialize the form data
+        const formData = $(this).serialize();
+
+        // Make an AJAX request to update the offer
+        $.ajax({
+            url: `/update-offer/${offerId}`, // Adjust the URL based on your route structure
+            type: 'PATCH',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    alert('Offer updated successfully');
+                    // Optionally, reload the page or update the UI to reflect changes
+                    location.reload();
+                } else {
+                    alert('Failed to update offer');
+                }
+            },
+            error: function(err) {
+                console.error('Error updating offer:', err);
+                alert('An error occurred while updating the offer. Please try again.');
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+function searchOffers() {
+  const searchTerm = document.getElementById('search-offer').value;
+  window.location.href = `/admin/offer-list?page=1&limit=<%= limit %>&search=${searchTerm}`;
+}
 
 
    </script>
+
 
    
 </body>

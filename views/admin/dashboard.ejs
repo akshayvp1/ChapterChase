@@ -1,6 +1,409 @@
 <%- include('../adminlayouts/header.ejs') %>
 
+<style>
+  
+.export {
+    display: flex;
+    gap: 8px; /* Small gap between buttons */
+    justify-content: center;
+}
 
+.export button {
+    padding: 4px 8px; /* Smaller padding */
+    font-size: 0.75em;  /* Reduced font size */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 80px; /* Set minimum width to maintain consistent button size */
+}
+
+/* Media Query for Tablets (768px and below) */
+@media (max-width: 768px) {
+    .export button {
+        padding: 4px 6px;   /* Slightly reduced padding for tablets */
+        font-size: 0.7em;    /* Smaller font size for tablets */
+        min-width: 70px;     /* Reduced minimum width for smaller screens */
+    }
+}
+
+/* Media Query for Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+    .export {
+        justify-content: space-around; /* Ensure buttons are spread out on one line */
+    }
+    
+    .export button {
+        padding: 3px 5px;   /* Further reduced padding for mobiles */
+        font-size: 0.65em;  /* Further reduced font size for mobiles */
+        min-width: 60px;    /* Minimum width to fit buttons on one line */
+    }
+}
+
+
+
+
+
+  
+
+  /* Container for summary section */
+.summary {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Individual summary box styling */
+.summary-box {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.summary-box h2 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.summary-box p {
+    font-size: 1.2em;
+    margin: 10px 0 0;
+}
+
+/* Adjust layout for smaller screens */
+@media (max-width: 768px) {
+    .summary {
+        flex-direction: column;
+    }
+
+    .summary-box {
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-box {
+        padding: 15px;
+    }
+
+    .summary-box h2 {
+        font-size: 1.5em;
+    }
+
+    .summary-box p {
+        font-size: 1em;
+    }
+}
+
+
+/* // */
+/* Ensure the container is responsive */
+.container {
+    max-width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+/* Style the table to be fully responsive */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table th {
+    background-color: #f8f8f8;
+}
+
+/* Make the table scrollable on smaller screens */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-responsive table {
+    min-width: 600px; /* Adjust this value based on the number of columns */
+}
+
+@media (max-width: 768px) {
+    table th,
+    table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters select,
+    .filters input,
+    .filters button {
+        width: 100%;
+    }
+
+    .pagination button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+    table th,
+    table td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .summary-box {
+        flex: 1 1 100%;
+    }
+}
+
+
+
+/* // */
+
+
+
+
+
+
+
+
+  
+        .dashboard-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .card-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 5px 0 0 0;
+        }
+        #timeFrameSelect {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        #chartContainer {
+            height: 300px;
+        }
+
+
+
+
+
+
+
+
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-right: 10px; /* Adds some space between buttons */
+}
+
+button.pdf {
+    background-color: #e74c3c; /* Red color for PDF button */
+    color: #fff;
+}
+
+button.excel {
+    background-color: #27ae60; /* Green color for Excel button */
+    color: #fff;
+}
+
+/* Hover effect */
+button:hover {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus effect */
+button:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+  .hidden {
+    display: none;
+}
+
+    .filters {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Space between the elements */
+    }
+
+    .date-label {
+        margin-left: 10px; /* Space between the filter dropdown and the date input */
+    }
+
+    .date-input {
+        padding: 5px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Adjust the export dropdown to align with other elements */
+    .export {
+        margin-left: auto;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    /* Style for the generate button */
+    .generate {
+        padding: 5px 10px;
+        font-size: 14px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+
+
+
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+/* .export{
+  margin-left: 900px;
+} */
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin-top: 0;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.summary-box {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.summary-box h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.summary-box p {
+    margin: 5px 0 0;
+    color: #777;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+select, button {
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.generate {
+    background-color: #00b8d4;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+</style>
   
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/dashboard-assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -42,93 +445,92 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
   
+  
   <div class="app-brand demo ">
-    <a href="index.html" class="app-brand-link">
-      <img src="/assets/images/demos/demo-20/chapterChase-rbg.png" alt="" style="width:60px">
-      <h5 style="margin-top: 15px;">ChapterChase</h5>
-    </a>
+  <a href="index.html" class="app-brand-link">
+    <img src="/assets/images/demos/demo-20/chapterChase-rbg.png" alt="" style="width:60px">
+    <h5 style="margin-top: 15px;">ChapterChase</h5>
+  </a>
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-      <i class="menu-toggle-icon d-xl-block align-middle"></i>
-    </a>
-  </div>
+  <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+    <i class="menu-toggle-icon d-xl-block align-middle"></i>
+  </a>
+</div>
 
-  <div class="menu-inner-shadow"></div>
-
+<div class="menu-inner-shadow"></div>
+<ul class="menu-inner py-1">
   
-  
-  <ul class="menu-inner py-1">
-    <!-- Dashboards -->
-    <li class="menu-item active open">
-    </li>
-    <!-- e-commerce-app menu start -->
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
-        <div data-i18n="eCommerce">eCommerce</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="/admin/dashboard" class="menu-link">
-            <div data-i18n="Dashboard">Dashboard</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Products">Products</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/product-list" class="menu-link">
-                <div data-i18n="Product List">Product List</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/add-product" class="menu-link">
-                <div data-i18n="Add Product">Add Product</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/category-list" class="menu-link">
-                <div data-i18n="Category List">Category List</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Order">Order</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/order-list" class="menu-link">
-                <div data-i18n="Order List">Order List</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/order-details" class="menu-link">
-                <div data-i18n="Order Details">Order Details</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Customer">Customer</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/customer-list" class="menu-link">
-                <div data-i18n="All Customers">All Customers</div>
-              </a>
-            </li>
-          </ul>
-        </li>
+  <!-- e-commerce-app menu start -->
+  <li class="menu-item active open">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
+      <div data-i18n="eCommerce">eCommerce</div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item active open">
+        <a href="/admin/dashboard" class="menu-link">
+          <div data-i18n="Dashboard">Dashboard</div>
+        </a>
+      </li>
+      <li class="menu-item ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Products">Products</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/admin/product-list" class="menu-link">
+              <div data-i18n="Product List">Product List</div>
+            </a>
+          </li>
+          <li class="menu-item ">
+            <a href="/admin/add-product" class="menu-link">
+              <div data-i18n="Add Product">Add Product</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/admin/category-list" class="menu-link">
+              <div data-i18n="Category List">Category List</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Order">Order</div>
+        </a>
+        <ul class="menu-sub">
+          <!-- <li class="menu-item">
+            <a href="/admin/order-list" class="menu-link">
+              <div data-i18n="Order List">Order List</div>
+            </a>
+          </li> -->
+          <li class="menu-item">
+            <a href="/admin/order-details" class="menu-link">
+              <div data-i18n="Order Details">Order Details</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Customer">Customer</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/admin/customer-list" class="menu-link">
+              <div data-i18n="All Customers">All Customers</div>
+            </a>
+          </li>
+         
+        </ul>
+      </li>
 
 
 
 
-        <li class="menu-item">
+
+
+      <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <div data-i18n="Coupon">Coupon</div>
           </a>
@@ -160,131 +562,133 @@
 
 
 
-        <li class="menu-item">
-          <a href="app-ecommerce-manage-reviews.html" class="menu-link">
-            <div data-i18n="Manage Reviews">Manage Reviews</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-ecommerce-referral.html" class="menu-link">
-            <div data-i18n="Referrals">Referrals</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Settings">Settings</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-detail.html" class="menu-link">
-                <div data-i18n="Store Details">Store Details</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-payments.html" class="menu-link">
-                <div data-i18n="Payments">Payments</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-checkout.html" class="menu-link">
-                <div data-i18n="Checkout">Checkout</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-shipping.html" class="menu-link">
-                <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-locations.html" class="menu-link">
-                <div data-i18n="Locations">Locations</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-bill-line'></i>
-        <div data-i18n="Invoice">Invoice</div>
-        <div class="badge bg-danger rounded-pill ms-auto"></div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-invoice-list.html" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-preview.html" class="menu-link">
-            <div data-i18n="Preview">Preview</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-edit.html" class="menu-link">
-            <div data-i18n="Edit">Edit</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-add.html" class="menu-link">
-            <div data-i18n="Add">Add</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-user-line"></i>
-        <div data-i18n="Users">Users</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-user-list.html" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
+      <!-- <li class="menu-item">
+        <a href="app-ecommerce-manage-reviews.html" class="menu-link">
+          <div data-i18n="Manage Reviews">Manage Reviews</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-ecommerce-referral.html" class="menu-link">
+          <div data-i18n="Referrals">Referrals</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Settings">Settings</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-detail.html" class="menu-link">
+              <div data-i18n="Store Details">Store Details</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-payments.html" class="menu-link">
+              <div data-i18n="Payments">Payments</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-checkout.html" class="menu-link">
+              <div data-i18n="Checkout">Checkout</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-shipping.html" class="menu-link">
+              <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-locations.html" class="menu-link">
+              <div data-i18n="Locations">Locations</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Notifications</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  
+  <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class='menu-icon tf-icons ri-bill-line'></i>
+      <div data-i18n="Invoice">Invoice</div>
+      <div class="badge bg-danger rounded-pill ms-auto"></div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="app-invoice-list.html" class="menu-link">
+          <div data-i18n="List">List</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-preview.html" class="menu-link">
+          <div data-i18n="Preview">Preview</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-edit.html" class="menu-link">
+          <div data-i18n="Edit">Edit</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-add.html" class="menu-link">
+          <div data-i18n="Add">Add</div>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class="menu-icon tf-icons ri-user-line"></i>
+      <div data-i18n="Users">Users</div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="app-user-list.html" class="menu-link">
+          <div data-i18n="List">List</div>
+        </a>
+      </li>
 
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="View">View</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="app-user-view-account.html" class="menu-link">
-                <div data-i18n="Account">Account</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-security.html" class="menu-link">
-                <div data-i18n="Security">Security</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-billing.html" class="menu-link">
-                <div data-i18n="Billing & Plans">Billing & Plans</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-connections.html" class="menu-link">
-                <div data-i18n="Connections">Connections</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="View">View</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="app-user-view-account.html" class="menu-link">
+              <div data-i18n="Account">Account</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-security.html" class="menu-link">
+              <div data-i18n="Security">Security</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-billing.html" class="menu-link">
+              <div data-i18n="Billing & Plans">Billing & Plans</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Notifications</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-connections.html" class="menu-link">
+              <div data-i18n="Connections">Connections</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li> -->
+  
+</ul>
 </aside>
 <!-- / Menu -->
 <!-- Layout container -->
@@ -381,7 +785,7 @@
             
 <div class="row g-6">
   <!-- Ratings -->
-  <div class="col-xxl-3 col-sm-6">
+  <!-- <div class="col-xxl-3 col-sm-6">
     <div class="card">
       <div class="row">
         <div class="col-6">
@@ -403,10 +807,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--/ Ratings -->
   <!-- Sessions -->
-  <div class="col-xxl-3 col-sm-6">
+  <!-- <div class="col-xxl-3 col-sm-6">
     <div class="card">
       <div class="row">
         <div class="col-6">
@@ -428,10 +832,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--/ Sessions -->
   <!-- Transactions -->
-  <div class="col-xxl-6 align-self-end">
+  <!-- <div class="col-xxl-6 align-self-end">
     <div class="card">
       <div class="card-header">
         <div class="d-flex align-items-center justify-content-between">
@@ -506,35 +910,31 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--/ Transactions -->
   <!-- Total Sales Chart-->
-  <div class="col-xxl-3 col-md-6">
+  <div class="col-xxl-6 col-md-6">
     <div class="card h-100">
-      <div class="card-header">
-        <div class="d-flex justify-content-between">
-          <h5 class="mb-1">Total Sales</h5>
-          <div class="dropdown">
-            <button class="btn text-muted p-0" type="button" id="totalSalesDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="ri-more-2-line ri-24px"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalSalesDropdown">
-              <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-            </div>
-          </div>
+      <div class="dashboard-card">
+        <div class="card-header">
+            <h2 class="card-title">Sales Dashboard</h2>
+            
         </div>
-        <p class="card-subtitle mb-0">$21,845</p>
-      </div>
-      <div class="card-body">
-        <div id="totalSalesChart"></div>
-      </div>
+        <div class="card-content">
+            <!-- <h3 class="card-subtitle">Total Sales: <%= totalSalesAmount.toFixed(2) %></h3> -->
+            <div id="chartContainer">
+                <canvas id="salesChart"></canvas>
+            </div>
+        </div>
+    </div>
+
     </div>
   </div>
+  
+  
   <!--/ Total Sales Chart-->
   <!-- Revenue Report Chart-->
-  <div class="col-xxl-3 col-md-6">
+  <!-- <div class="col-xxl-3 col-md-6">
     <div class="card h-100">
       <div class="card-header">
         <div class="d-flex justify-content-between">
@@ -555,616 +955,229 @@
         <div id="revenueReportChart"></div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--/ Revenue Report Chart-->
   <!-- Sales Overview Chart -->
   <div class="col-xl-6">
     <div class="card h-100">
-      <div class="card-header">
-        <div class="d-flex justify-content-between">
-          <h5 class="mb-0">Sales Overview</h5>
-          <div class="dropdown">
-            <button class="btn text-muted p-0" type="button" id="salesOverviewDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="ri-more-2-line ri-24px"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesOverviewDropdown">
-              <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <h5 class="mb-0">Order Status Overview</h5>
+                <div class="dropdown">
+                    <button class="btn text-muted p-0" type="button" id="orderStatusDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-more-2-line ri-24px"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orderStatusDropdown">
+                        <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="card-body pt-lg-5">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <div id="salesOverviewChart"></div>
-          </div>
-          <div class="col-md-6 mt-3 mt-md-0">
-            <div class="d-flex align-items-center">
-              <div class="avatar">
-                <div class="avatar-initial bg-label-primary rounded">
-                  <i class="ri-wallet-line ri-24px"></i>
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <canvas id="orderStatusChart"></canvas>
                 </div>
-              </div>
-              <div class="ms-3 d-flex flex-column">
-                <p class="mb-0">Number of Sales</p>
-                <h5 class="mb-0">$86,400</h5>
-              </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-primary rounded">
+                                <i class="ri-shopping-bag-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="ms-3 d-flex flex-column">
+                            <p class="mb-0">Total Orders</p>
+                            <h5 class="mb-0"><%= totalOrders %></h5>
+                        </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-1">
+                                <div class="badge badge-dot bg-success me-2"></div>
+                                <p class="mb-0">Delivered</p>
+                            </div>
+                            <p class="fw-medium mb-0"><%= statusCounts.Delivered %></p>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-1">
+                                <div class="badge badge-dot bg-danger me-2"></div>
+                                <p class="mb-0">Cancelled</p>
+                            </div>
+                            <p class="fw-medium mb-0"><%= statusCounts.Cancelled %></p>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-1">
+                                <div class="badge badge-dot bg-warning me-2"></div>
+                                <p class="mb-0">Returned</p>
+                            </div>
+                            <p class="fw-medium mb-0"><%= statusCounts.Returned %></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr class="my-6">
-            <div class="row g-4">
-              <div class="col-6">
-                <div class="d-flex align-items-center mb-1">
-                  <div class="badge badge-dot bg-primary me-2"></div>
-                  <p class="mb-0">Apparel</p>
-                </div>
-                <p class="fw-medium mb-0">$12,150</p>
-              </div>
-              <div class="col-6">
-                <div class="d-flex align-items-center mb-1">
-                  <div class="badge badge-dot bg-primary me-2"></div>
-                  <p class="mb-0">Electronic</p>
-                </div>
-                <p class="fw-medium mb-0">$24,900</p>
-              </div>
-              <div class="col-6">
-                <div class="d-flex align-items-center mb-1">
-                  <div class="badge badge-dot bg-primary me-2"></div>
-                  <p class="mb-0">FMCG</p>
-                </div>
-                <p class="fw-medium mb-0">$12,750</p>
-              </div>
-              <div class="col-6">
-                <div class="d-flex align-items-center mb-1">
-                  <div class="badge badge-dot bg-primary me-2"></div>
-                  <p class="mb-0">Other Sales</p>
-                </div>
-                <p class="fw-medium mb-0">$50,200</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
   <!--/ Sales Overview Chart -->
-  <!-- Activity Timeline -->
-  <div class="col-xl-6 col-lg-8">
-    <div class="card h-100">
-      <div class="card-header">
-        <div class="d-flex justify-content-between">
-          <h5 class="mb-0">Activity Timeline</h5>
-        </div>
-      </div>
-      <div class="card-body pt-4">
-        <ul class="timeline card-timeline mb-0">
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-3">
-                <h6 class="mb-0">12 Invoices have been paid</h6>
-                <small class="text-muted">12 min ago</small>
-              </div>
-              <p class="mb-2">
-                Invoices have been paid to the company
-              </p>
-              <div class="d-flex align-items-center mb-1">
-                <div class="badge bg-lightest">
-                  <img src="/dashboard-assets/img/icons/misc/pdf.png" alt="img" width="15" class="me-2">
-                  <span class="h6 mb-0">invoices.pdf</span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-success"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-3">
-                <h6 class="mb-0">Client Meeting</h6>
-                <small class="text-muted">45 min ago</small>
-              </div>
-              <p class="mb-2">
-                Project meeting with john @10:15am
-              </p>
-              <div class="d-flex justify-content-between flex-wrap gap-2">
-                <div class="d-flex flex-wrap align-items-center">
-                  <div class="avatar avatar-sm me-2">
-                    <img src="/dashboard-assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                  </div>
-                  <div>
-                    <p class="mb-0 small fw-medium">Lester McCarthy (Client)</p>
-                    <small>CEO of ThemeSelection</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-info"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-3">
-                <h6 class="mb-0">Create a new project for client</h6>
-                <small class="text-muted">2 Day Ago</small>
-              </div>
-              <p class="mb-2">
-                6 team members in a project
-              </p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap p-0">
-                  <div class="d-flex flex-wrap align-items-center">
-                    <ul class="list-unstyled users-list d-flex align-items-center avatar-group m-0 me-2">
-                      <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Vinnie Mostowy" class="avatar pull-up">
-                        <img class="rounded-circle" src="/dashboard-assets/img/avatars/5.png" alt="Avatar" />
-                      </li>
-                      <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Allen Rieske" class="avatar pull-up">
-                        <img class="rounded-circle" src="/dashboard-assets/img/avatars/12.png" alt="Avatar" />
-                      </li>
-                      <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Julee Rossignol" class="avatar pull-up">
-                        <img class="rounded-circle" src="/dashboard-assets/img/avatars/6.png" alt="Avatar" />
-                      </li>
-                      <li class="avatar">
-                        <span class="avatar-initial rounded-circle pull-up text-heading" data-bs-toggle="tooltip" data-bs-placement="bottom" title="3 more">+3</span>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!--/ Activity Timeline -->
-  <!-- Weekly Sales Chart -->
-  <div class="col-xxl-4 col-xl-6 col-lg-4 col-md-6">
-    <div class="card h-100">
-      <div class="card-header">
-        <div class="d-flex justify-content-between">
-          <h5 class="mb-0">Weekly Sales</h5>
-          <div class="dropdown">
-            <button class="btn text-muted p-0" type="button" id="weeklySalesDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="ri-more-2-line ri-24px"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="weeklySalesDropdown">
-              <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-            </div>
-          </div>
-        </div>
-        <p class="text-body mb-0">Total 85.4k Sales</p>
-      </div>
-      <div class="card-body">
-        <div id="weeklySalesChart"></div>
-        <div class="d-flex align-items-center justify-content-around mt-5">
-          <div class="d-flex align-items-center">
-            <div class="avatar">
-              <div class="avatar-initial bg-label-primary rounded">
-                <i class="ri-pie-chart-2-line ri-24px"></i>
-              </div>
-            </div>
-            <div class="ms-3 d-flex flex-column">
-              <h6 class="mb-0">34.6k</h6>
-              <p class="mb-0">Sales</p>
-            </div>
-          </div>
-          <div class="d-flex align-items-center">
-            <div class="avatar">
-              <div class="avatar-initial bg-label-success rounded">
-                <i class="ri-money-dollar-circle-line ri-24px"></i>
-              </div>
-            </div>
-            <div class="ms-3 d-flex flex-column">
-              <h6 class="mb-0">$482k</h6>
-              <p class="mb-0">Total Profit</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Weekly Sales Chart -->
-  <div class="col-xxl-2 col-xl-6 col-lg-4 col-sm-6">
-    <div class="row gy-4">
-      <!-- Total Growth chart -->
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header pb-0">
-            <h4 class="mb-0">42.5k</h4>
-          </div>
-          <div class="card-body">
-            <div id="totalGrowthAreaChart" class="mb-3"></div>
-            <h6 class="text-center mb-0">Total Growth</h6>
-          </div>
-        </div>
-      </div>
-      <!--/ Total Growth chart -->
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header d-flex align-items-center justify-content-between">
-            <div class="avatar">
-              <div class="avatar-initial bg-primary rounded-circle shadow-xs">
-                <i class="ri-file-word-2-line ri-24px"></i>
-              </div>
-            </div>
-            <div class="dropdown">
-              <button class="btn text-muted p-0" type="button" id="newProjectID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ri-more-2-line ri-24px"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="newProjectID">
-                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                <a class="dropdown-item" href="javascript:void(0);">Update</a>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h6 class="mb-1">New Project</h6>
-            <div class="d-flex flex-wrap mb-1 align-items-center">
-              <h4 class="mb-0 me-2">862</h4>
-              <p class="text-danger mb-0">-18%</p>
-            </div>
-            <small>Yearly Project</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Upgrade Plan -->
-  <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-6">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Upgrade Your Plan</h5>
-        <div class="dropdown">
-          <button class="btn text-muted p-0" type="button" id="upgradePlanCard" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ri-more-2-line ri-24px"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="upgradePlanCard">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <small>Please make the payment to start enjoying all the features of our premium plan as soon as possible.</small>
-        <div class="bg-label-primary p-4 rounded my-3">
-          <div class="d-flex">
-            <div class="avatar flex-shrink-0 me-4">
-              <div class="avatar-initial bg-label-primary rounded">
-                <div>
-                  <img src="/dashboard-assets/img/icons/unicons/briefcase.png" alt="paypal">
-                </div>
-              </div>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Platinum</h6>
-                <a href="javascript:void(0)" class="small" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">Upgrade Plan</a>
-              </div>
-              <div class="user-progress">
-                <div class="d-flex justify-content-center">
-                  <sup class="mt-5 mb-0 text-heading small">$</sup>
-                  <h4 class="fw-medium mb-0">5,250</h4>
-                  <sub class="mt-auto mb-4 text-heading small"> /Year</sub>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <form id="paymentDetailsForm" onsubmit="return false">
-          <h6 class="mb-2">Payment Details</h6>
-          <div class="d-flex align-items-center mb-2">
-            <div class="me-3">
-              <img src="/dashboard-assets/img/icons/payments/logo-mastercard-small.png" alt="credit card" height="30">
-            </div>
-            <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-              <div>
-                <h6 class="mb-1">Credit Card</h6>
-                <small>5688 xxxx xxxx 2356</small>
-              </div>
-              <div class="w-px-75">
-                <input type="text" class="form-control form-control-sm cvv-code-payment" maxlength="3" placeholder="CVV" />
-              </div>
-            </div>
-          </div>
-          <div class="d-flex align-items-center mb-2">
-            <div class="me-3">
-              <img src="/dashboard-assets/img/icons/payments/logo-credit-card-2.png" alt="credit card" height="30">
-            </div>
-            <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-              <div>
-                <h6 class="mb-1">Credit Card</h6>
-                <small>8562 xxxx xxxx 4563</small>
-              </div>
-              <div class="w-px-75">
-                <input type="text" class="form-control form-control-sm cvv-code-payment" maxlength="3" placeholder="CVV" />
-              </div>
-            </div>
-          </div>
-          <a href="javascript:;" class="d-block my-2 small" data-bs-toggle="modal" data-bs-target="#addNewCCModal"> Add Payment Method </a>
-          <div class="col-12 mb-2 pb-2">
-            <input id="addEmail" name="addEmail" class="form-control form-control-sm" type="text" placeholder="Email Address" />
-          </div>
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary w-100"><span class="me-1">Contact Now</span></button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--/ Upgrade Plan -->
+
+  <!-- Best-Selling Products -->
+<!-- Best Selling Products -->
+<div class="col-xxl-6 col-md-6">
+  <h5>Best Selling Products</h5>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Product Name</th>
+              <th>Quantity Sold</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% topProducts.forEach(product => { %>
+              <tr>
+                  <td><%= product.name %></td>
+                  <td><%= product.quantity %></td>
+              </tr>
+          <% }) %>
+      </tbody>
+  </table>
+</div>
+
+<!-- Best Selling Categories -->
+<div class="col-xxl-6 col-md-6">
+  <h5>Best Selling Categories</h5>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Category Name</th>
+              <th>Quantity Sold</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% topCategories.forEach(category => { %>
+              <tr>
+                  <td><%= category.name %></td>
+                  <td><%= category.quantity %></td>
+              </tr>
+          <% }) %>
+      </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+ 
+
   <!-- Meeting Schedule -->
-  <div class="col-xxl-4 col-md-6">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Meeting Schedule</h5>
-        <div class="dropdown">
-          <button class="btn text-muted p-0" type="button" id="meetingSchedule" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ri-more-2-line ri-24px"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="meetingSchedule">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
+  <div class="container">
+    <h1>Sales Report</h1>
+    <div class="summary">
+        <div class="summary-box">
+            <h2><%= totalOrders %></h2>
+            <p>Total Orders</p>
         </div>
-      </div>
-      <div class="card-body">
-        <ul class="p-0 m-0">
-          <li class="d-flex mb-4 pb-2">
-            <div class="avatar flex-shrink-0 me-4">
-              <img src="/dashboard-assets/img/avatars/4.png" alt="avatar" class="rounded-circle">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Call with Woods</h6>
-                <small class="d-flex align-items-center">
-                  <i class="ri-calendar-line ri-14px"></i>
-                  <span class="ms-2">21 Jul | 08:20-10:30</span>
-                </small>
-              </div>
-              <div class="badge bg-label-primary rounded-pill">Business</div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-2">
-            <div class="avatar flex-shrink-0 me-4">
-              <img src="/dashboard-assets/img/avatars/5.png" alt="avatar" class="rounded-circle">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Conference call</h6>
-                <small class="d-flex align-items-center">
-                  <i class="ri-calendar-line ri-14px"></i>
-                  <span class="ms-2">21 Jul | 08:20-10:30</span>
-                </small>
-              </div>
-              <div class="badge bg-label-warning rounded-pill">Dinner</div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-2">
-            <div class="avatar flex-shrink-0 me-4">
-              <img src="/dashboard-assets/img/avatars/3.png" alt="avatar" class="rounded-circle">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Meeting with Mark</h6>
-                <small class="d-flex align-items-center">
-                  <i class="ri-calendar-line ri-14px"></i>
-                  <span class="ms-2">21 Jul | 08:20-10:30</span>
-                </small>
-              </div>
-              <div class="badge bg-label-secondary rounded-pill">Meetup</div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-2">
-            <div class="avatar flex-shrink-0 me-4">
-              <img src="/dashboard-assets/img/avatars/14.png" alt="avatar" class="rounded-circle">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Meeting in Oakland</h6>
-                <small class="d-flex align-items-center">
-                  <i class="ri-calendar-line ri-14px"></i>
-                  <span class="ms-2">21 Jul | 08:20-10:30</span>
-                </small>
-              </div>
-              <div class="badge bg-label-danger rounded-pill">Dinner</div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-2">
-            <div class="avatar flex-shrink-0 me-4">
-              <img src="/dashboard-assets/img/avatars/8.png" alt="avatar" class="rounded-circle">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Call with hilda</h6>
-                <small class="d-flex align-items-center">
-                  <i class="ri-calendar-line ri-14px"></i>
-                  <span class="ms-2">21 Jul | 08:20-10:30</span>
-                </small>
-              </div>
-              <div class="badge bg-label-success rounded-pill">Meditation</div>
-            </div>
-          </li>
-          <li class="d-flex">
-            <div class="avatar flex-shrink-0 me-4">
-              <img src="/dashboard-assets/img/avatars/1.png" alt="avatar" class="rounded-circle">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Meeting with Carl</h6>
-                <small class="d-flex align-items-center">
-                  <i class="ri-calendar-line ri-14px"></i>
-                  <span class="ms-2">21 Jul | 08:20-10:30</span>
-                </small>
-              </div>
-              <div class="badge bg-label-primary rounded-pill">Business</div>
-            </div>
-          </li>
-        </ul>
-      </div>
+        <div class="summary-box">
+            <h2>₹<%= totalDiscount.toFixed(2) %></h2>
+            <p>Total Discount(₹)</p>
+        </div>
+        <div class="summary-box">
+            <h2>₹<%= totalSalesAmount.toFixed(2) %></h2>
+            <p>Total Sales Amount(₹)</p>
+        </div>
     </div>
+
+    <div class="filters">
+        <label for="filter">Filters:</label>
+        <select id="filter">
+            <option value="daily" <% if (filter === 'daily') { %> selected <% } %>>Daily</option>
+            <option value="weekly" <% if (filter === 'weekly') { %> selected <% } %>>Weekly</option>
+            <option value="monthly" <% if (filter === 'monthly') { %> selected <% } %>>Monthly</option>
+            <option value="custom" <% if (filter === 'custom') { %> selected <% } %>>Custom</option>
+        </select>
+
+        <div id="custom-date-range" class="<% if (filter === 'custom') { %> hidden <% } %>">
+            <label for="start-date" class="date-label">Start Date:</label>
+            <input type="date" id="start-date" name="start-date" class="date-input" value="<%= startDate %>">
+
+            <label for="end-date" class="date-label">End Date:</label>
+            <input type="date" id="end-date" name="end-date" class="date-input" value="<%= endDate %>">
+        </div>
+
+        <div class="export">
+            <button class="pdf">PDF</button>
+            <button class="excel">Excel</button>
+        </div>
+
+        <button class="generate">+ Generate</button>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Date</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Discount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let grandTotal = 0; %>
+                <% if (typeof orders === 'undefined' || orders.length === 0) { %>
+                    <tr>
+                        <td colspan="7">No orders found for this user.</td>
+                    </tr>
+                <% } else { %>
+                    <% orders.forEach(order => { %>
+                        <% order.items.forEach(pro => { %>
+                            <% let itemTotal = pro.price; %>
+                            <% let discount = pro.couponDiscountAmt || 0; %>
+                            <% let finalTotal = itemTotal - discount; %>
+                            <% grandTotal += finalTotal; %>
+                            <tr>
+                                <td>#<%= order.orderId %></td>
+                                <td><%= order.createdAt.toDateString() %></td>
+                                <td><%= pro.product.productName %></td>
+                                <td><%= pro.quantity %></td>
+                                <td>₹<%= (pro.price / pro.quantity).toFixed(2) %></td>
+                                <td>₹<%= itemTotal.toFixed(2) %></td>
+                                <td>₹<%= discount.toFixed(2) %></td>
+                            </tr>
+                        <% }) %>
+                    <% }) %>
+                <% } %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5"></td>
+                    <td>₹<%= totalSalesAmount.toFixed(2) %></td>
+                    <td>₹<%= totalDiscount.toFixed(2) %></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="pagination">
+       
+    </div>
+</div>
+
+
+
+
+
   </div>
   <!--/ Meeting Schedule -->
   <!-- Developer Meetup -->
-  <div class="col-xxl-4 col-md-6">
-    <div class="card h-100">
-      <img class="card-img-top h-px-200" src="/dashboard-assets/img/elements/laptop.png" alt="laptop image cap" style="object-fit: cover;">
-      <div class="card-body">
-        <div class="d-flex border-bottom pb-4">
-          <div class="badge bg-label-primary d-flex flex-column justify-content-center px-4 rounded-3 me-4">
-            <h6 class="text-primary mb-0 fw-normal">Jan</h6>
-            <h5 class="text-primary mb-0">24</h5>
-          </div>
-          <div>
-            <h6 class="card-title mb-1">Developer Meetup</h6>
-            <small class="mb-0">The WordPress open source,free software project is the community behind the…</small>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between border-bottom mt-4">
-          <div class="text-center">
-            <span class="ri-star-smile-line ri-24px"></span>
-            <p class="mt-1">Interested</p>
-          </div>
-          <div class="text-center">
-            <span class="ri-check-double-line ri-24px"></span>
-            <p class="mt-1">Joined</p>
-          </div>
-          <div class="text-center text-primary">
-            <span class="ri-group-line ri-24px"></span>
-            <p class="mt-1">Invited</p>
-          </div>
-          <div class="text-center">
-            <span class="ri-more-fill ri-24px"></span>
-            <p class="mt-1">More</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex mt-4 gap-2">
-            <span class="ri-time-line ri-20px"></span>
-            <div>
-              <p class="mb-0">Tuesday, 24 january, 10:20 - 12:30</p>
-              <p class="mb-0">After 1 week</p>
-            </div>
-          </div>
-          <div class="d-flex mt-3 gap-2">
-            <span class="ri-map-pin-line ri-20px"></span>
-            <div>
-              <p class="mb-0">The Rochard NYC</p>
-              <p class="mb-0">1305 Lexington Ave, New York</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Developer Meetup -->
-</div>
-
-<!-- Modal -->
-<!-- Add New Credit Card Modal -->
-<div class="modal fade" id="addNewCCModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="text-center mb-6">
-          <h4 class="mb-2">Add New Card</h4>
-          <p>Add new card to complete payment</p>
-        </div>
-        <form id="addNewCCForm" class="row g-5" onsubmit="return false">
-          <div class="col-12">
-            <div class="input-group input-group-merge">
-              <div class="form-floating form-floating-outline">
-                <input id="modalAddCard" name="modalAddCard" class="form-control credit-card-mask" type="text" placeholder="1356 3215 6548 7898" aria-describedby="modalAddCard2" />
-                <label for="modalAddCard">Card Number</label>
-              </div>
-              <span class="input-group-text cursor-pointer p-1" id="modalAddCard2"><span class="card-type"></span></span>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe" />
-              <label for="modalAddCardName">Name</label>
-            </div>
-          </div>
-          <div class="col-6 col-md-3">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="modalAddCardExpiryDate" class="form-control expiry-date-mask" placeholder="MM/YY" />
-              <label for="modalAddCardExpiryDate">Expiry</label>
-            </div>
-          </div>
-          <div class="col-6 col-md-3">
-            <div class="input-group input-group-merge">
-              <div class="form-floating form-floating-outline">
-                <input type="text" id="modalAddCardCvv" class="form-control cvv-code-mask" maxlength="3" placeholder="654" />
-                <label for="modalAddCardCvv" class="pe-1_5">CVV</label>
-              </div>
-              <span class="input-group-text cursor-pointer ps-0" id="modalAddCardCvv2"><i class="ri-question-line" data-bs-toggle="tooltip" data-bs-placement="top" title="Card Verification Value"></i></span>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-check form-switch">
-              <input type="checkbox" class="form-check-input" id="futureAddress" />
-              <label for="futureAddress" class="text-heading">Save card for future billing?</label>
-            </div>
-          </div>
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary me-3">Submit</button>
-            <button type="reset" class="btn btn-outline-secondary btn-reset" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!--/ Add New Credit Card Modal -->
-
-<!-- Add New Credit Card Modal -->
-<div class="modal fade" id="upgradePlanModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-simple modal-upgrade-plan">
-    <div class="modal-content">
-      <div class="modal-body pt-md-0 px-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="text-center mb-6">
-          <h4 class="mb-2">Upgrade Plan</h4>
-          <p>Choose the best plan for user.</p>
-        </div>
-        <form id="upgradePlanForm" class="row g-5 d-flex align-items-center" onsubmit="return false">
-          <div class="col-sm-9">
-            <select id="choosePlan" name="choosePlan" class="form-select form-select-sm" aria-label="Choose Plan">
-              <option selected>Choose Plan</option>
-              <option value="standard">Standard - $99/month</option>
-              <option value="exclusive">Exclusive - $249/month</option>
-              <option value="Enterprise">Enterprise - $499/month</option>
-            </select>
-          </div>
-          <div class="col-sm-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Upgrade</button>
-          </div>
-        </form>
-      </div>
-      <hr class="mx-md-n5 mx-n3">
-      <div class="modal-body pb-md-0 px-0">
-        <p class="mb-0">User current plan is standard plan</p>
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-          <div class="d-flex justify-content-center me-2 mt-3">
-            <sup class="h5 pricing-currency pt-1 mt-2 mb-0 me-1 text-primary">$</sup>
-            <h1 class="display-3 mb-0 text-primary">99</h1>
-            <sub class="h6 pricing-duration mt-auto mb-2 pb-1 text-body">/month</sub>
-          </div>
-          <button class="btn btn-outline-danger cancel-subscription mt-4">Cancel Subscription</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--/ Add New Credit Card Modal -->
-
-<!--/ Modal -->
+ 
 
 
           </div>
@@ -1177,23 +1190,8 @@
 <footer class="content-footer footer bg-footer-theme">
   <div class="container-xxl">
     <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-      <div class="text-body mb-2 mb-md-0">
-        © <script>
-        document.write(new Date().getFullYear())
-
-        </script>, made with <span class="text-danger"><i class="tf-icons ri-heart-fill"></i></span> by <a href="https://themeselection.com/" target="_blank" class="footer-link">ThemeSelection</a>
-      </div>
-      <div class="d-none d-lg-inline-block">
-        
-        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-        <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-        
-        <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
-        
-        
-        <a href="https://themeselection.com/support/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
-        
-      </div>
+      
+      
     </div>
   </div>
 </footer>
@@ -1252,6 +1250,217 @@
 
   <!-- Page JS -->
   <script src="/dashboard-assets/js/dashboards-crm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+        
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const filterSelect = document.getElementById('filter');
+        const customDateRange = document.getElementById('custom-date-range');
+
+        // Show/hide custom date range based on the selected filter
+        filterSelect.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customDateRange.classList.remove('hidden');
+            } else {
+                customDateRange.classList.add('hidden');
+            }
+        });
+
+        // Initialize custom date range visibility based on the current filter
+        if (filterSelect.value === 'custom') {
+            customDateRange.classList.remove('hidden');
+        } else {
+            customDateRange.classList.add('hidden');
+        }
+    });
+
+    document.querySelector('.generate').addEventListener('click', function() {
+        var filter = document.getElementById('filter').value;
+        var startDate = document.getElementById('start-date').value;
+        var endDate = document.getElementById('end-date').value;
+
+        // Create query parameters
+        var query = `filter=${filter}`;
+        if (filter === 'custom' && startDate && endDate) {
+            query += `&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+        }
+
+        // Redirect to the same page with the selected filters
+        window.location.href = `?${query}`;
+    });
+
+
+
+
+
+
+
+
+
+
+    document.querySelector('.pdf').addEventListener('click', function() {
+        var filter = document.getElementById('filter').value;
+        var startDate = document.getElementById('start-date').value;
+        var endDate = document.getElementById('end-date').value;
+
+        var query = `filter=${filter}`;
+        if (filter === 'custom' && startDate && endDate) {
+            query += `&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+        }
+        window.location.href = `/admin/generate-report?${query}&type=pdf`;
+    });
+
+    document.querySelector('.excel').addEventListener('click', function() {
+        var filter = document.getElementById('filter').value;
+        var startDate = document.getElementById('start-date').value;
+        var endDate = document.getElementById('end-date').value;
+
+        var query = `filter=${filter}`;
+        if (filter === 'custom' && startDate && endDate) {
+            query += `&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+        }
+        window.location.href = `/admin/generate-report?${query}&type=excel`;
+    });
+
+    document.querySelector('.generate').addEventListener('click', function() {
+        var filter = document.getElementById('filter').value;
+        var startDate = document.getElementById('start-date').value;
+        var endDate = document.getElementById('end-date').value;
+
+        var query = `filter=${filter}`;
+        if (filter === 'custom' && startDate && endDate) {
+            query += `&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+        }
+
+        // Handle report generation logic here (e.g., display a modal with the generated report)
+        console.log(`Generate report with query: ${query}`);
+    });
+
+
+
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusCounts = JSON.parse('<%- statusCounts %>');
+        
+        const ctx = document.getElementById('orderStatusChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Delivered', 'Cancelled', 'Returned'],
+                datasets: [{
+                    data: [
+                        statusCounts.Delivered,
+                        statusCounts.Cancelled,
+                        statusCounts.Returned
+                    ],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(255, 206, 86, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Order Status Distribution'
+                    }
+                }
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+    const chartData = JSON.parse('<%- chartData %>');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        let chart;
+
+        function renderChart() {
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Sales',
+                        data: chartData.sales,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Sales Amount (₹)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time Period'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        renderChart();
+
+        // Event listener for time frame select
+        document.getElementById('timeFrameSelect').addEventListener('change', function() {
+            // You'll need to implement an AJAX call to fetch new data based on the selected time frame
+            // For now, we'll just re-render the existing data
+            renderChart();
+        });
+    });
+
+
+        // Initial chart render
+        updateChart('weekly');
+
+
+
+
+
+
+
+</script>
+
   
 </body>
 

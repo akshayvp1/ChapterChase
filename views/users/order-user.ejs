@@ -1,7 +1,448 @@
 <%- include('../layouts/header.ejs') %>
 
 <style>
+           /* Media query for screens smaller than 400px */
+    @media (max-width: 400px) {
+        .order-summary {
+            padding: 15px;
+        }
+        .order-info p,
+        .address-details p {
+            font-size: 12px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .product-image {
+            max-width: 100px; /* Adjust as necessary */
+            height: auto;
+        }
+        .action-btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+        .invoice-btn {
+            background-color: #007bff; /* Blue color */
+            color: #fff;
+        }
+        .invoice-btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 
+    /* Styles for the action buttons */
+    .action-btn {
+        font-size: 14px;
+        padding: 8px 15px;
+        color: #050505;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .cancel-btn {
+        background-color: #dc3545; /* Red color for cancel */
+    }
+
+    .return-btn {
+        background-color: #28a745; /* Green color for return */
+    }
+
+    .invoice-btn {
+        background-color: #007bff; /* Blue color for invoice */
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .invoice-btn i {
+        margin-right: 5px;
+    }
+
+    .action-btn:hover {
+        opacity: 0.8;
+        color: black;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Retry Payment Button Styles */
+.retry-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s, transform 0.2s;
+    background-color: #216008; /* Primary Blue */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Align with other buttons */
+}
+
+.retry-btn:hover {
+    background-color: #044f12; /* Darker Blue */
+    transform: scale(1.05);
+}
+
+/* Style when Retry Payment Button is Disabled */
+.retry-btn[disabled] {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+/* Order Details Styling */
+.order-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.order-info,
+.address-details {
+    flex: 1;
+}
+
+.order-info {
+    margin-right: 20px;
+}
+
+.order-summary-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.order-summary-text {
+    color: #555;
+}
+
+.address-details {
+    text-align: right;
+}
+
+.order-summary {
+    margin-bottom: 1.5rem; /* Less margin on mobile */
+}
+
+.order-details p {
+    font-size: 0.875rem; /* Smaller font size for mobile */
+}
+
+.order-summary .order-info p,
+.order-summary .address-details p {
+    margin-bottom: 0.5rem; /* Less margin on mobile */
+}
+
+.order-summary .order-info span,
+.order-summary .address-details span {
+    display: block; /* Stack address details on mobile */
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    margin-bottom: 1rem; /* Adjust spacing for mobile */
+}
+
+.table th, .table td {
+    padding: 0.5rem; /* Adjust padding for smaller screens */
+    font-size: 0.875rem; /* Smaller font size for mobile */
+}
+
+.table img.variant-image {
+    max-width: 100px; /* Adjust image size for mobile */
+    height: auto;
+}
+
+.variant-image {
+    max-width: 80px; /* Adjust image size for mobile */
+    height: auto;
+}
+
+/* Align Status to Right */
+.order-summary-footer .text-right {
+    text-align: right;
+}
+
+.custom-btn {
+    margin-right: 10px;
+}
+
+
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Hover Effects */
+.order-info:hover,
+.address-details:hover {
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover td {
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-controls {
+    text-align: center;
+}
+
+.pagination-controls .btn {
+    margin: 0 5px;
+}
+
+
+/* Define the status colors with higher specificity */
+.order-summary-footer .status-canceled {
+    color: red !important;
+}
+
+.order-summary-footer .status-Delivered {
+    color: green !important;
+}
+
+.order-summary-footer .status-out-for-delivery {
+    color: orange !important;
+}
+
+.order-summary-footer .status-dispatched {
+    color: blue !important;
+}
+
+.order-summary-footer .status-pending {
+    color: gray !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Standard Table Styles */
+.standard-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.standard-order-table th, .standard-order-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+    color: #333333;
+}
+
+.standard-order-table thead {
+    background-color: #f8f9fa;
+    color: #333333;
+    font-weight: bold;
+}
+
+.standard-order-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.standard-order-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Image Styles */
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Styles */
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #333333;
+}
+
+/* Button Styles */
+.actions .action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s, transform 0.2s;
+    background-color: #007bff; /* Primary Blue */
+}
+
+.actions .cancel-btn {
+    background-color: #dc3545; /* Danger Red */
+}
+
+.actions .return-btn {
+    background-color: #9ca728; /* Success Green */
+}
+
+.actions .action-btn[disabled] {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+.actions .action-btn:not([disabled]):hover {
+    transform: scale(1.05);
+}
+
+.view-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: #007bff; /* Primary Blue */
+    cursor: pointer;
+    font-size: 12px;
+    background-color: #e7f0ff; /* Light Blue */
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.view-btn:hover {
+    background-color: #d0e3ff; /* Slightly darker blue */
+    color: #0056b3; /* Darker Blue */
+}
+
+/* No Orders Message */
+.no-orders {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d; /* Secondary Grey */
+}
+
+
+/* /////// */
+
+
+/* Container for search and table */
+.search-container {
+    margin-bottom: 20px;
+}
+
+/* Flex container for search form */
+#search-form {
+    display: flex;
+    align-items: center;
+}
+
+/* Search input styles */
+.search-input {
+    flex: 1;
+    margin-right: 10px; /* Space between input and button */
+}
+
+/* Search button styles */
+.search-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #007bff; /* Primary blue color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    margin-bottom: 17px;
+}
+
+.search-btn:hover {
+    background-color: #0e0f10; /* Darker blue on hover */
+    transform: scale(1.05);
+}
+
+/* Pagination styles */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination-list li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.pagination-list a {
+    text-decoration: none;
+    color: #007bff; /* Primary blue color */
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination-list a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white;
+}
+
+.pagination-list .active a {
+    background-color: #007bff; /* Primary blue color */
+    color: white;
+    border: 1px solid #007bff;
+}
+
+
+
+
+
+/* ///// */
 
 .large-swal-popup {
     width: 600px !important;
@@ -36,18 +477,26 @@
     .search-input:focus {
         border-color: #007bff;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+
     }
+    /* .form-control{
+
+        
+        
+    } */
 
     /* Search button styling */
     .search-btn {
         padding: 10px 20px;
         font-size: 14px;
         border-radius: 5px;
-        background-color: #007bff;
+        background-color: #9aafc6;
         color: white;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        /* margin-left: 200px; */
+        
     }
 
     /* Hover effect for the search button */
@@ -198,7 +647,7 @@
   width: 80%;
   max-width: 800px;
   padding: 20px;
-  border-color:2 px black
+  border-color:2 px rgb(0, 0, 0)
 }
 
 .modal-header {
@@ -417,11 +866,11 @@
                         <li>
                             <a href="#">Links</a>
                             <ul>
-                                <!-- <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li> -->
-                                <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                <% if(user){ %>
+                                    <li><%= user.name||user.displayName %></li>
+                                    <% }else{ %>
+                                      <li>Login</li>
+                                      <% } %>
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
@@ -443,40 +892,30 @@
 
                     <nav class="main-nav">
                         <ul class="menu sf-arrows">
-                            <li class="megamenu-container active">
-                                <a href="/home" class="sf-with-ul">Home</a>
+                            <li class="megamenu-container ">
+                                <a href="/home" class="">Home</a>
                             </li>
                             <li>
-                                <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                <a href="category.html" class="">Shop</a>                                 
                             </li>
                             <li>
-                                <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                <a href="/products-list" class="">Product</a>                                     
                             </li>
                             <li>
-                                <a href="#" class="sf-with-ul">Pages</a>                                      
+                                <a href="#" class="">Pages</a>                                      
                             </li>
-                            <li>
-                                <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                <ul>
-                                    <li><a href="blog.html">Classic</a></li>
-                                    <li><a href="blog-listing.html">Listing</a></li>                                         
-                                </ul>
-                            </li>                                   
+                                                              
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->
 
                 <div class="header-right">
-                    <div class="header-search">
-                        <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                        <form action="#" method="get">
-                            <div class="header-search-wrapper">
-                                <label for="q" class="sr-only">Search</label>
-                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                            </div><!-- End .header-search-wrapper -->
-                        </form>
-                    </div><!-- End .header-search -->
+                    <div class="dropdown cart-dropdown">
+                        <a href="/wishlist" class="dropdown-toggle" >
+                                <i class="icon-heart-o"></i>
+                                <span class="cart-count"><%= wishlistCount %></span>
+                        </a>
+                    </div><!-- End .cart-dropdown -->
                     
 
                     <div class="dropdown cart-dropdown">
@@ -518,19 +957,19 @@
                         <aside class="col-md-4 col-lg-3">
                             <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link "  href="/dashboard-user" role="tab" >Dashboard</a>
+                                    <a class="nav-link"  href="/account-details" role="tab" >Account Details</a>
+                                    
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active"  href="/user-order" role="tab" >Orders</a>
                                 </li>
+                               
                                 <li class="nav-item">
-                                    <a class="nav-link"  href="/user-download" role="tab" >Downloads</a>
+                                    <a class="nav-link"   href="/user-address" role="tab" >Address</a>
                                 </li>
+                                
                                 <li class="nav-item">
-                                    <a class="nav-link"   href="/user-address" role="tab" >Adresses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link"  href="/account-details" role="tab" >Account Details</a>
+                                    <a class="nav-link"  href="/wallet" role="tab" >wallet</a>
                                     
                                 </li>
                                 <li class="nav-item">
@@ -540,80 +979,119 @@
                         </aside>
                          
                         <div class="col-md-8 col-lg-9">
-                            <div class="tab-content">
-                                <div class="search-container">
-                                    <form id="search-form" action="" method="GET">
-                                        <input type="search" class="form-control form-control-sm search-input" 
-                                               placeholder="Search order" aria-controls="DataTables_Table_0" 
-                                               id="search-input" name="search" value="<%= search %>">
-                                        <button type="submit" class="btn btn-primary search-btn">Search</button>
-                                    </form>
+                            <section class="ftco-section">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12 ftco-animate">
+                                            <% if (orders.length === 0) { %>
+                                                <div class="alert alert-info no-orders">
+                                                    No orders found.
+                                                </div>
+                                            <% } else { %>
+                                                <% orders.forEach(order => { %>
+                                                    <% const retryItems = order.items.filter(item => item.order_status === 'Retry'); %>
+                        
+                                                    <!-- Show General Order Details Table -->
+                                                    <div class="order-summary">
+                                                        <div class="order-details">
+                                                            <div class="order-info">
+                                                                <p><strong class="order-summary-label">Order ID:</strong> <span class="order-summary-text"><%= order.orderId %></span></p>
+                                                                <p><strong class="order-summary-label">Total Amount:</strong> <span class="order-summary-text">₹<%= order.totalPrice.toFixed(2) %></span></p>
+                                                                <p><strong class="order-summary-label">Ordered Date:</strong> <span class="order-summary-text"><%= new Date(order.createdAt).toLocaleString() %></span></p>
+                                                                <p><strong class="order-summary-label">Payment Status:</strong>
+                                                                    <span class="order-summary-text">
+                                                                        <% const allDelivered = order.items.every(item => item.order_status === 'Delivered'); %>
+                                                                        <%= allDelivered ? 'Paid' : order.payment_status %>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="address-details">
+                                                                <p><strong class="order-summary-label">Ship to:</strong> <span class="order-summary-text"><%= order.address.addressName %></span></p>
+                                                                <p><strong class="order-summary-label">Delivery Address:</strong><br>
+                                                                    <span class="order-summary-text">
+                                                                        <%= order.address.addressHouse %>, <br>
+                                                                        <%= order.address.addressStreet %>, <br>
+                                                                        <%= order.address.addressCity %>, <%= order.address.addressState %> <%= order.address.addressPin %><br>
+                                                                        +<%= order.address.addressMobile %>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <!-- Table for Items -->
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped table-bordered">
+                                                                <thead class="thead-dark">
+                                                                    <tr>
+                                                                        <th>Order ID</th>
+                                                                        <th>Image</th>
+                                                                        <th>Quantity</th>
+                                                                        <th>Price</th>
+                                                                        <th>Status</th>
+                                                                        <th>Action</th>
+                                                                        <th>Invoice</th> <!-- Added column for Invoice -->
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <% order.items.forEach(pro => { %>
+                                                                        <tr>
+                                                                            <td>#<%= order.orderId %></td>
+                                                                            <td><img src="/assets/uploads/<%= pro.product.images[1] %>" alt="" class="product-image"></td>
+                                                                            <td><%= pro.quantity %></td>
+                                                                            <td>₹<%= (pro.price / pro.quantity).toFixed(2) %></td>
+                                                                            <td class="status status-<%= order._id %>"><%= pro.order_status %></td>
+                                                                            <td class="actions">
+                                                                                <% if (retryItems.length > 0) { %>
+                                                                                    <% if (['Pending', 'Processing', 'Shipped'].includes(pro.order_status)) { %>
+                                                                                        <!-- Removed No Action Button -->
+                                                                                    <% } else if (pro.order_status === 'Delivered') { %>
+                                                                                        <!-- Removed No Action Button -->
+                                                                                    <% } %>
+                                                                                <% } else { %>
+                                                                                    <% if (pro.order_status === 'Pending' || pro.order_status === 'Processing') { %>
+                                                                                        <button class="action-btn cancel-btn" data-order-id="<%= order._id %>" data-item-id="<%= pro._id %>">Cancel</button>
+                                                                                    <% } else if (pro.order_status === 'Delivered') { %>
+                                                                                        <button class="action-btn return-btn" data-order-id="<%= order._id %>" data-item-id="<%= pro._id %>">Return</button>
+                                                                                    <% } else { %>
+                                                                                        <button class="action-btn" disabled>No Action</button>     
+                                                                                    <% } %>
+                                                                                <% } %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <% if (pro.order_status === 'Delivered') { %>
+                                                                                    <a href="/invoice?orderId=<%= order.orderId %>&productId=<%= pro.product._id %>" class="action-btn invoice-btn">
+                                                                                        <i class="fas fa-file-invoice"></i> Download Invoice
+                                                                                    </a>
+                                                                                <% } %>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% }); %>
+                        
+                                                                    <% if (retryItems.length > 0) { %>
+                                                                        <tr>
+                                                                            <td colspan="7" class="text-center">
+                                                                                <a href="#" class="retry-btn" data-order-id="<%= order.orderId %>" data-amount="<%= order.totalPrice %>">Retry Payment</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                <% }); %>
+                                            <% } %>
+                                        </div>
+                                    </div>
                                 </div>
-                                
-                                <table class="order-table" id="orderTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Image</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                            <th>View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% if (orders.length === 0) { %>
-                                            <tr>
-                                                <td colspan="7">No orders found for this user.</td>
-                                            </tr>
-                                        <% } else { %>
-                                            <% orders.forEach(order => { %>
-                                                <% order.items.forEach(pro => { %>
-                                                <tr>
-                                                    <td>#<%= order.orderId %></td>
-                                                    <td><img src="/assets/uploads/<%= pro.product.images[1] %>" alt="" style="width: 50px;height: 50px;"></td>
-                                                    <td><%= pro.quantity %></td>
-                                                    <td>₹<%= (pro.price * pro.quantity).toFixed(2) %></td>
-                                                    <td class="status-<%= order._id %>"><%= pro.order_status %></td>
-                                                    <td>
-                                                        <% if (['Pending', 'Processing', 'Shipped'].includes(pro.order_status)) { %>
-                                                            <button class="action-btn cancel-btn" data-order-id="<%= order._id %>">Cancel</button>
-                                                        <% } else if (pro.order_status === 'Delivered') { %>
-                                                            <button class="action-btn return-btn" data-order-id="<%= order._id %>">Return</button>
-                                                        <% } else { %>
-                                                            <button class="action-btn" disabled>No Action</button>
-                                                        <% } %>
-                                                    </td>
-                                                    <td><button class="view-btn" data-order-id="<%= order._id %>">View</button></td>
-                                                </tr>
-                                                <% }) %>
-                                            <% }) %>
-                                        <% } %>
-                                    </tbody>
-                                </table>
-                                
-                                <!-- Pagination -->
-                                <div class="pagination">
-                                    <ul class="pagination-list">
-                                        <% if (page > 1) { %>
-                                            <li><a href="?page=<%= page - 1 %>&search=<%= search %>">&laquo; Previous</a></li>
-                                        <% } %>
-                                        <% for (let i = 1; i <= totalPages; i++) { %>
-                                            <li class="<%= i === page ? 'active' : '' %>">
-                                                <a href="?page=<%= i %>&search=<%= search %>"><%= i %></a>
-                                            </li>
-                                        <% } %>
-                                        <% if (page < totalPages) { %>
-                                            <li><a href="?page=<%= page + 1 %>&search=<%= search %>">Next &raquo;</a></li>
-                                        <% } %>
-                                    </ul>
-                                </div>
-                                
-
-
-                            </div><!-- End .col-lg-9 -->
+                            </section>
+                        </div><!-- End .col-lg-9 -->
+                        
+                        
+                        
+                        
+                        
                         </div><!-- End .row -->
+                        
                         
                         
                 </div><!-- End .container -->
@@ -624,54 +1102,7 @@
 
 
 <!-- Order Details Modal -->
-<div class="order-details-modal modal" id="orderDetailsModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Order Details</h3>
-            <button class="close-btn">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col">
-                    <h4>Order Information</h4>
-                    <p><strong>Order ID:</strong> <span class="order-id"></span></p>
-                    <p><strong>Order Date:</strong> <span class="order-date"></span></p>
-                    <p><strong>Total Amount:</strong> ₹<span class="total-amount"></span></p>
-                    <p><strong>Order Status:</strong> <span class="order-status"></span></p>
-                    <p><strong>Payment Type:</strong> <span class="payment-type"></span></p>
-                    <p><strong>Payment Status:</strong> <span class="payment-status"></span></p>
-                </div>
-                <div class="col">
-                    <h4>Shipping Address</h4>
-                    <p><strong>Name:</strong> <span class="name"></span></p>
-                    <p><strong>Street:</strong> <span class="street"></span></p>
-                    <p><strong>City:</strong> <span class="city"></span>, <span class="zip"></span></p>
-                    <p><strong>State:</strong> <span class="state"></span></p>
-                    <p><strong>Phone:</strong> <span class="phone"></span></p>
-                </div>
-            </div>
-            <div class="order-items">
-                <h4>Order Items</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody class="order-items-table">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="modal-footer">
-       
-            <button class="close-btn">Close</button>
-        </div>
-    </div>
-</div>
+
 
   
   
@@ -1063,73 +1494,22 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
-function openOrderDetailsModal(orderId) {
-    fetch(`/order/${orderId}`)
-        .then(response => response.json())
-        .then(order => {
-            if (order) {
-                document.querySelector('.order-id').textContent = order.orderId;
-                document.querySelector('.order-date').textContent = new Date(order.createdAt).toLocaleDateString();
-                document.querySelector('.total-amount').textContent = order.totalPrice.toFixed(2);
-                order.items.forEach(product => {
-                    document.querySelector('.order-status').textContent = product.order_status;
-                });
-                document.querySelector('.payment-type').textContent = order.paymentMethod;
-                document.querySelector('.payment-status').textContent = order.payment_status;
-                document.querySelector('.name').textContent = order.address.addressName;
-                document.querySelector('.street').textContent = `${order.address.addressHouse}, ${order.address.addressStreet}`;
-                document.querySelector('.city').textContent = order.address.addressCity;
-                document.querySelector('.zip').textContent = order.address.addressPin;
-                document.querySelector('.state').textContent = order.address.addressState;
-                document.querySelector('.phone').textContent = order.address.addressMobile;
 
-                const orderItemsTable = document.querySelector('.order-items-table');
-                orderItemsTable.innerHTML = '';
-                order.items.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.product.productName}</td>
-                        <td>${item.quantity}</td>
-                        <td>₹${item.product.price}</td>
-                        <td>₹${item.quantity * item.product.price}</td>
-                    `;
-                    orderItemsTable.appendChild(row);
-                });
 
-                document.querySelector('#orderDetailsModal').style.display = 'block';
-            } else {
-                alert('Failed to fetch order details.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error fetching order details.');
+// Function to handle order cancellation
+async function cancelOrder(orderId, itemId, buttonElement) {
+    if (!itemId) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Item ID is missing.',
         });
-}
+        return;
+    }
 
-// Add event listeners to all view buttons
-document.querySelectorAll('.view-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const orderId = this.getAttribute('data-order-id');
-        openOrderDetailsModal(orderId);
-    });
-});
-
-// Add event listeners to all action buttons
-document.querySelectorAll('.action-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const orderId = this.getAttribute('data-order-id');
-        if (this.classList.contains('cancel-btn')) {
-            cancelOrder(orderId, this);
-        } else if (this.classList.contains('return-btn')) {
-            returnOrder(orderId, this);
-        }
-    });
-});
-
-async function cancelOrder(orderId, buttonElement) {
     const { value: reason } = await Swal.fire({
         title: 'Enter Reason for Cancellation',
         input: 'textarea',
@@ -1155,11 +1535,11 @@ async function cancelOrder(orderId, buttonElement) {
         preConfirm: (reason) => {
             // Validation logic
             if (!reason || reason.trim().length < 15) {
-                Swal.showValidationMessage('Give proper reason to cancel this product');
+                Swal.showValidationMessage('Give a proper reason to cancel this product');
                 return false;
             }
             if (/^[\d\s]+$/.test(reason)) {
-                Swal.showValidationMessage('Give proper reason to cancel this product');
+                Swal.showValidationMessage('Give a proper reason to cancel this product');
                 return false;
             }
             return reason;
@@ -1176,6 +1556,7 @@ async function cancelOrder(orderId, buttonElement) {
             },
             body: JSON.stringify({
                 orderId: orderId,
+                itemId: itemId, // Pass the specific itemId
                 status: 'Cancelled',
                 reason: reason
             }),
@@ -1186,7 +1567,7 @@ async function cancelOrder(orderId, buttonElement) {
         if (response.ok) {
             Swal.fire({
                 icon: 'success',
-                title: 'Order Cancelled',
+                title: 'Order Item Cancelled',
                 text: result.message,
             });
             // Update the status in the table
@@ -1207,15 +1588,13 @@ async function cancelOrder(orderId, buttonElement) {
         Swal.fire({
             icon: 'error',
             title: 'Failed to Cancel',
-            text: 'Failed to cancel the order.',
+            text: 'Failed to cancel the order item.',
         });
     }
 }
 
-
-
-// Add this function to your existing JavaScript
-async function returnOrder(orderId, buttonElement) {
+// Function to handle return request
+async function returnOrder(orderId, itemId, buttonElement) {
     const { value: reason } = await Swal.fire({
         title: 'Return Reason',
         input: 'textarea',
@@ -1250,6 +1629,7 @@ async function returnOrder(orderId, buttonElement) {
                 },
                 body: JSON.stringify({
                     orderId: orderId,
+                    itemId: itemId,
                     reason: reason
                 }),
             });
@@ -1292,13 +1672,22 @@ async function returnOrder(orderId, buttonElement) {
     }
 }
 
-// Update your existing event listener for the return button
-document.querySelectorAll('.return-btn').forEach(button => {
+// Add event listeners to all action buttons
+document.querySelectorAll('.action-btn').forEach(button => {
     button.addEventListener('click', function() {
         const orderId = this.getAttribute('data-order-id');
-        returnOrder(orderId, this);
+        const itemId = this.getAttribute('data-item-id');
+        console.log('Order ID:', orderId, 'Item ID:', itemId); // Debugging line
+
+        if (this.classList.contains('return-btn')) {
+            returnOrder(orderId, itemId, this);
+        } else if (this.classList.contains('cancel-btn')) {
+            cancelOrder(orderId, itemId, this);
+        }
     });
 });
+
+
 
 // Close the modal when clicking on the close button
 document.querySelectorAll('.close-btn').forEach(button => {
@@ -1309,10 +1698,130 @@ document.querySelectorAll('.close-btn').forEach(button => {
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutLink = document.querySelector('a[href="/logout"]');
+
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to recover your session!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, sign out!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the logout URL
+                    window.location.href = '/logout';
+                }
+            });
+        });
+    }
+});
 
 
 
 
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.retry-btn').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const orderId = button.getAttribute('data-order-id');
+            const amount = button.getAttribute('data-amount');
+
+            try {
+                // Request order details from backend
+                const response = await fetch('/create-razorpay-retry-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ orderId, amount })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const options = {
+                        key: '<%= process.env.RAZORPAY_KEY_ID %>',
+                        amount: result.amount,
+                        currency: result.currency,
+                        name: 'Your Company Name',
+                        order_id: result.orderId,
+                        handler: async function (response) {
+                            const verifyResponse = await fetch('/verify-razorpay-retry-payment', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    orderId,
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+
+                            const verifyResult = await verifyResponse.json();
+
+                            if (verifyResult.success) {
+                                // SweetAlert for successful payment
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Payment Successful!',
+                                    text: 'Your payment has been verified successfully.',
+                                }).then(() => {
+                                    location.reload(); // Reload the page after the alert
+                                });
+                            } else {
+                                // SweetAlert for failed verification
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Payment Verification Failed',
+                                    text: 'Please try again or contact support.',
+                                });
+                            }
+                        },
+                        prefill: {
+                            name: 'Customer Name',
+                            email: 'customer@example.com',
+                            contact: '1234567890'
+                        },
+                        theme: {
+                            color: '#3399cc'
+                        }
+                    };
+
+                    const paymentObject = new Razorpay(options);
+                    paymentObject.open();
+                } else {
+                    // SweetAlert for failed order creation
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed to Create Retry Order',
+                        text: 'Unable to create a new order. Please try again later.',
+                    });
+                }
+            } catch (error) {
+                console.error('Error initiating payment:', error);
+                // SweetAlert for error during payment initiation
+                Swal.fire({
+                    icon: 'error',
+                    title: 'An Error Occurred',
+                    text: 'An error occurred while initiating the payment. Please try again.',
+                });
+            }
+        });
+    });
+});
 
 
 

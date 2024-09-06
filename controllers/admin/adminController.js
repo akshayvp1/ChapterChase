@@ -6,7 +6,7 @@ const config = require("../../config/config");
 //Load admin login page
 const loadAdminLogin = (req, res) => {
     try {
-        console.log("Loading Admin Login Page");
+       
         res.render('adminlogin');
     } catch (error) {
         console.log(error.message);
@@ -14,7 +14,7 @@ const loadAdminLogin = (req, res) => {
 }
 
 
-//Verify email and password then directly entered to dashboard
+//Verify email and password 
 const verifyAdmin = async (req, res) => {
     try {
         
@@ -27,7 +27,6 @@ const verifyAdmin = async (req, res) => {
             if (passwordMatch) {
                 if (userData.is_admin) {
                     
-                    console.log("dashboard");
                     req.session.user = userData;
                     return res.redirect("/admin/dashboard");
                 } else {
@@ -46,13 +45,6 @@ const verifyAdmin = async (req, res) => {
 }
 
 
-
-  
-
-
-
-
-
 //admin logout
 const adminLogout = (req, res) => {
     try {
@@ -62,7 +54,7 @@ const adminLogout = (req, res) => {
             } else {
                 console.log('Session destroyed successfully');
             }
-            res.render('adminlogin'); // Redirect to login page after logout
+            res.render('adminlogin'); 
         });
     } catch (error) {
         console.error('Error logging out:', error.message);

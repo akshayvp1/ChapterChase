@@ -32,7 +32,7 @@
                                         </li>
                                         <% if (user) { %>
                                             <li>
-                                                <a href="/dashboard-user"> <%= user.name||user.displayName %></a>
+                                                <a href="/account-details"> <%= user.name||user.displayName %></a>
                                             </li>
                                         <% } else { %>
                                             <li >
@@ -114,7 +114,7 @@
                                 <a href="/wishlist" title="Wishlist">
                                     <div class="icon">
                                         <i class="icon-heart-o"></i>
-                                        <span class="wishlist-count badge">0</span>
+                                        <span class="wishlist-count badge"><%= wishlistCount %></span>
                                     </div>
                                     <p>Wishlist</p>
                                 </a>
@@ -163,25 +163,31 @@
                             <nav class="main-nav">
                                 <ul class="menu sf-arrows">
                                     <li class="megamenu-container active">
-                                        <a href="/home" class="sf-with-ul">Home</a>
+                                        <a href="/home" class="">Home</a>
                                     </li>
                                     <li>
-                                        <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                        <a href="category.html" class="">Shop</a>                                 
                                     </li>
                                     <li>
-                                        <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                        <a href="/products-list" class="">Product</a>  
+                                                                           
                                     </li>
-                                    <li>
-                                        <a href="#" class="sf-with-ul">Pages</a>                                      
-                                    </li>
-                                    <li>
-                                        <a href="blog.html" class="sf-with-ul">Blog</a>
+                                    <!-- <li>
+                                        <a href="#" class="">Pages</a>   
 
-                                        <ul>
-                                            <li><a href="blog.html">Classic</a></li>
-                                            <li><a href="blog-listing.html">Listing</a></li>                                         
-                                        </ul>
-                                    </li>                                   
+                                    </li> -->
+                                    <div class="header-dropdown">
+                                        <a href="">home</a>
+                                        <div class="header-menu">
+                                            <ul>
+                                                <li><a href="/wallet">Wallet</a></li>
+                                                <li><a href="/account-details">Account</a></li>
+                                                <li><a href="/user-order">Orders</a></li>
+                                                <li><a href="/user-address">Address</a></li>
+                                            </ul>
+                                        </div><!-- End .header-menu -->
+                                    </div>
+                                                                    
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->
                         </div>                      
@@ -203,7 +209,7 @@
                                 <div class="banner-content">
                                     <h4 class="banner-subtitle text-white"><a href="#">Your Guide To The World</a></h4><!-- End .banner-subtitle -->
                                     <h2 class="banner-title text-white"><a href="#">Must-Read <br>Travel Books</a></h2><!-- End .banner-title -->
-                                    <a href="#" class="btn btn-outline-white-3 banner-link">Find out more<i class="icon-long-arrow-right"></i></a>
+                                    <a href="/products-list" class="btn btn-outline-white-3 banner-link">Find out more<i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .banner-content -->
                             </div><!-- End .banner -->
                         </div><!-- End .col-lg-6 -->
@@ -217,33 +223,33 @@
                                 <div class="banner-content banner-content-stretch">
                                     <h4 class="banner-subtitle text-white"><a href="#">New This Week</a></h4><!-- End .banner-subtitle -->
                                     <h3 class="banner-title text-white"><a href="#">Discover Our <br>Best Romance <br>Books</a></h3><!-- End .banner-title -->
-                                    <a href="#" class="btn btn-outline-white-3 banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
+                                    <a href="/products-list" class="btn btn-outline-white-3 banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .banner-content -->
                             </div><!-- End .banner -->
                         </div><!-- End .col-lg-3 -->
 
                         <div class="col-sm-6 col-lg-3">
                             <div class="banner banner-small banner-overlay">
-                                <a href="#">
+                                <a href="/products-list">
                                     <img src="assets/images/demos/demo-20/banners/banner-3.jpg" alt="Banner">
                                 </a>
 
                                 <div class="banner-content">
                                     <h4 class="banner-subtitle text-white d-lg-none d-xl-block"><a href="#">Deal Of The Day</a></h4><!-- End .banner-subtitle -->
                                     <h3 class="banner-title text-white"><a href="#">20% Off Use <br>Code: <span>mybook</span></a></h3><!-- End .banner-title -->
-                                    <a href="#" class="btn btn-outline-white-3 banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                                    <a href="/products-list" class="btn btn-outline-white-3 banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .banner-content -->
                             </div><!-- End .banner -->
 
                             <div class="banner banner-small banner-overlay">
-                                <a href="#">
+                                <a href="/products-list">
                                     <img src="assets/images/demos/demo-20/banners/banner-4.jpg" alt="Banner">
                                 </a>
 
                                 <div class="banner-content">
                                     <h4 class="banner-subtitle text-white d-lg-none d-xl-block"><a href="#">New Arrivals</a></h4><!-- End .banner-subtitle -->
                                     <h3 class="banner-title text-white"><a href="#">Business <br>& Economics</a></h3><!-- End .banner-title -->
-                                    <a href="#" class="btn btn-outline-white-3 banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
+                                    <a href="/products-list" class="btn btn-outline-white-3 banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .banner-content -->
                             </div><!-- End .banner -->
                         </div><!-- End .col-lg-3 -->
@@ -319,7 +325,7 @@
                                 </div><!-- End .heading-left -->
 
                                 <div class="heading-right">
-                                    <a href="category.html" class="title-link">View more Products <i class="icon-long-arrow-right"></i></a>
+                                    <a href="/products-list" class="title-link">View more Products <i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .heading-right -->
                             </div><!-- End .header-flex -->
 
@@ -385,7 +391,9 @@
                                             <% } %>
                                             <div class="product-action">
                                                         
-                                             <a href="#" class="btn-product btn-wishlist"><span>Add to Wishlist</span></a>
+                                                <a href="#" class="btn-product btn-wishlist" title="Wishlist" data-product-id="<%= product._id %>">
+                                                    <span>Add to Wishlist</span>
+                                                </a>                                            
                                             </div><!-- End .product-action -->
                                         </div><!-- End .product-footer -->
                                     </div><!-- End .product-body -->
@@ -1215,7 +1223,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="product.html" class="sf-with-ul">Product</a>
+                                <a href="products-list" class="sf-with-ul">Product</a>
                                 <ul>
                                     <li><a href="product.html">Default</a></li>
                                     <li><a href="product-centered.html">Centered</a></li>
@@ -1470,11 +1478,12 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-20.js"></script>
     <script src="https://kit.fontawesome.com/466193e456.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     // Function to update data-quantity attribute for a specific add-to-cart button
     const updateQuantityForButton = (input) => {
         const quantity = input.value;
@@ -1508,23 +1517,127 @@
                     body: JSON.stringify({ productId, quantity })
                 });
 
-                if (response.ok) {
-                    // Item added successfully
-                    const originalText = addToCartBtn.innerHTML;
-                    addToCartBtn.innerHTML = '<span>Added to Cart</span>';
-                    setTimeout(() => {
-                        addToCartBtn.innerHTML = originalText;
-                    }, 2000);
-                } else {
-                    // Handle error
-                    console.error('Error adding item to cart');
-                }
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                // Show success SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added to Cart',
+                    text: data.message || 'The product has been added to your cart.',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    // Reload the window after the SweetAlert is closed
+                    window.location.reload();
+                });
+
+                // Optionally, you can reset the button text if needed
+                const originalText = addToCartBtn.innerHTML;
+                addToCartBtn.innerHTML = '<span>Added to Cart</span>';
+                setTimeout(() => {
+                    addToCartBtn.innerHTML = originalText;
+                }, 2000);
+
+            } else if (data.message) {
+                // Show informative SweetAlert for stock issues
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No Available Stock',
+                    text: data.message || 'The product is not available in the requested quantity.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+            } else {
+                // Show a generic SweetAlert for other issues
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Notice',
+                    text: 'An issue occurred. Please try again.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
             } catch (error) {
-                console.error('Error:', error);
+                
+                Swal.fire({
+                    icon: 'info',
+                    title: 'User Not logged in',
+                    text: 'Please login.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             }
         }
     });
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const wishlistButtons = document.querySelectorAll('.btn-wishlist');
+    
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.getAttribute('data-product-id');
+            const span = this.querySelector('span');
+            
+            addToWishlist(productId, this);
+        });
+    });
+});
+
+function addToWishlist(productId, button) {
+    const span = button.querySelector('span');
+    const originalText = span.textContent;
+
+    fetch('/add-to-wishlist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        
+        if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Added to Wishlist',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                
+                button.classList.add('added-to-wishlist');
+                window.location.reload()
+
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data.message,
+                timer: 2000
+            });
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+                    icon: 'info',
+                    title: 'User Not logged in',
+                    text: 'Please login.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+    });
+}
+
+
 
     </script>
 

@@ -3,13 +3,17 @@ const Category = require('../../models/categoryModel');
 
 
 //load category list
+// 
+
 const loadCategoryList = async (req, res) => {
   try {
       let admin = req.session.user;
-      const page = parseInt(req.query.page) || 1; // Current page
-      const limit = parseInt(req.query.limit) || 10; // Number of items per page
+      const page = parseInt(req.query.page) || 1; 
+      const limit = parseInt(req.query.limit) || 10; 
 
+      
       const categories = await Category.find({})
+          .sort({ createdAt: 1 }) 
           .skip((page - 1) * limit)
           .limit(limit);
 
@@ -27,6 +31,7 @@ const loadCategoryList = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 //add category

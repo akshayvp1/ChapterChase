@@ -15,6 +15,7 @@ const offerController = require('../controllers/admin/offerController')
 const orderController = require('../controllers/admin/orderController')
 const customerController = require('../controllers/admin/customerController')
 const dashboardController = require('../controllers/admin/dashboardsController')
+const { generateReport } = require('../controllers/admin/salesReportController');
 
 // Session middleware
 adminRoute.use(session({
@@ -85,13 +86,24 @@ adminRoute.post('/confirm-return', adminAuth.isLogin, productController.confirmR
 
 //coupon
 adminRoute.get('/add-coupon', adminAuth.isLogin, couponController.loadAddcoupon);
+adminRoute.post('/add-coupon',adminAuth.isLogin, couponController.addCoupon)
 adminRoute.get('/coupon-list', adminAuth.isLogin, couponController.loadCouponList);
+adminRoute.get('/get-coupon/:id', adminAuth.isLogin, couponController.getCoupon);
+adminRoute.patch('/update-coupon/:id', adminAuth.isLogin, couponController.updateCoupon);
 
 
 //offer
 adminRoute.get('/add-offer', adminAuth.isLogin, offerController.loadAddOffer);
 adminRoute.post('/add-offer',adminAuth.isLogin,offerController.addOffer)
-
 adminRoute.get('/offer-list', adminAuth.isLogin,offerController.loadOfferlist);
+adminRoute.get('/get-offer/:id',adminAuth.isLogin,offerController.getOffer)
+adminRoute.patch('/offers/:id',adminAuth.isLogin,offerController.updateOffer)
+
+//sales report
+adminRoute.get('/generate-report',generateReport);
+
+
+
+
 
 module.exports = adminRoute;

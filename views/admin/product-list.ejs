@@ -1,6 +1,18 @@
 <%- include('../adminlayouts/header.ejs') %>
      
      <style>
+/* Ensure SweetAlert appears above Bootstrap modal */
+.swal2-container {
+    z-index: 1061 !important; /* Ensure it's higher than the Bootstrap modal (z-index 1050) */
+}
+
+.swal2-backdrop-show {
+    z-index: 1060 !important; /* Ensure the overlay is also above the modal */
+}
+
+
+
+
       /* General Modal Styles */
 .image-input-container {
     position: relative;
@@ -102,109 +114,111 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
-    <div class="app-brand demo ">
-    <a href="index.html" class="app-brand-link">
-      <img src="/assets/images/demos/demo-20/chapterChase-rbg.png" alt="" style="width:60px">
-      <h5 style="margin-top: 15px;">ChapterChase</h5>
+  
+  
+  <div class="app-brand demo ">
+  <a href="index.html" class="app-brand-link">
+    <img src="/assets/images/demos/demo-20/chapterChase-rbg.png" alt="" style="width:60px">
+    <h5 style="margin-top: 15px;">ChapterChase</h5>
+  </a>
+
+  <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+    <i class="menu-toggle-icon d-xl-block align-middle"></i>
+  </a>
+</div>
+
+<div class="menu-inner-shadow"></div>
+<ul class="menu-inner py-1">
+  
+  <!-- e-commerce-app menu start -->
+  <li class="menu-item active open">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
+      <div data-i18n="eCommerce">eCommerce</div>
     </a>
-
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-      <i class="menu-toggle-icon d-xl-block align-middle"></i>
-    </a>
-  </div>
-
-  <div class="menu-inner-shadow"></div> 
-  <ul class="menu-inner py-1">
-    <!-- e-commerce-app menu start -->
-    <li class="menu-item active open">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
-        <div data-i18n="eCommerce">eCommerce</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="/admin/dashboard" class="menu-link">
-            <div data-i18n="Dashboard">Dashboard</div>
-          </a>
-        </li>
-        <li class="menu-item active open">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Products">Products</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item active">
-              <a href="/admin/product-list" class="menu-link">
-                <div data-i18n="Product List">Product List</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/add-product" class="menu-link">
-                <div data-i18n="Add Product">Add Product</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/category-list" class="menu-link">
-                <div data-i18n="Category List">Category List</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Order">Order</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/order-list" class="menu-link">
-                <div data-i18n="Order List">Order List</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/admin/order-details" class="menu-link">
-                <div data-i18n="Order Details">Order Details</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Customer">Customer</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="/admin/customer-list" class="menu-link">
-                <div data-i18n="All Customers">All Customers</div>
-              </a>
-            </li>
-          </ul>
-        </li>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="/admin/dashboard" class="menu-link">
+          <div data-i18n="Dashboard">Dashboard</div>
+        </a>
+      </li>
+      <li class="menu-item active open">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Products">Products</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item active open">
+            <a href="/admin/product-list" class="menu-link">
+              <div data-i18n="Product List">Product List</div>
+            </a>
+          </li>
+          <li class="menu-item ">
+            <a href="/admin/add-product" class="menu-link">
+              <div data-i18n="Add Product">Add Product</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="/admin/category-list" class="menu-link">
+              <div data-i18n="Category List">Category List</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Order">Order</div>
+        </a>
+        <ul class="menu-sub">
+          
+          <li class="menu-item">
+            <a href="/admin/order-details" class="menu-link">
+              <div data-i18n="Order Details">Order Details</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Customer">Customer</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="/admin/customer-list" class="menu-link">
+              <div data-i18n="All Customers">All Customers</div>
+            </a>
+          </li>
+         
+        </ul>
+      </li>
 
 
 
 
-        <li class="menu-item">
+
+
+      <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <div data-i18n="Coupon">Coupon</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="/admin/product-list" class="menu-link">
+              <a href="/admin/add-coupon" class="menu-link">
                 <div data-i18n="Add Coupon">Add coupon</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="/admin/coupon-list" class="menu-link">
                 <div data-i18n="Coupon List">Coupon List</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="/admin/add-offer" class="menu-link">
                 <div data-i18n="Add Offer">Add offer</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Order List">Offer List</div>
+              <a href="/admin/offer-list" class="menu-link">
+                <div data-i18n="Offer List">Offer List</div>
               </a>
             </li>
           </ul>
@@ -213,131 +227,134 @@
 
 
 
-        <li class="menu-item">
-          <a href="app-ecommerce-manage-reviews.html" class="menu-link">
-            <div data-i18n="Manage Reviews">Manage Reviews</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-ecommerce-referral.html" class="menu-link">
-            <div data-i18n="Referrals">Referrals</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Settings">Settings</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-detail.html" class="menu-link">
-                <div data-i18n="Store Details">Store Details</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-payments.html" class="menu-link">
-                <div data-i18n="Payments">Payments</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-checkout.html" class="menu-link">
-                <div data-i18n="Checkout">Checkout</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-shipping.html" class="menu-link">
-                <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-locations.html" class="menu-link">
-                <div data-i18n="Locations">Locations</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-ecommerce-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-bill-line'></i>
-        <div data-i18n="Invoice">Invoice</div>
-        <div class="badge bg-danger rounded-pill ms-auto"></div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-invoice-list.html" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-preview.html" class="menu-link">
-            <div data-i18n="Preview">Preview</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-edit.html" class="menu-link">
-            <div data-i18n="Edit">Edit</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="app-invoice-add.html" class="menu-link">
-            <div data-i18n="Add">Add</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-user-line"></i>
-        <div data-i18n="Users">Users</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="app-user-list.html" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
 
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="View">View</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="app-user-view-account.html" class="menu-link">
-                <div data-i18n="Account">Account</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-security.html" class="menu-link">
-                <div data-i18n="Security">Security</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-billing.html" class="menu-link">
-                <div data-i18n="Billing & Plans">Billing & Plans</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-user-view-connections.html" class="menu-link">
-                <div data-i18n="Connections">Connections</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
+      <!-- <li class="menu-item">
+        <a href="app-ecommerce-manage-reviews.html" class="menu-link">
+          <div data-i18n="Manage Reviews">Manage Reviews</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-ecommerce-referral.html" class="menu-link">
+          <div data-i18n="Referrals">Referrals</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="Settings">Settings</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-detail.html" class="menu-link">
+              <div data-i18n="Store Details">Store Details</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-payments.html" class="menu-link">
+              <div data-i18n="Payments">Payments</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-checkout.html" class="menu-link">
+              <div data-i18n="Checkout">Checkout</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-shipping.html" class="menu-link">
+              <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-locations.html" class="menu-link">
+              <div data-i18n="Locations">Locations</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-settings-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Notifications</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  
+  <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class='menu-icon tf-icons ri-bill-line'></i>
+      <div data-i18n="Invoice">Invoice</div>
+      <div class="badge bg-danger rounded-pill ms-auto"></div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="app-invoice-list.html" class="menu-link">
+          <div data-i18n="List">List</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-preview.html" class="menu-link">
+          <div data-i18n="Preview">Preview</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-edit.html" class="menu-link">
+          <div data-i18n="Edit">Edit</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="app-invoice-add.html" class="menu-link">
+          <div data-i18n="Add">Add</div>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class="menu-icon tf-icons ri-user-line"></i>
+      <div data-i18n="Users">Users</div>
+    </a>
+    <ul class="menu-sub">
+      <li class="menu-item">
+        <a href="app-user-list.html" class="menu-link">
+          <div data-i18n="List">List</div>
+        </a>
+      </li>
+
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <div data-i18n="View">View</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="app-user-view-account.html" class="menu-link">
+              <div data-i18n="Account">Account</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-security.html" class="menu-link">
+              <div data-i18n="Security">Security</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-billing.html" class="menu-link">
+              <div data-i18n="Billing & Plans">Billing & Plans</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Notifications</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-view-connections.html" class="menu-link">
+              <div data-i18n="Connections">Connections</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li> -->
+  
+</ul>
 </aside>
 <!-- / Menu -->
 <!-- Layout container -->
@@ -542,10 +559,7 @@
               <label for="editProductPrice" class="form-label">Price</label>
               <input type="number" step="0.01" class="form-control" id="editProductPrice" name="productPrice" required>
             </div>
-            <!-- <div class="col-md-4 mb-3">
-              <label for="editProductOffer" class="form-label">Offer Price:</label>
-              <input type="number" step="0.01" class="form-control" id="editProductOffer" name="productOffer" >
-            </div> -->
+            
           </div>
 
           <div class="mb-3">
@@ -782,84 +796,183 @@
     let cropper;
     let currentInput;
     let currentPreviewId;
-  
-      const editButtons = document.querySelectorAll('.edit-btn');
-      const editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
-      const editProductForm = document.getElementById('editProductForm');
-  
-      editButtons.forEach(button => {
-        button.addEventListener('click', async (event) => {
-          const productId = event.currentTarget.getAttribute('data-id');
-  
-          // Fetch product data
-          const response = await fetch(`/admin/product/${productId}`);
-          const product = await response.json();
-  
-          // Populate form with product data
-          document.getElementById('editProductId').value = product._id;
-          document.getElementById('editProductName').value = product.productName;
-          document.getElementById('editProductCategory').value = product.category._id;
-          document.getElementById('editProductStock').value = product.stock;
-          document.getElementById('editProductPrice').value = product.price;
-          document.getElementById('editProductStatus').value = product.status;
-          document.getElementById('editProductAuthor').value = product.author
-          document.getElementById('editProductDescription').value = product.description;
-          // document.getElementById('editProductOffer').value = product.offer;
-  
-          // Populate current images
-          document.getElementById('imagePreview1').src = `/assets/uploads/${product.images[0]}`;
-          document.getElementById('imagePreview2').src = `/assets/uploads/${product.images[1]}`;
-          document.getElementById('imagePreview3').src = `/assets/uploads/${product.images[2]}`;
-  
-          // Show the modal
-          editProductModal.show();
-        });
-      });
-  
-      editProductForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-  
-    const formData = new FormData(editProductForm);
-    const productId = formData.get('productId');
-  
-    for (let i = 1; i <= 3; i++) {
-      const croppedBlob = await getCroppedImageBlob(`imagePreview${i}`);
-      if (croppedBlob) {
-        formData.set(`productImage${i}`, croppedBlob, `image${i}.png`);
-      }
-    }
-  
-  
-        // Send the form data to the server to update the product
-        const response = await fetch(`/admin/product/${productId}`, {
-      method: 'PATCH',
-      body: formData
-    });
-  
-        const result = await response.json();
-        if (response.ok) {
-          // Close the modal
-          editProductModal.hide();
-          
-          // Show success alert
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message
-          }).then(() => {
-            // Reload the page after the alert is closed
-            location.reload();
-          });
-        } else {
-          // Show error alert
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message
-          });
+
+    const editButtons = document.querySelectorAll('.edit-btn');
+    const editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+    const editProductForm = document.getElementById('editProductForm');
+
+    // Function to display error messages
+    function showError(inputElement, message) {
+        // Check if an error message already exists
+        const existingError = inputElement.parentNode.querySelector('.error-message');
+        if (!existingError) {
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.style.color = 'red';
+            errorElement.textContent = message;
+            inputElement.parentNode.appendChild(errorElement);
         }
-      });
+    }
+
+    // Function to remove error messages
+    function removeError(inputElement) {
+        const errorElement = inputElement.parentNode.querySelector('.error-message');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+
+    // Function to validate the form
+    function validateForm() {
+        let isValid = true;
+
+        // Product Name validation
+        const productName = document.getElementById('editProductName');
+        if (!/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/.test(productName.value.trim())) {
+            showError(productName, 'Please enter a valid product name (only letters and single spaces between words)');
+            isValid = false;
+        } else {
+            removeError(productName);
+        }
+
+        // Author Name validation
+        const productAuthor = document.getElementById('editProductAuthor');
+        if (!/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/.test(productAuthor.value.trim())) {
+            showError(productAuthor, 'Please enter a valid author name (only letters and single spaces between words)');
+            isValid = false;
+        } else {
+            removeError(productAuthor);
+        }
+
+        // Price validation
+        const productPrice = document.getElementById('editProductPrice');
+        if (isNaN(productPrice.value) || productPrice.value <= 100 || productPrice.value.includes(' ')) {
+            showError(productPrice, 'Please enter a valid price above 100 (no spaces or characters allowed)');
+            isValid = false;
+        } else {
+            removeError(productPrice);
+        }
+
+        // Stock validation
+        const stock = document.getElementById('editProductStock');
+        if (!/^\d+$/.test(stock.value) || parseInt(stock.value) < 0) {
+            showError(stock, 'Please enter a valid non-negative whole number for stock');
+            isValid = false;
+        } else {
+            removeError(stock);
+        }
+
+        // Description validation
+        const productDescription = document.getElementById('editProductDescription');
+        if (productDescription.value.trim().length < 10) {
+            showError(productDescription, 'Please provide a description of at least 10 characters');
+            isValid = false;
+        } else {
+            removeError(productDescription);
+        }
+
+        // Category validation
+        const category = document.getElementById('editProductCategory');
+        if (category.value === "") {
+            showError(category, 'Please select a category');
+            isValid = false;
+        } else {
+            removeError(category);
+        }
+
+        // Status validation
+        const publishStatus = document.getElementById('editProductStatus');
+        if (publishStatus.value === "") {
+            showError(publishStatus, 'Please select a status');
+            isValid = false;
+        } else {
+            removeError(publishStatus);
+        }
+
+        return isValid;
+    }
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const productId = event.currentTarget.getAttribute('data-id');
+
+            // Fetch product data
+            const response = await fetch(`/admin/product/${productId}`);
+            const product = await response.json();
+
+            // Populate form with product data
+            document.getElementById('editProductId').value = product._id;
+            document.getElementById('editProductName').value = product.productName;
+            document.getElementById('editProductCategory').value = product.category._id;
+            document.getElementById('editProductStock').value = product.stock;
+            document.getElementById('editProductPrice').value = product.price;
+            document.getElementById('editProductStatus').value = product.status;
+            document.getElementById('editProductAuthor').value = product.author;
+            document.getElementById('editProductDescription').value = product.description;
+
+            // Populate current images
+            document.getElementById('imagePreview1').src = `/assets/uploads/${product.images[0]}`;
+            document.getElementById('imagePreview2').src = `/assets/uploads/${product.images[1]}`;
+            document.getElementById('imagePreview3').src = `/assets/uploads/${product.images[2]}`;
+
+            // Show the modal
+            editProductModal.show();
+        });
     });
+
+    editProductForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (validateForm()) {
+            const formData = new FormData(editProductForm);
+            const productId = formData.get('productId');
+
+            for (let i = 1; i <= 3; i++) {
+                const croppedBlob = await getCroppedImageBlob(`imagePreview${i}`);
+                if (croppedBlob) {
+                    formData.set(`productImage${i}`, croppedBlob, `image${i}.png`);
+                }
+            }
+
+            // Send the form data to the server to update the product
+            const response = await fetch(`/admin/product/${productId}`, {
+                method: 'PATCH',
+                body: formData
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                // Close the modal
+                editProductModal.hide();
+
+                // Show success alert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: result.message
+                }).then(() => {
+                    // Reload the page after the alert is closed
+                    location.reload();
+                });
+            } else {
+                // Show error alert
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: result.message
+                });
+            }
+        }
+    });
+
+    // Add event listeners to remove error messages when user starts typing
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            removeError(input);
+        });
+    });
+});
   
   
   
@@ -889,6 +1002,12 @@
         reader.readAsDataURL(file);
       }
     };
+
+
+
+
+
+
   
     // Handle cropping
     const cropButton = document.getElementById('cropButton');

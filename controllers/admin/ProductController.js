@@ -6,7 +6,7 @@ const fs = require('fs');
 const User = require("../../models/userModel");
 const { promisify } = require('util');
 const Order = require('../../models/orderModel');
-const Wallet = require('../../models/walletModel'); // Adjust as needed
+const Wallet = require('../../models/walletModel'); 
 
 
 //Load product list page
@@ -37,7 +37,7 @@ const loadProduct = async (req, res) => {
       totalPages: Math.ceil(totalProduct / limit),
       limit,
       startIndex: skip + 1,
-      searchQuery // Add this to pass the search query to the view
+      searchQuery 
     });
   } catch (error) {
     console.error('Error fetching products:', error.message);
@@ -58,10 +58,6 @@ const loadAddProduct = async (req, res) => {
       console.error('Error fetching categories:', error);
     }
   };
-
-
-
-
 
 
 
@@ -118,7 +114,7 @@ const addProduct = async (req, res) => {
   
       if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
   
-      // Update product details
+     
       product.productName = productName;
       product.category = productCategory;
       product.stock = productStock;
@@ -126,16 +122,14 @@ const addProduct = async (req, res) => {
       product.status = productStatus;
       product.description = productDescription;
       product.author = productAuthor;
-      // product.offer = productOffer;
+      
   
-      // Handle image updates
       if (req.files && req.files.length > 0) {
         const newImages = req.files.map(file => file.filename);
         
-        // Replace only the images that were uploaded
         for (let i = 0; i < newImages.length; i++) {
           if (product.images[i]) {
-            // Remove old image file
+
             const oldImagePath = path.join(__dirname, '../../assets/uploads', product.images[i]);          
             try {
               const fileExists = await existsAsync(oldImagePath);
@@ -157,59 +151,6 @@ const addProduct = async (req, res) => {
     }
   };
   
-  
-
-
-  
-  //cancel order
-//  const cancelOrder = async (req, res) => {
-//     try {
-//       const order = await Order.findById(req.params.id);
-//       if (!order) {
-//         return res.status(404).json({ message: 'Order not found' });
-//       }
-      
-//       order.order_status = 'Cancelled';
-//       await order.save();
-      
-//       res.json({ message: 'Order cancelled successfully', order });
-//     } catch (error) {
-//       res.status(500).json({ message: 'Error cancelling order', error });
-//     }
-//   };
-
-
-
-//   const confirmReturn = async (req, res) => {
-//     try {
-//         const { orderId, itemId } = req.body;
-
-//         const order = await Order.findById(orderId);
-
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-
-//         const item = order.items.id(itemId);
-
-//         if (!item) {
-//             return res.status(404).json({ message: 'Item not found in order' });
-//         }
-
-//         if (item.order_status !== 'Return Requested') {
-//             return res.status(400).json({ message: 'Item is not in Return Requested status' });
-//         }
-
-//         item.order_status = 'Returned';
-//         await order.save();
-
-//         res.status(200).json({ message: 'Return confirmed successfully' });
-//     } catch (error) {
-//         console.error('Error confirming return:', error);
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// };
-
 
 
 //confirm return
@@ -243,9 +184,8 @@ const confirmReturn = async (req, res) => {
           });
       }
 
-      const refundAmount = item.price * item.quantity;
+      const refundAmount = item.price 
 
-      // Update wallet balance
       wallet.balance += refundAmount;
       wallet.transactions.push({
           transactionId: `RETURN-${orderId}-${itemId}`,
@@ -279,7 +219,6 @@ module.exports = {
     addProduct,
     updateProduct,
     getProductList,
-    // cancelOrder,
     confirmReturn
     
 

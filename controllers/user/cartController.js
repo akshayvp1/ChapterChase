@@ -2,6 +2,8 @@
 const Cart = require('../../models/cartModel');
 const Offer = require('../../models/offerModel');
 const Product = require('../../models/productModel');
+const Wishlist = require('../../models/wishlistModel');
+const User = require('../../models/userModel');
 
 
 
@@ -16,9 +18,25 @@ const loadCart = async (req, res) => {
         }
 
         const offers = await Offer.find({ status: 'active' });
-
+        let cart = null;
+        let cartCount = 0;
         const userId = req.session.user.id;
-        const cart = await Cart.findOne({ userId: userId }).populate('items.productId');
+         cart = await Cart.findOne({ userId: userId }).populate('items.productId');
+         if (cart && cart.items) {
+            cartCount = cart.items.length;
+        }
+        let wishlist=null;
+        let wishlistCount=0;
+
+        
+            wishlist=await Wishlist.findOne({userId: userId})
+            if(wishlist && wishlist.products){
+                wishlistCount=wishlist.products.length
+                console.log("daaa",wishlistCount);
+                
+            
+        }
+       
 
         if (!cart) {
             return res.render('cart', { cartItems: [], subtotal: 0, total: 0, offers });
@@ -55,7 +73,22 @@ const loadCart = async (req, res) => {
         const shippingCost = 0;
         const total = subtotal + shippingCost;
 
-        res.render('cart', { cartItems, subtotal, total, offers });
+        res.render('cart', { cartItems, 
+            subtotal, 
+            total, 
+            offers,
+            cartCount,
+            wishlistCount ,
+            breadcrumbs: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Products', url: '/products-list' },
+                   
+                    { title: 'Cart', url: '/cart' }
+
+            ]
+            
+
+        });
     } catch (error) {
         console.log('Error details:', error);
         res.status(500).render('error', { message: 'Error loading cart: ' + error.message });
@@ -63,51 +96,71 @@ const loadCart = async (req, res) => {
 };
 
 
-
 //add to cart
 const addToCart = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
-        console.log('Received productId:', productId, 'quantity:', quantity);
-       
+
         if (!req.session.user || !req.session.user.id) {
-            console.log('User not logged in.');
-            return res.status(401).json({ message: 'User not logged in' });
+            return res.status(401).json({ success: false, message: 'User not logged in' });
         }
 
         const userId = req.session.user.id;
-        let cart = await Cart.findOne({ userId: userId });
 
+        const product = await Product.findById(productId).exec();
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+
+        const requestedQuantity = parseInt(quantity, 10);
+
+        let cart = await Cart.findOne({ userId: userId });
         if (!cart) {
             cart = new Cart({ userId: userId, items: [] });
         }
 
         const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
-        console.log('Existing item index:', existingItemIndex);
 
         if (existingItemIndex > -1) {
-            cart.items[existingItemIndex].quantity += parseInt(quantity);
-        } else {
-            cart.items.push({ productId: productId, quantity: parseInt(quantity) });
+            const existingQuantity = cart.items[existingItemIndex].quantity;
+            const newQuantity = existingQuantity + requestedQuantity;
+        
+            if (newQuantity > product.stock) {
+                return res.status(400).json({ 
+                    success: false, 
+                    message: `You already have ${existingQuantity} item in your cart. Only one can be added to your cart.` 
+                });
+            }
+        
+            cart.items[existingItemIndex].quantity = newQuantity;
+        }
+         else {
+            if (requestedQuantity > product.stock) {
+                return res.status(400).json({ 
+                    success: false, 
+                    message: `Only ${product.stock} item(s) left in stock.` 
+                });
+            }
+
+            cart.items.push({ productId: productId, quantity: requestedQuantity });
         }
 
-        const savedCart = await cart.save();
-        console.log('Saved cart:', savedCart);
+        await cart.save();
 
-        // Fetch the updated cart item count
-        const updatedCart = await Cart.findOne({ userId: userId });
-        const cartItemCount = updatedCart.items.reduce((total, item) => total + item.quantity, 0);
+        const cartItemCount = cart.items.reduce((total, item) => total + item.quantity, 0);
 
         res.status(200).json({ 
+            success: true,
             message: 'Item added to cart successfully',
             cartItemCount: cartItemCount
         });
-    
+
     } catch (error) {
-        console.log('Error details:', error);
-        res.status(500).json({ message: 'Error adding item to cart: ' + error.message });
+        console.error('Error occurred:', error);
+        res.status(500).json({ success: false, message: 'An error occurred: ' + error.message });
     }
 };
+
 
 
 
@@ -115,8 +168,6 @@ const addToCart = async (req, res) => {
 //update cart
 const updateCart = async (req, res) => {
     const { productId, quantity } = req.body;
-    console.log(quantity);
-    
 
     if (!req.session.user || !req.session.user.id || !productId || quantity == null) {
         return res.status(400).json({ message: 'Missing required fields or user not logged in' });
@@ -124,15 +175,27 @@ const updateCart = async (req, res) => {
 
     try {
         const userId = req.session.user.id;
-        
         let cart = await Cart.findOne({ userId: userId });
-
         if (!cart) {
             return res.status(404).json({ message: 'Cart not found' });
         }
 
-        const itemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
 
+        const MAX_QUANTITY = 10;
+
+        if (quantity > MAX_QUANTITY) {
+            return res.status(400).json({ message: `You can add up to ${MAX_QUANTITY} product(s) only.` });
+        }
+
+        if (quantity > product.stock) {
+            return res.status(400).json({ message: `Only ${product.stock} product(s) left in stock.` });
+        }
+
+        const itemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
         if (itemIndex > -1) {
             if (quantity > 0) {
                 cart.items[itemIndex].quantity = quantity;
@@ -150,6 +213,7 @@ const updateCart = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 
 

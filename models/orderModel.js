@@ -66,20 +66,24 @@ const orderSchema = new Schema({
             },
             order_status: {
                 type: String,
-                enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled", "Returned", "Return Requested"],
+                enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled", "Returned", "Return Requested","Retry"],
                 default: "Pending",
               },
             price:{
                 type:Number,
-                required:true
+                // required:true
+            },
+            couponDiscountAmt: {
+                type: Number,
+                default: 0,
             },
             cancelReason: {
                 type: String,
-                default: '', // Optional: Set a default value if required
+                default: '', 
             },
             returnReason:{
                 type:String,
-                default: '' // Optional: Set a default value if required
+                default: '' 
 
             }
 
@@ -105,10 +109,6 @@ const orderSchema = new Schema({
     coupon: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Coupon",
-    },
-    couponDiscountAmt: {
-        type: Number,
-        default: 0,
     },
     orderId: {
         type: String,

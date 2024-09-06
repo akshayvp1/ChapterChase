@@ -59,37 +59,35 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="/home" class="sf-with-ul">Home</a>
+                                    <a href="/home" class="">Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>                                 
+                                    <a href="category.html" class="">Shop</a>                                 
                                 </li>
                                 <li>
-                                    <a href="/products-list" class="sf-with-ul">Product</a>                                     
+                                    <a href="/products-list" class="">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>                                      
+                                    <a href="#" class="">Page</a>                                      
                                 </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                    <ul>
-                                        <li><a href="blog.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>                                         
-                                    </ul>
-                                </li>                                   
+                                                              
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
                        
-                        
+                        <div class="dropdown cart-dropdown">
+                            <a href="/wishlist" class="dropdown-toggle" >
+                                    <i class="icon-heart-o"></i>
+                                    <span class="cart-count"><%= wishlistCount %></span>
+                            </a>
+                        </div><!-- End .cart-dropdown -->
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" ">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count"><%= cartCount %></span>
                             </a>
 
                             
@@ -175,8 +173,15 @@
                                 <% }); %>
                             <% } else { %>
                                 <tr>
-                                    <td colspan="5"><h5 style="margin-left: 600px;">Your wishlist is empty</h5></td>
+                                    <td colspan="5" class="text-center">
+                                        <a href="products-list">
+                                            <img src="assets/images/empty-cart.png" alt="Your wishlist is empty" style="max-width: 150px; margin-left: 650px;">
+                                        </a>
+                                        
+                                    </td>
                                 </tr>
+                                
+                                
                             <% } %>
                         </tbody>
                         
@@ -558,63 +563,63 @@
 
 
 <script>
-   document.addEventListener('DOMContentLoaded', () => {
-    // Function to update data-quantity attribute for a specific add-to-cart button
-    const updateQuantityForButton = (input) => {
-        const quantity = input.value;
-        const addToCartBtn = input.closest('.details-filter-row').nextElementSibling.querySelector('.add-to-cart-btn');
-        if (addToCartBtn) {
-            addToCartBtn.dataset.quantity = quantity;
+ document.addEventListener('click', async (event) => {
+    const addToCartBtn = event.target.closest('.add-to-cart-btn');
+    if (addToCartBtn) {
+        event.preventDefault();
+        const productId = addToCartBtn.dataset.productId;
+        const quantity = addToCartBtn.dataset.quantity || '1';
+
+        if (addToCartBtn.classList.contains('out-of-stock')) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Out of Stock',
+                text: 'This product is out of stock',
+            });
+            return;
         }
-    };
 
-    // Event delegation for quantity input changes
-    document.addEventListener('input', (event) => {
-        if (event.target.classList.contains('quantity-input')) {
-            updateQuantityForButton(event.target);
-        }
-    });
+        try {
+            const response = await fetch('/add-to-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productId, quantity })
+            });
 
-    // Event delegation for add to cart button clicks
-    document.addEventListener('click', async (event) => {
-        const addToCartBtn = event.target.closest('.add-to-cart-btn');
-        if (addToCartBtn) {
-            event.preventDefault();
-            const productId = addToCartBtn.dataset.productId;
-            const quantity = addToCartBtn.dataset.quantity || '1'; // Default to 1 if not set
+            const result = await response.json();
 
-            // Check the stock status before sending the request
-            if (addToCartBtn.classList.contains('out-of-stock')) {
-                alert('This product is out of stock');
-                return;
-            }
-
-            try {
-                const response = await fetch('/add-to-cart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ productId, quantity })
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added to Cart',
+                    text: 'The item has been added to your cart successfully!',
                 });
-
-                if (response.ok) {
-                    // Item added successfully
-                    const originalText = addToCartBtn.innerHTML;
-                    addToCartBtn.innerHTML = '<span>Added to Cart</span>';
-                    setTimeout(() => {
-                        addToCartBtn.innerHTML = originalText;
-                    }, 2000);
-                } else {
-                    // Handle error
-                    console.error('Error adding item to cart');
-                }
-            } catch (error) {
-                console.error('Error:', error);
+            } else if (result.message.includes('You already have')) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Already in Cart',
+                    text: result.message,  // Display the server's warning message
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: result.message || 'Could not add the item to your cart.',
+                });
             }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An unexpected error occurred. Please try again.',
+            });
         }
-    });
+    }
 });
+
 
 
 
@@ -657,6 +662,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             result.message,
                             'success'
                         );
+                        setTimeout(()=>{
+                            window.location.reload()
+                        },1000)
                     } else {
                         Swal.fire(
                             'Error!',
