@@ -43,10 +43,7 @@ app.use(passport.session());
 
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack,'this is the error u got there');
-    res.status(500).send('Something broke!');
-});
+
 
  
 

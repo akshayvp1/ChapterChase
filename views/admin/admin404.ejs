@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            z-index: 1;
+            max-width: 100%;
+        }
+        h1 {
+            font-size: 15vw;
+            margin: 0;
+            line-height: 1;
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 15rem;
+            }
+        }
+        h1::before, h1::after {
+            content: "404";
+            position: absolute;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            background: #1a1a2e;
+        }
+        h1::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00ff;
+            animation: glitch-2 5s infinite;
+        }
+        h1::after {
+            left: -2px;
+            text-shadow: 2px 0 #00ffff;
+            animation: glitch-3 5s infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        @keyframes glitch-2 {
+            0%, 100% { top: 0; height: 0; }
+            85% { top: -10px; height: 20px; }
+            90% { top: -5px; height: 10px; }
+            95% { top: -15px; height: 30px; }
+        }
+        @keyframes glitch-3 {
+            0%, 100% { top: 0; height: 0; }
+            85% { top: 10px; height: 20px; }
+            90% { top: 5px; height: 10px; }
+            95% { top: 15px; height: 30px; }
+        }
+        p {
+            font-size: 1.2em;
+            margin: 1em 0;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        @media (min-width: 768px) {
+            p {
+                font-size: 1.5em;
+            }
+        }
+        .home-link {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .home-link:hover {
+            background-color: #fff;
+            color: #1a1a2e;
+        }
+        .home-link::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+        .home-link:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <h1>404</h1>
+        <p>Oops! You've ventured into the unknown.</p>
+        <p>This cosmic sector doesn't exist in our universe.</p>
+        <a href="/admin/dashboard" class="home-link">Return to Home Base</a>
+    </div>
+    <script>
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const starCount = Math.floor(window.innerWidth * window.innerHeight / 1000);
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        window.addEventListener('resize', () => {
+            document.querySelector('.stars').innerHTML = '';
+            createStars();
+        });
+    </script>
+</body>
+</html>

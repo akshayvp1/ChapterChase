@@ -176,4 +176,8 @@ userRoute.get('/auth/google/callback',
   }
 );
 
+userRoute.use(( req, res) => {
+    
+  res.status(404).render('user404')
+});
 module.exports = userRoute;

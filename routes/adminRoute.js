@@ -103,7 +103,10 @@ adminRoute.patch('/offers/:id',adminAuth.isLogin,offerController.updateOffer)
 adminRoute.get('/generate-report',generateReport);
 
 
-
+adminRoute.use(( req, res) => {
+    
+  res.status(404).render('admin404')
+});
 
 
 module.exports = adminRoute;
