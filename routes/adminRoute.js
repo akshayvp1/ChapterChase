@@ -24,7 +24,7 @@ adminRoute.use(session({
   saveUninitialized: false,
   cookie: {
     path: '/admin',
-    expires: new Date(Date.now() + 86400000),
+    // expires: new Date(Date.now() + 86400000),
     httpOnly: true
   }
 }));

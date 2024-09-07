@@ -29,7 +29,7 @@ userRoute.use(session({
     saveUninitialized: false,
     cookie: {
       path: '/',
-      _expires: 86400000,
+      // _expires: 86400000,
       httpOnly: true
   }
 }));
