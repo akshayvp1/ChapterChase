@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Shop on ChapterChase - Your Guide to Literary Discoveries</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        main {
+            padding: 3rem 0;
+        }
+        
+        .shopping-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .step {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .step-number {
+            background-color: var(--accent-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .step-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .step-content ul {
+            padding-left: 1.5rem;
+        }
+        
+        .cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .button:hover {
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>How to Shop on ChapterChase</h1>
+            <p>Your Guide to Literary Discoveries</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="shopping-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h2>Browse Our Collection</h2>
+                    <p>Explore our vast library of books across various genres:</p>
+                    <ul>
+                        <li>Use the search bar to find specific titles or authors</li>
+                        <li>Navigate through categories to discover new reads</li>
+                        <li>Check out our featured books and bestseller lists</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h2>Select Your Books</h2>
+                    <p>When you find a book you like:</p>
+                    <ul>
+                        <li>Click on the book to view more details</li>
+                        <li>Read reviews from other readers</li>
+                        <li>Choose your preferred format (hardcover, paperback, or ebook)</li>
+                        <li>Click "Add to Cart" to select the book</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h2>Review Your Cart</h2>
+                    <p>Before proceeding to checkout:</p>
+                    <ul>
+                        <li>Review the items in your cart</li>
+                        <li>Adjust quantities if needed</li>
+                        <li>Apply any promo codes for discounts</li>
+                        <li>Click "Proceed to Checkout" when ready</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h2>Checkout and Payment</h2>
+                    <p>Complete your purchase:</p>
+                    <ul>
+                        <li>Enter your shipping information</li>
+                        <li>Choose your preferred shipping method</li>
+                        <li>Select your payment method (credit card, PayPal, etc.)</li>
+                        <li>Review your order details and total</li>
+                        <li>Click "Place Order" to complete your purchase</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h2>Track Your Order</h2>
+                    <p>Stay updated on your delivery:</p>
+                    <ul>
+                        <li>Receive an order confirmation email</li>
+                        <li>Log in to your account to view order status</li>
+                        <li>Get shipping notifications and tracking information</li>
+                        <li>Contact our customer support if you have any questions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <div class="cta">
+            <a href="#" class="button">Start Shopping Now</a>
+        </div>
+    </main>
+</body>
+</html>

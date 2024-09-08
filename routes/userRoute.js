@@ -18,6 +18,7 @@ const profileController = require('../controllers/user/profileController')
 const walletController = require('../controllers/user/walletController')
 const retryPaymentController = require('../controllers/user/retryPaymentController') 
 const orderInvoiceController = require('../controllers/user/orderInvoiceController') 
+const footerController = require('../controllers/user/footerController')
 
 userRoute.set('view engine', 'ejs');
 userRoute.set('views', './views/users');
@@ -147,8 +148,18 @@ userRoute.get('/wallet',auth.isLogin,walletController.loadWallet)
 
 //invoice
 userRoute.get('/invoice',auth.isLogin,orderInvoiceController.orderInvoice)
-// userRoute.get('/wallet/balance',auth.isLogin,walletController.checkBalance)
+
+//Wallet payment
 userRoute.post('/debit-wallet',auth.isLogin,walletController.walletPayment)
+
+//footer 
+userRoute.get('/contact',footerController.loadContact)
+userRoute.get('/about',footerController.loadAbout)
+userRoute.get('/faq',footerController.loadFaq)
+userRoute.get('/howtoshop',footerController.loadShop)
+userRoute.get('/payment-methode',footerController.loadPaymentMethode)
+userRoute.get('/money-guarantee',footerController.loadMoneyGuarantee)
+userRoute.get('/terms-conditions',footerController.loadTermsAndConditions)
 
 
 // Google OAuth routes

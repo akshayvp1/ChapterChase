@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - ChapterChase</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        main {
+            padding: 3rem 0;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .category h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .category ul {
+            list-style-type: none;
+            text-align: left;
+        }
+        
+        .category ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .category ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .category ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .contact-support {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-support h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .button:hover {
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .help-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>ChapterChase Help Center</h1>
+            <p>Find answers and support for all your book-related queries</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-bar">
+            <input type="text" placeholder="Search for help topics...">
+        </div>
+        
+        <section class="help-categories">
+            <div class="category">
+                <div class="category-icon">📚</div>
+                <h2>Orders & Shipping</h2>
+                <ul>
+                    <li><a href="#">Track My Order</a></li>
+                    <li><a href="#">Shipping Methods</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Order Cancellation</a></li>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <div class="category-icon">💳</div>
+                <h2>Payment & Billing</h2>
+                <ul>
+                    <li><a href="#">Payment Methods</a></li>
+                    <li><a href="#">Billing Issues</a></li>
+                    <li><a href="#">Promo Codes</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <div class="category-icon">👤</div>
+                <h2>Account & Profile</h2>
+                <ul>
+                    <li><a href="#">Create an Account</a></li>
+                    <li><a href="#">Update Profile</a></li>
+                    <li><a href="#">Password Reset</a></li>
+                    <li><a href="#">Privacy Settings</a></li>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <div class="category-icon">📖</div>
+                <h2>Book Formats</h2>
+                <ul>
+                    <li><a href="#">Ebook Support</a></li>
+                    <li><a href="#">Audiobook Help</a></li>
+                    <li><a href="#">Print Book Care</a></li>
+                    <li><a href="#">Format Comparison</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <div class="contact-support">
+            <h2>Can't find what you're looking for?</h2>
+            <p>Our support team is here to help you with any questions or concerns.</p>
+            <a href="#" class="button">Contact Support</a>
+        </div>
+    </main>
+</body>
+</html>
