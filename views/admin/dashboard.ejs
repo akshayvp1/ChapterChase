@@ -1,6 +1,13 @@
 <%- include('../adminlayouts/header.ejs') %>
 
 <style>
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0; /* Optional for spacing */
+}
+
   
 .export {
     display: flex;
@@ -1166,9 +1173,21 @@ th {
     </div>
 
     <div class="pagination">
-       
+        <% if (currentPage > 1) { %>
+            <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>&filter=<%= filter %>&startDate=<%= startDate %>&endDate=<%= endDate %>" class="btn">Previous</a>
+        <% } %>
+        
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="?page=<%= i %>&limit=<%= limit %>&filter=<%= filter %>&startDate=<%= startDate %>&endDate=<%= endDate %>" 
+               class="btn <%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+        <% } %>
+        
+        <% if (currentPage < totalPages) { %>
+            <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>&filter=<%= filter %>&startDate=<%= startDate %>&endDate=<%= endDate %>" class="btn">Next</a>
+        <% } %>
     </div>
 </div>
+
 
 
 
@@ -1456,6 +1475,42 @@ th {
 
 
 
+//pagination
+document.addEventListener('DOMContentLoaded', function() {
+    const filterSelect = document.getElementById('filter');
+    const customDateRange = document.getElementById('custom-date-range');
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
+    const generateButton = document.querySelector('.generate');
+
+    filterSelect.addEventListener('change', function() {
+        if (this.value === 'custom') {
+            customDateRange.classList.remove('hidden');
+        } else {
+            customDateRange.classList.add('hidden');
+        }
+    });
+
+    generateButton.addEventListener('click', function() {
+        const filter = filterSelect.value;
+        const startDate = startDateInput.value;
+        const endDate = endDateInput.value;
+        const currentUrl = new URL(window.location.href);
+        
+        currentUrl.searchParams.set('filter', filter);
+        currentUrl.searchParams.set('page', '1'); // Reset to first page when generating new report
+        
+        if (filter === 'custom') {
+            currentUrl.searchParams.set('startDate', startDate);
+            currentUrl.searchParams.set('endDate', endDate);
+        } else {
+            currentUrl.searchParams.delete('startDate');
+            currentUrl.searchParams.delete('endDate');
+        }
+
+        window.location.href = currentUrl.toString();
+    });
+});
 
 
 

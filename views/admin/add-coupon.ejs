@@ -551,83 +551,83 @@ body {
   <!-- Content -->
   <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-      <div class="app-ecommerce">
-        <!-- Add Coupon Header -->
-        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-5 gap-3">
-          <h2 class="text-dark">Add a New Coupon</h2>
-        </div>
-  
-        <div class="container py-4">
-          <form id="addCouponForm">
-            <!-- Coupon Information -->
-            <div class="card shadow-sm mb-5 rounded-custom border-light">
-              <div class="card-header py-3 bg-primary text-white">
-                <h5 class="card-title mb-0">Coupon Information</h5>
-              </div>
-              <div class="card-body">
-                <!-- Coupon Code and Description -->
-                <div class="row mb-4">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="couponCode" class="form-label">Coupon Code</label>
-                      <input type="text" class="form-control" id="couponCode" name="couponCode" required placeholder="Enter coupon code">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="description" class="form-label">Description</label>
-                      <input type="text" class="form-control" id="description" name="description" required placeholder="Enter description">
-                    </div>
-                  </div>
-                </div>
-  
-                <!-- Redeem Percentage and Minimum Amount -->
-                <div class="row mb-4">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="redeemAmount" class="form-label">Redeem Percentage (%)</label>
-                      <input type="number" class="form-control" id="redeemAmount" name="redeemAmount" required placeholder="Enter redeem percentage">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="minAmount" class="form-label">Minimum Amount</label>
-                      <input type="number" class="form-control" id="minAmount" name="minAmount" required placeholder="Enter minimum amount">
-                    </div>
-                  </div>
-                </div>
-  
-                <!-- Expiry Date and Status -->
-                <div class="row mb-4">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="expiryDate" class="form-label">Expiry Date</label>
-                      <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="publishStatus" class="form-label">Status</label>
-                      <select class="form-select" id="publishStatus" name="publishStatus" required>
-                          <option value="" selected>Select status</option>
-                          <option value="Active">Active</option>
-                          <option value="Inactive">Inactive</option>
-                      </select>
-                  </div>
-                  </div>
-                </div>
-  
-                <!-- Submit Button -->
-                <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary btn-lg px-5">Add Coupon</button>
-                </div>
-              </div>
+        <div class="app-ecommerce">
+            <!-- Add Coupon Header -->
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-5 gap-3">
+                <h2 class="text-dark">Add a New Coupon</h2>
             </div>
-          </form>
+
+            <div class="container py-4">
+                <form id="addCouponForm">
+                    <!-- Coupon Information -->
+                    <div class="card shadow-sm mb-5 rounded-custom border-light">
+                        <div class="card-header py-3 bg-primary text-white">
+                            <h5 class="card-title mb-0">Coupon Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Coupon Code and Description -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="couponCode" class="form-label">Coupon Code</label>
+                                        <input type="text" class="form-control" id="couponCode" name="couponCode" placeholder="Enter coupon code">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="description" class="form-label">Description</label>
+                                        <input type="text" class="form-control" id="description" name="description" placeholder="Enter description">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Redeem Percentage and Minimum Amount -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="redeemAmount" class="form-label">Redeem Percentage (%)</label>
+                                        <input type="number" class="form-control" id="redeemAmount" name="redeemAmount" placeholder="Enter redeem percentage">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="minAmount" class="form-label">Minimum Amount</label>
+                                        <input type="number" class="form-control" id="minAmount" name="minAmount" placeholder="Enter minimum amount">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Expiry Date and Status -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                                        <input type="date" class="form-control" id="expiryDate" name="expiryDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="publishStatus" class="form-label">Status</label>
+                                        <select class="form-select" id="publishStatus" name="publishStatus">
+                                            <option value="" selected>Select status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">Add Coupon</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
   
   
   
@@ -711,7 +711,7 @@ body {
    <!-- SweetAlert2 -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- Custom JS -->
-   <script>
+   <!-- <script>
 
 
 document.getElementById('addCouponForm').addEventListener('submit', async function(event) {
@@ -844,7 +844,152 @@ const expiryDateInput = document.getElementById('expiryDate');
 const today = new Date().toISOString().split('T')[0];
 expiryDateInput.setAttribute('min', today);
 
-   </script>
+   </script> -->
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Real-time validation for Coupon Code
+        document.getElementById('couponCode').addEventListener('input', function () {
+            const couponCode = this.value.trim();
+            const regex = /^[a-zA-Z0-9]{6}$/; // Alphanumeric characters only, exactly 6 characters
+            if (!regex.test(couponCode)) {
+                showError(this, 'Coupon code must be exactly 6 alphanumeric characters, no spaces allowed');
+            } else {
+                clearError(this);
+            }
+        });
+
+        // Real-time validation for Description (no empty or space-only strings allowed)
+        document.getElementById('description').addEventListener('input', function () {
+            const description = this.value.trim();
+            if (description.length === 0) {
+                showError(this, 'Description cannot be empty or contain only spaces');
+            } else {
+                clearError(this);
+            }
+        });
+
+        // Real-time validation for Redeem Percentage (1-50)
+        document.getElementById('redeemAmount').addEventListener('input', function () {
+            const redeemValue = this.value.trim();
+            if (isNaN(redeemValue) || redeemValue < 1 || redeemValue > 50) {
+                showError(this, 'The redeem percentage must be between 1 and 50');
+            } else {
+                clearError(this);
+            }
+        });
+
+        // Real-time validation for Minimum Amount (> 200)
+        document.getElementById('minAmount').addEventListener('input', function () {
+            const minAmount = this.value.trim();
+            if (isNaN(minAmount) || minAmount <= 200) {
+                showError(this, 'Minimum amount must be a valid number greater than 200');
+            } else {
+                clearError(this);
+            }
+        });
+
+        // Real-time validation for Expiry Date (must be a future date)
+        document.getElementById('expiryDate').addEventListener('input', function () {
+            const selectedDate = new Date(this.value);
+            const currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0); // Ignore time for comparison
+
+            if (!this.value || selectedDate < currentDate) {
+                showError(this, 'Please select a valid future expiry date');
+            } else {
+                clearError(this);
+            }
+        });
+
+        // Form submission logic
+        document.getElementById('addCouponForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Check if form is valid before submitting
+            let isValid = true;
+
+            // Trigger real-time validation checks manually before form submission
+            document.querySelectorAll('input, select').forEach(input => {
+                input.dispatchEvent(new Event('input'));
+                if (input.classList.contains('is-invalid')) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return;
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/admin/add-coupon', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: result.message,
+                        showConfirmButton: true
+                    }).then(() => {
+                        window.location.href = '/admin/add-coupon';
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: result.message,
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'An unexpected error occurred. Please try again.',
+                });
+            }
+        });
+    });
+
+    // Show error function
+    function showError(input, message) {
+        const formControl = input.closest('.form-group');
+        let errorDisplay = formControl.querySelector('.error-message');
+
+        if (!errorDisplay) {
+            errorDisplay = document.createElement('div');
+            errorDisplay.className = 'error-message text-danger';
+            formControl.appendChild(errorDisplay);
+        }
+
+        errorDisplay.textContent = message;
+        input.classList.add('is-invalid');
+    }
+
+    // Clear error function for real-time validation
+    function clearError(input) {
+        const formControl = input.closest('.form-group');
+        const errorDisplay = formControl.querySelector('.error-message');
+
+        if (errorDisplay) {
+            errorDisplay.remove();
+        }
+        input.classList.remove('is-invalid');
+    }
+
+    // Restrict past dates in expiry date input
+    const expiryDateInput = document.getElementById('expiryDate');
+    const today = new Date().toISOString().split('T')[0];
+    expiryDateInput.setAttribute('min', today);
+</script>
 </body>
 
 <!-- Mirrored from demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-product-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 05:50:31 GMT -->

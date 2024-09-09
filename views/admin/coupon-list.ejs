@@ -640,24 +640,29 @@
 </body>
 
 <script>
-  function openEditModal(couponId) {
-      fetch(`/admin/get-coupon/${couponId}`)
-          .then(response => response.json())
-          .then(coupon => {
-              document.getElementById('editCouponId').value = coupon._id;
-              document.getElementById('editCouponCode').value = coupon.couponCode;
-              document.getElementById('editDescription').value = coupon.description;
-              document.getElementById('editMinAmount').value = coupon.minAmount;
-              document.getElementById('editRedeemAmount').value = coupon.redeemAmount;
-              document.getElementById('editExpiryDate').value = new Date(coupon.expiryDate).toISOString().split('T')[0];
-              document.getElementById('editStatus').value = coupon.isListed.toString();
+ // Existing code
+function openEditModal(couponId) {
+    fetch(`/admin/get-coupon/${couponId}`)
+        .then(response => response.json())
+        .then(coupon => {
+            document.getElementById('editCouponId').value = coupon._id;
+            document.getElementById('editCouponCode').value = coupon.couponCode;
+            document.getElementById('editDescription').value = coupon.description;
+            document.getElementById('editMinAmount').value = coupon.minAmount;
+            document.getElementById('editRedeemAmount').value = coupon.redeemAmount;
+            document.getElementById('editExpiryDate').value = new Date(coupon.expiryDate).toISOString().split('T')[0];
+            document.getElementById('editStatus').value = coupon.isListed.toString();
 
-              new bootstrap.Modal(document.getElementById('editCouponModal')).show();
-          })
-          .catch(error => console.error('Error:', error));
-  }
+            new bootstrap.Modal(document.getElementById('editCouponModal')).show();
+        })
+        .catch(error => console.error('Error:', error));
+}
 
-  function updateCoupon() {
+function updateCoupon() {
+    if (!validateForm()) {
+        return;
+    }
+
     const couponId = document.getElementById('editCouponId').value;
     const updatedData = {
         couponCode: document.getElementById('editCouponCode').value,
@@ -678,10 +683,8 @@
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Close the modal
             bootstrap.Modal.getInstance(document.getElementById('editCouponModal')).hide();
             
-            // Show success message with SweetAlert2
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
@@ -689,11 +692,9 @@
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                // Reload the page after the alert is closed
                 location.reload();
             });
         } else {
-            // Show error message with SweetAlert2
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -703,7 +704,6 @@
     })
     .catch(error => {
         console.error('Error:', error);
-        // Show error message with SweetAlert2
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -712,16 +712,112 @@
     });
 }
 
-
-
-
-
-
 function searchCoupons() {
-  const searchTerm = document.getElementById('search-coupon').value;
-  window.location.href = `/admin/coupon-list?page=1&limit=<%= limit %>&search=${searchTerm}`;
+    const searchTerm = document.getElementById('search-coupon').value;
+    window.location.href = `/admin/coupon-list?page=1&limit=<%= limit %>&search=${searchTerm}`;
 }
 
+// New validation functions
+function validateForm() {
+    return validateCouponCode() &&
+           validateDescription() &&
+           validateMinAmount() &&
+           validateRedeemAmount();
+}
+
+function validateCouponCode() {
+    const couponCode = document.getElementById('editCouponCode');
+    const regex = /^[A-Za-z0-9]{6}$/;
+    
+    if (!regex.test(couponCode.value)) {
+        showError(couponCode, 'Coupon code must be exactly 6 characters long and contain only letters and numbers.');
+        return false;
+    }
+    
+    clearError(couponCode);
+    return true;
+}
+
+function validateDescription() {
+    const description = document.getElementById('editDescription');
+    
+    if (description.value.trim() === '') {
+        showError(description, 'Description cannot be empty or contain only spaces.');
+        return false;
+    }
+    
+    clearError(description);
+    return true;
+}
+
+function validateMinAmount() {
+    const minAmount = document.getElementById('editMinAmount');
+    const value = parseFloat(minAmount.value);
+    
+    if (isNaN(value) || value < 200) {
+        showError(minAmount, 'Minimum amount must be a number greater than or equal to 200.');
+        return false;
+    }
+    
+    clearError(minAmount);
+    return true;
+}
+
+function validateRedeemAmount() {
+    const redeemAmount = document.getElementById('editRedeemAmount');
+    const value = parseFloat(redeemAmount.value);
+    
+    if (isNaN(value) || value > 50) {
+        showError(redeemAmount, 'Redeem amount must be a number less than or equal to 50.');
+        return false;
+    }
+    
+    clearError(redeemAmount);
+    return true;
+}
+
+function showError(input, message) {
+    const errorElement = input.nextElementSibling;
+    if (errorElement && errorElement.classList.contains('error-message')) {
+        errorElement.textContent = message;
+    } else {
+        const error = document.createElement('div');
+        error.className = 'error-message text-danger mt-1';
+        error.textContent = message;
+        input.parentNode.insertBefore(error, input.nextSibling);
+    }
+    input.classList.add('is-invalid');
+}
+
+function clearError(input) {
+    const errorElement = input.nextElementSibling;
+    if (errorElement && errorElement.classList.contains('error-message')) {
+        errorElement.remove();
+    }
+    input.classList.remove('is-invalid');
+}
+
+// Add event listeners for real-time validation
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('editCouponForm');
+    
+    form.addEventListener('input', function(event) {
+        switch(event.target.id) {
+            case 'editCouponCode':
+                validateCouponCode();
+                break;
+            case 'editDescription':
+                validateDescription();
+                break;
+            case 'editMinAmount':
+                validateMinAmount();
+                break;
+            case 'editRedeemAmount':
+                validateRedeemAmount();
+                break;
+        }
+    });
+});
 
 
 </script>

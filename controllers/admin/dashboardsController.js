@@ -12,7 +12,7 @@ const Category = require('../../models/categoryModel');
 //dashboard
 const loadDashboard = async (req, res) => {
     try {
-        const { filter, startDate, endDate } = req.query;
+        const { filter, startDate, endDate, page = 1, limit = 10 } = req.query;
         
         let matchCondition = {};
 
@@ -58,15 +58,21 @@ const loadDashboard = async (req, res) => {
             };
         }
 
+        // Pagination
+        const skip = (page - 1) * limit;
         
+        const totalOrders = await Order.countDocuments(matchCondition);
+        const totalPages = Math.ceil(totalOrders / limit);
+
         const orders = await Order.find(matchCondition)
             .populate({
                 path: 'items.product',
                 select: 'productName category'
             })
+            .skip(skip)
+            .limit(parseInt(limit))
             .exec();
 
-        let totalOrders = orders.length;
         let totalDiscount = 0;
         let totalSalesAmount = 0;
         let statusCounts = {
@@ -107,14 +113,12 @@ const loadDashboard = async (req, res) => {
             });
         });
 
-        
         const categories = await Category.find().exec();
         const categoryMap = categories.reduce((map, category) => {
             map[category._id] = category.title;
             return map;
         }, {});
 
-       
         for (let catId in categorySales) {
             if (categoryMap[catId]) {
                 categorySales[catId].name = categoryMap[catId];
@@ -129,7 +133,6 @@ const loadDashboard = async (req, res) => {
             .sort((a, b) => b.quantity - a.quantity)
             .slice(0, 5);
 
-        
         let groupBy;
         let sortBy;
         let dateFormat;
@@ -193,7 +196,10 @@ const loadDashboard = async (req, res) => {
                 statusCounts: JSON.stringify(statusCounts),
                 chartData: JSON.stringify({ labels, sales }),
                 topProducts,
-                topCategories
+                topCategories,
+                currentPage: parseInt(page),
+                totalPages,
+                limit: parseInt(limit)
             });
         } else {
             res.status(401).send('Unauthorized');
@@ -203,7 +209,6 @@ const loadDashboard = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-
 
 
 module.exports = {

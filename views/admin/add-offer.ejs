@@ -3,6 +3,18 @@
 
 
 <style>
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+
+
 
 .select2-container--default .select2-selection--multiple {
         min-height: 100px;
@@ -666,6 +678,99 @@ $(document).ready(function() {
 
        
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('addOfferForm');
+    const offerNameInput = document.getElementById('offerName');
+    const discountInput = document.getElementById('discount');
+    const offerTypeSelect = document.getElementById('offerType');
+    const categorySelect = document.getElementById('category');
+    const productSelect = document.getElementById('product');
+
+    function showError(input, message) {
+        const errorDiv = input.nextElementSibling;
+        if (errorDiv && errorDiv.classList.contains('error-message')) {
+            errorDiv.textContent = message;
+        } else {
+            const newErrorDiv = document.createElement('div');
+            newErrorDiv.className = 'error-message text-danger mt-1';
+            newErrorDiv.textContent = message;
+            input.parentNode.insertBefore(newErrorDiv, input.nextSibling);
+        }
+        input.classList.add('is-invalid');
+    }
+
+    function clearError(input) {
+        const errorDiv = input.nextElementSibling;
+        if (errorDiv && errorDiv.classList.contains('error-message')) {
+            errorDiv.remove();
+        }
+        input.classList.remove('is-invalid');
+    }
+
+    function validateOfferName() {
+        const value = offerNameInput.value.trim();
+        if (value === '') {
+            showError(offerNameInput, 'Offer name cannot be empty or contain only spaces.');
+            return false;
+        }
+        clearError(offerNameInput);
+        return true;
+    }
+
+    function validateDiscount() {
+        const value = parseFloat(discountInput.value);
+        if (isNaN(value) || value < 1 || value > 60) {
+            showError(discountInput, 'Discount must be between 1% and 60%.');
+            return false;
+        }
+        clearError(discountInput);
+        return true;
+    }
+
+    function validateOfferType() {
+        if (offerTypeSelect.value === '') {
+            showError(offerTypeSelect, 'Please select an offer type.');
+            return false;
+        }
+        clearError(offerTypeSelect);
+        return true;
+    }
+
+    function validateCategoryOrProduct() {
+        if (offerTypeSelect.value === 'category' && categorySelect.selectedOptions.length === 0) {
+            showError(categorySelect, 'Please select at least one category for a category offer.');
+            return false;
+        } else if (offerTypeSelect.value === 'product' && productSelect.selectedOptions.length === 0) {
+            showError(productSelect, 'Please select at least one product for a product offer.');
+            return false;
+        }
+        clearError(categorySelect);
+        clearError(productSelect);
+        return true;
+    }
+
+    offerNameInput.addEventListener('input', validateOfferName);
+    discountInput.addEventListener('input', validateDiscount);
+    offerTypeSelect.addEventListener('change', function() {
+        validateOfferType();
+        validateCategoryOrProduct();
+    });
+    categorySelect.addEventListener('change', validateCategoryOrProduct);
+    productSelect.addEventListener('change', validateCategoryOrProduct);
+
+    form.addEventListener('submit', function(event) {
+        let isValid = true;
+        isValid = validateOfferName() && isValid;
+        isValid = validateDiscount() && isValid;
+        isValid = validateOfferType() && isValid;
+        isValid = validateCategoryOrProduct() && isValid;
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+});
 
 
 
