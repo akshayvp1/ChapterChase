@@ -58,7 +58,7 @@ const loadDashboard = async (req, res) => {
             };
         }
 
-        // Pagination
+        
         const skip = (page - 1) * limit;
         
         const totalOrders = await Order.countDocuments(matchCondition);

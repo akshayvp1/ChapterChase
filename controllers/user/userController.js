@@ -160,58 +160,8 @@ const securePassword = async (password) => {
     }
 };
 
+
 //verify otp
-// const verifyOTP = async (req, res) => {
-//     try {
-//         const { email, otp } = req.body;
-
-//         if (!email) {
-//             console.error('Email is missing in request body');
-//             return res.status(400).json({ error: 'Email is required for OTP verification' });
-//         }
-
-//         const userData = req.session.userData;
-
-//         if (!userData || userData.email !== email) {
-//             console.log(`No session data found for email: ${email}`);
-//             return res.status(400).json({ error: 'No session data found for this email' });
-//         }
-
-//         const storedOTP = userData.verificationOTP ? userData.verificationOTP.trim() : null;
-//         const enteredOTP = otp.trim();
-
-//         console.log(`Session data found for email: ${email}, OTP in session: ${storedOTP}, Entered OTP: ${enteredOTP}, OTP Expiration: ${userData.otpExpiration}`);
-
-//         if (!storedOTP || storedOTP !== enteredOTP) {
-//             console.log('Entered OTP does not match stored OTP');
-//             return res.status(400).json({ error: 'Invalid OTP' });
-//         }
-
-//         if (moment().isAfter(userData.otpExpiration)) {
-//             console.log('OTP is expired');
-//             return res.status(400).json({ error: 'OTP expired' });
-//         }
-
-//         const newUser = new User({
-//             ...userData,
-//             is_verified: 1
-//         });
-
-//         await newUser.save();
-
-//         req.session.user = newUser;
-// console.log(newUser,'its your datauset');
-
-//         console.log(`User with email: ${email} verified successfully`);
-
-//         return res.status(200).json({ success: true, message: 'OTP verified successfully' });
-//     } catch (error) {
-//         console.error("Error verifying OTP:", error.message);
-//         return res.status(500).json({ error: 'Internal server error' });
-//     }
-// };
-
-
 const verifyOTP = async (req, res) => {
     try {
         const { email, otp } = req.body;

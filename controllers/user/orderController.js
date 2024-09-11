@@ -114,128 +114,8 @@ const loadCheckout = async (req, res) => {
     }
 };
 
+
 //place order
-// const placeOrder = async (req, res) => {
-//     try {
-//         const {
-//             selectedAddress,
-//             cartItems,
-//             subtotal,
-//             totalPrice,
-//             paymentMethod,
-//             couponCode,
-//             couponDiscountAmt,
-//             paymentStatus
-//         } = req.body;
-
-//         if (!selectedAddress || !cartItems || !subtotal || !totalPrice || !paymentMethod) {
-//             return res.status(400).json({ success: false, message: 'Missing required fields' });
-//         }
-
-//         if (!req.session || !req.session.user || !req.session.user.id) {
-//             return res.status(401).json({ success: false, message: 'User not authenticated' });
-//         }
-
-//         const userId = req.session.user.id;
-
-//         const address = await Address.findById(selectedAddress);
-//         if (!address) {
-//             return res.status(404).json({ success: false, message: 'Address not found' });
-//         }
-
-//         let recalculatedSubtotal = 0;
-//         const orderItems = cartItems.map(item => {
-//             const itemTotal = item.price * item.quantity;
-//             recalculatedSubtotal += itemTotal;
-//             return {
-//                 product: item.productId,
-//                 quantity: item.quantity,
-//                 price: itemTotal,
-//                 couponDiscountAmt: 0,
-//                 order_status: paymentStatus === 'Failed' ? 'Retry' : 'Pending'
-//             };
-//         });
-
-//         const confirmedDiscountAmt = Math.min(couponDiscountAmt, recalculatedSubtotal * 0.9);
-
-//         let totalDiscountDistributed = 0;
-//         orderItems.forEach(item => {
-//             const itemDiscountProportion = item.price / recalculatedSubtotal;
-//             item.couponDiscountAmt = parseFloat((confirmedDiscountAmt * itemDiscountProportion).toFixed(2));
-//             totalDiscountDistributed += item.couponDiscountAmt;
-//         });
-
-//         const discrepancy = confirmedDiscountAmt - totalDiscountDistributed;
-//         if (discrepancy !== 0) {
-//             orderItems[0].couponDiscountAmt += discrepancy;
-//         }
-
-//         const finalTotalPrice = recalculatedSubtotal - confirmedDiscountAmt;
-
-//         // Handle wallet deduction if payment method is not 'Cash on Delivery'
-//         if (paymentMethod !== 'Cash on Delivery') {
-//             const user = await User.findById(userId);
-//             if (!user) {
-//                 return res.status(404).json({ success: false, message: 'User not found' });
-//             }
-
-//             if (user.walletBalance < finalTotalPrice) {
-//                 return res.status(400).json({ success: false, message: 'Insufficient wallet balance' });
-//             }
-
-//             // Deduct the amount from the wallet
-//             user.walletBalance -= finalTotalPrice;
-//             await user.save();
-//         }
-
-//         const orderId = Date.now().toString();
-//         const deliveryDate = new Date();
-//         deliveryDate.setDate(deliveryDate.getDate() + 3);
-
-//         const newOrder = new Order({
-//             userId,
-//             address: {
-//                 addressName: address.addressName,
-//                 addressEmail: address.addressEmail,
-//                 addressMobile: address.addressMobile,
-//                 addressHouse: address.addressHouse,
-//                 addressStreet: address.addressStreet,
-//                 addressPost: address.addressPost,
-//                 addressCity: address.addressCity,
-//                 addressState: address.addressState,
-//                 addressPin: address.addressPin,
-//                 addressDistrict: address.addressDistrict
-//             },
-//             paymentMethod,
-//             items: orderItems,
-//             subtotal: recalculatedSubtotal,
-//             couponCode,
-//             couponDiscountAmt: confirmedDiscountAmt,
-//             totalPrice: finalTotalPrice,
-//             orderId,
-//             deliveryDate,
-//             payment_status: paymentStatus === 'Failed' ? 'Pending' : (paymentMethod === 'Cash on Delivery' ? 'Pending' : 'Completed')
-//         });
-
-//         await newOrder.save();
-
-//         for (const item of orderItems) {
-//             await Product.findByIdAndUpdate(
-//                 item.product,
-//                 { $inc: { stock: -item.quantity } },
-//                 { new: true }
-//             );
-//         }
-
-//         await Cart.findOneAndUpdate({ userId }, { $set: { items: [] } });
-
-//         res.status(200).json({ success: true, message: 'Order placed successfully', order: newOrder, orderId });
-//     } catch (error) {
-//         console.error('Error placing order:', error);
-//         res.status(500).json({ success: false, message: 'Error placing order' });
-//     }
-// };
-
 const placeOrder = async (req, res) => {
     try {
         const { selectedAddress, cartItems, subtotal, totalPrice, paymentMethod, couponCode, couponDiscountAmt, paymentStatus } = req.body;
@@ -331,7 +211,7 @@ const placeOrder = async (req, res) => {
             payment_status: paymentStatus === 'Failed' ? 'Pending' : (paymentMethod === 'Cash on Delivery' ? 'Pending' : 'Completed')
         });
 
-        // Handle wallet deduction and record transaction if payment method is "Wallet"
+       
         if (paymentMethod === 'Wallet') {
             const userWallet = await Wallet.findOne({ userId });
             if (!userWallet) {
@@ -342,10 +222,10 @@ const placeOrder = async (req, res) => {
                 return res.status(400).json({ success: false, message: 'Insufficient wallet balance' });
             }
 
-            // Deduct the amount from the wallet correctly (only once)
+            
             userWallet.balance -= finalTotalPrice;
 
-            // Add a new transaction entry
+          
             userWallet.transactions.push({
                 transactionId: orderId,
                 date: new Date(),
@@ -479,7 +359,7 @@ const applyCoupon = async (req, res) => {
         const newTotal = subtotal - discountAmount;
 
       
-        // user.usedCoupons.push(coupon._id);
+        
         await user.save();
 
         res.json({

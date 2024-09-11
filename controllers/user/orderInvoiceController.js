@@ -6,7 +6,7 @@ const Order = require('../../models/orderModel');
 
 
 
-
+//order invoice
 const orderInvoice = async (req, res) => {
     try {
         const { orderId, productId } = req.query;

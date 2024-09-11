@@ -42,29 +42,7 @@ const addCoupon = async (req, res) => {
     }
 };
 
-
-
-//load couponlist
-// const loadCouponList = async (req, res) => {
-//     try {
-//       const { page = 1, limit = 3, search = '' } = req.query;
-//       const coupons = await Coupon.find({
-//         couponCode: { $regex: search, $options: 'i' }
-//       })
-//       .skip((page - 1) * limit)
-//       .limit(limit)
-//       .sort({ createdAt: 1 });
-//       const totalCoupons = await Coupon.countDocuments({
-//         couponCode: { $regex: search, $options: 'i' }
-//       });
-//       const totalPages = Math.ceil(totalCoupons / limit);
-//       const admin = req.session.user;
-//       res.render('coupon-list', { admin, coupons, totalCoupons, currentPage: page, totalPages, limit, search });
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send("An error occurred while loading coupons");
-//     }
-//   };
+//load Coupon list
 const loadCouponList = async (req, res) => {
     try {
         const { page = 1, limit = 3, search = '' } = req.query;

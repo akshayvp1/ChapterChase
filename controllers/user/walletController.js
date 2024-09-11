@@ -43,6 +43,8 @@ const loadWallet = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+//check balance
 const checkBalance =  async (req, res) => {
     try {
         const wallet = await Wallet.findOne({ userId: req.session.user.id });
@@ -54,6 +56,7 @@ const checkBalance =  async (req, res) => {
 
 }
 
+//wallet payment
 const walletPayment = async (req, res) => {
     const { totalPrice } = req.body;
     const userId = req.session.user.id;
@@ -65,7 +68,7 @@ const walletPayment = async (req, res) => {
         console.log(`Wallet balance: ${wallet.balance}`);
 
         if (wallet && wallet.balance >= totalPrice) {
-            // wallet.balance -= totalPrice;
+           
             await wallet.save();
             return res.status(200).json({ success: true, message: 'Payment successful' });
         } else {

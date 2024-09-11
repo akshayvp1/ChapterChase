@@ -9,33 +9,6 @@ const Offer = require('../../models/offerModel');
 
 
 //load wislist
-// const loadWishlist = async (req, res) => {
-//     try {
-        
-//         let wishlist=null;
-//         let wishlistCount=0;
-//         const userId = req.session.user.id;
-//          wishlist = await Wishlist.findOne({ userId: userId }).populate('products.productId');
-    
-//             if(wishlist && wishlist.products){
-//                 wishlistCount=wishlist.products.length
-            
-//         }
-//         let cart = null;
-//         let cartCount = 0;
-     
-//             cart = await Cart.findOne({ userId: userId });
-//             if (cart && cart.items) {
-//                 cartCount = cart.items.length;
-            
-//         }
-//         res.render('wishlist', { wishlist: wishlist ,wishlistCount,cartCount});
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).send('Server error');
-//     }
-// };
-
 const loadWishlist = async (req, res) => {
     try {
         const userId = req.session.user.id;

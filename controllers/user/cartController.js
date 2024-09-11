@@ -68,7 +68,7 @@ const loadCart = async (req, res) => {
             };
         });
 
-        // Calculate subtotal
+        
         const subtotal = cartItems.reduce((sum, item) => sum + item.total, 0);
         const shippingCost = 0;
         const total = subtotal + shippingCost;

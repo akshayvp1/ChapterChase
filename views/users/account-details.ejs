@@ -176,7 +176,6 @@
                                             <div class="col-sm-7">
                                                 <label>Display Name *</label>
                                                 <input type="text" class="form-control" id="displayName" name="displayName" readonly>
-                                                <!-- <small class="form-text">This will be how your name will be displayed in the account section and in reviews</small> -->
                                             </div>
                                         </div>
                                         <div class="row">
@@ -513,17 +512,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-     document.addEventListener('DOMContentLoaded', function () {
+
+document.addEventListener('DOMContentLoaded', function () {
     const userProfileForm = document.getElementById('userProfileForm');
     const userData = userProfileForm.dataset.user;
-    console.log('Form Data-User:', userData); // Check the raw data
 
     try {
         const userDetails = JSON.parse(userData);
-        console.log('Parsed User Details:', userDetails); // Check the parsed data
-
         if (userDetails) {
             // Populate form fields with user data
             document.getElementById('fullName').value = userDetails.name || '';
@@ -534,19 +530,63 @@
     } catch (error) {
         console.error('Error parsing user data:', error);
     }
-});
 
-
-document.addEventListener('DOMContentLoaded', function () {
     const editButton = document.getElementById('editButton');
     const saveButton = document.getElementById('saveButton');
     const fullName = document.getElementById('fullName');
     const displayName = document.getElementById('displayName');
-    const email = document.getElementById('email');
     const mobile = document.getElementById('mobile');
+    
+    const nameError = document.createElement('small');
+    const displayNameError = document.createElement('small');
+    const mobileError = document.createElement('small');
+    
+    nameError.style.color = 'red';
+    displayNameError.style.color = 'red';
+    mobileError.style.color = 'red';
+    
+    fullName.parentElement.appendChild(nameError);
+    displayName.parentElement.appendChild(displayNameError);
+    mobile.parentElement.appendChild(mobileError);
+    
+    function validateName(name, errorField) {
+        const namePattern = /^[A-Za-z][A-Za-z\s]*$/; // Must start with an alphabet and only alphabets or spaces allowed
+        if (name.trim() === '' || !namePattern.test(name)) {
+            errorField.textContent = 'Name must contain alphabets and cannot be empty or only numbers.';
+            return false;
+        } else {
+            errorField.textContent = '';
+            return true;
+        }
+    }
 
+    function validateDisplayName(displayNameValue, errorField) {
+        const displayNamePattern = /^[A-Za-z][A-Za-z\s]*$/; // Same rule as full name
+        if (displayNameValue.trim() === '' || !displayNamePattern.test(displayNameValue)) {
+            errorField.textContent = 'Display name must contain alphabets and cannot be empty or only numbers.';
+            return false;
+        } else {
+            errorField.textContent = '';
+            return true;
+        }
+    }
+
+    function validateMobile(mobileValue, errorField) {
+        const mobilePattern = /^[6-9]\d{9}$/; // Starts with 6-9 and contains exactly 10 digits
+        if (!mobilePattern.test(mobileValue)) {
+            errorField.textContent = 'Mobile number must start with 6, 7, 8, or 9 and contain exactly 10 digits.';
+            return false;
+        } else if (/^(\d)\1{9}$/.test(mobileValue)) { // Check for repeating numbers
+            errorField.textContent = 'Mobile number cannot be all the same digits (e.g., 1111111111).';
+            return false;
+        } else {
+            errorField.textContent = '';
+            return true;
+        }
+    }
+
+    // Enable editing
     editButton.addEventListener('click', function () {
-        // Enable editing
         fullName.removeAttribute('readonly');
         displayName.removeAttribute('readonly');
         mobile.removeAttribute('readonly');
@@ -557,7 +597,34 @@ document.addEventListener('DOMContentLoaded', function () {
         saveButton.style.display = 'inline-block';
     });
 
+    // Real-time validation
+    fullName.addEventListener('input', function () {
+        validateName(fullName.value, nameError);
+    });
+
+    displayName.addEventListener('input', function () {
+        validateDisplayName(displayName.value, displayNameError);
+    });
+
+    mobile.addEventListener('input', function () {
+        validateMobile(mobile.value, mobileError);
+    });
+
     saveButton.addEventListener('click', async function () {
+        // Perform validation before submitting
+        const isFullNameValid = validateName(fullName.value, nameError);
+        const isDisplayNameValid = validateDisplayName(displayName.value, displayNameError);
+        const isMobileValid = validateMobile(mobile.value, mobileError);
+
+        if (!isFullNameValid || !isDisplayNameValid || !isMobileValid) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please correct the highlighted errors before saving.'
+            });
+            return;
+        }
+
         // Collect form data
         const updatedUser = {
             name: fullName.value,

@@ -3,8 +3,6 @@ const Category = require('../../models/categoryModel');
 
 
 //load category list
-// 
-
 const loadCategoryList = async (req, res) => {
   try {
       let admin = req.session.user;

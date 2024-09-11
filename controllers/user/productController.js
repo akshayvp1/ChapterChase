@@ -102,62 +102,6 @@ const loadProductsList = async (req, res) => {
 
 
 //product details
-// const loadProductDetails = async (req, res) => {
-//     try {
-//         const productId = req.params.id; 
-//         const product = await Product.findById(productId).exec();
-//         const offers = await Offer.find({ status: 'active' });
-//         const user = req.user || req.session.user;
-
-//         let cart = null;
-//         let cartCount = 0;
-  
-//         if (user && user.id) {
-//             cart = await Cart.findOne({ userId: user.id });
-//             if (cart && cart.items) {
-//                 cartCount = cart.items.length;
-//             }
-//         }
-//         let wishlist=null;
-//         let wishlistCount=0;
-
-//         if(user&& user.id){
-//             wishlist=await Wishlist.findOne({userId: user.id})
-//             if(wishlist && wishlist.products){
-//                 wishlistCount=wishlist.products.length
-//                 console.log("daaa",wishlistCount);
-                
-//             }
-//         }
-
-//         if (!product) {
-//             return res.status(404).send('Product not found');
-//         }
-
-//         const relatedProducts = await Product.find({
-//             _id: { $ne: productId },
-//             category: product.category,
-//             status: 'Active'
-//         }).limit(4).exec();
-
-//         res.render('product-details', {
-//             user,
-//             cartCount,
-//             product,
-//             relatedProducts,
-//             offers,
-//             wishlistCount,
-//             breadcrumbs: [
-//                 { title: 'Home', url: '/' },
-//                 { title: 'Products', url: '/products-list' },
-//                 { title: 'Product Details', url: '#' }
-//             ]
-//         });
-//     } catch (error) {
-//         console.error(error); 
-//         res.status(500).send('Server Error'); 
-//     }
-// };
 const loadProductDetails = async (req, res) => {
     try {
         const productId = req.params.id; 
@@ -194,7 +138,7 @@ const loadProductDetails = async (req, res) => {
             status: 'Active'
         }).limit(4).exec();
 
-        // Ensure the product's stock is sent to the frontend
+        
         res.render('product-details', {
             user,
             cartCount,
@@ -202,7 +146,7 @@ const loadProductDetails = async (req, res) => {
             relatedProducts,
             offers,
             wishlistCount,
-            stock: product.stock, // Send stock to the frontend
+            stock: product.stock, 
             breadcrumbs: [
                 { title: 'Home', url: '/' },
                 { title: 'Products', url: '/products-list' },
@@ -237,7 +181,7 @@ const searchProduct = async (req, res) => {
       productName: product.productName,
       description: product.description,
       price: product.price,
-      image: product.images[0],
+      image: `/assets/uploads/${product.images[0]}`,
     }));
 
     console.log('Formatted results:', JSON.stringify(results, null, 2));

@@ -192,7 +192,7 @@ const generatePDF = (orders, res) => {
         });
     });
 
-    // Add totals row
+   
     if (startY + 35 > doc.page.height - doc.page.margins.bottom) {
         doc.addPage();
         startY = doc.margins.top;
@@ -204,23 +204,23 @@ const generatePDF = (orders, res) => {
 
     x = startX;
     const totalsRowHeight = 30;
-    const totalsWidth = tableWidth * 0.4; // 40% of table width for totals section
+    const totalsWidth = tableWidth * 0.4;
     const totalsX = startX + tableWidth - totalsWidth;
 
-    // Draw totals box
+    
     doc.rect(totalsX, startY, totalsWidth, totalsRowHeight * 2).fill('#F0F0F0');
     doc.fillColor('#000000');
 
-    // Total Sales row
+    
     doc.fontSize(10).font('Helvetica-Bold');
     doc.text('Total Sales:', totalsX + 10, startY + 10, { width: totalsWidth / 2 - 10, align: 'left' });
     doc.text(`${totalSalesAmount.toFixed(2)}`, totalsX + totalsWidth / 2, startY + 10, { width: totalsWidth / 2 - 10, align: 'right' });
 
-    // Total Discount row
+    
     doc.text('Total Discount:', totalsX + 10, startY + totalsRowHeight + 10, { width: totalsWidth / 2 - 10, align: 'left' });
     doc.text(`${totalDiscount.toFixed(2)}`, totalsX + totalsWidth / 2, startY + totalsRowHeight + 10, { width: totalsWidth / 2 - 10, align: 'right' });
 
-    // Draw borders
+    
     doc.rect(totalsX, startY, totalsWidth, totalsRowHeight * 2).stroke();
     doc.moveTo(totalsX, startY + totalsRowHeight).lineTo(totalsX + totalsWidth, startY + totalsRowHeight).stroke();
     doc.moveTo(totalsX + totalsWidth / 2, startY).lineTo(totalsX + totalsWidth / 2, startY + totalsRowHeight * 2).stroke();

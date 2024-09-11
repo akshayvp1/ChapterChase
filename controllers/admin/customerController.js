@@ -4,44 +4,7 @@ const randomString = require("randomstring");
 const config = require("../../config/config");
 
 
-
-//load customer skill
-// const loadCustomerList = async (req, res) => {
-//     try {
-//         let admin = req.session.user;
-//         const page = parseInt(req.query.page) || 1;
-//         const limit = parseInt(req.query.limit) || 10;
-//         const searchQuery = req.query.search || '';
-
-//         const filter = searchQuery 
-//             ? { 
-//                 $or: [
-//                     { name: new RegExp(searchQuery, 'i') },
-//                     { email: new RegExp(searchQuery, 'i') },
-//                     { mobile: new RegExp(searchQuery, 'i') }
-//                 ]
-//               } 
-//             : {};
-
-//         const customers = await User.find(filter)
-//             .skip((page - 1) * limit)
-//             .limit(limit);
-
-//         const totalCustomers = await User.countDocuments(filter);
-
-//         res.render('customer-list', {
-//             customers,
-//             admin,
-//             currentPage: page,
-//             totalPages: Math.ceil(totalCustomers / limit),
-//             limit,
-//             searchQuery 
-//         });
-//     } catch (error) {
-//         console.error('Error fetching customers:', error);
-//         res.status(500).send('Error fetching customers');
-//     }
-// };
+//load customer list
 const loadCustomerList = async (req, res) => {
     try {
         let admin = req.session.user;
@@ -59,9 +22,9 @@ const loadCustomerList = async (req, res) => {
               } 
             : {};
 
-        // Sort by 'createdAt' or '_id' in descending order
+     
         const customers = await User.find(filter)
-            .sort({ otpExpiration: -1 }) // or use _id: -1 if createdAt field is not available
+            .sort({ otpExpiration: -1 }) 
             .skip((page - 1) * limit)
             .limit(limit);
 
@@ -82,6 +45,7 @@ const loadCustomerList = async (req, res) => {
 };
 
 
+//edit customer number
 const editCustomer = async (req, res) => {
     const { id } = req.params;
     const { name, email, mobile } = req.body;

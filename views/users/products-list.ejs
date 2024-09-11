@@ -1071,9 +1071,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const resultsHtml = results.map(product => `
         <div class="search-result-item">
-            <img src="${product.image}" alt="${product.productName}" class="search-result-image" onerror="this.src='/path/to/placeholder-image.jpg';">
+<img src="${product.image}" alt="${product.productName}" class="search-result-image" onerror="this.src='/assets/uploads/default-image.png'">
             <div class="search-result-info">
-                <h3><a href="/products-details/${product.id}">${product.productName}</a></h3>
+                <h3><a href="/product-details/${product.id}">${product.productName}</a></h3>
                 <p>${product.description ? product.description.substring(0, 50) + '...' : 'No description available'}</p>
                 <span class="search-result-price">$${product.price ? product.price.toFixed(2) : 'N/A'}</span>
             </div>
