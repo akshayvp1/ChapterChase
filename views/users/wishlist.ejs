@@ -57,18 +57,34 @@
                         </a>
 
                         <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
+                            <ul class="menu sf-arrow">
+                                <li >
                                     <a href="/home" class="">Home</a>
                                 </li>
-                                <li>
-                                    <a href="category.html" class="">Shop</a>                                 
-                                </li>
-                                <li>
+                               
+                                <li class="megamenu-container ">
                                     <a href="/products-list" class="">Product</a>                                     
                                 </li>
                                 <li>
-                                    <a href="#" class="">Page</a>                                      
+                                    <a href="/contact" class="">Contact-Us</a>                                 
+                                </li>
+                                
+                                <li>
+                                    <a href="" class="active">Pages</a>
+                                    <ul>
+                                        
+                                                <li><a href="/wallet">Wallet</a></li>
+    
+                                            
+                                                <li><a href="/account-details">Account</a></li>
+                                                <li><a href="/user-order">Orders</a></li>
+                                                <li><a href="/user-address">Address</a></li>
+                                               
+                                          
+                                        </li>
+                                       
+                                       
+                                    </ul>
                                 </li>
                                                               
                             </ul><!-- End .menu -->
@@ -106,8 +122,8 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="#">Shop</a></li> -->
                         <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
                     </ol>
                 </div><!-- End .container -->
@@ -144,7 +160,75 @@
                                                     </h3>
                                                 </div>
                                             </td>
-                                            <td class="price-col">$<%= item.productId.price || 'N/A' %></td>
+                                            <% if (wishlist && wishlist.products.length > 0) { %>
+                                                <div class="wishlist-container">
+                                                    <% wishlist.products.forEach(item => { %>
+                                                        <div class="wishlist-item">
+                                                            <!-- Display Product Info -->
+                                                            <div class="product-details">
+                                                                <h4><%= item.productId.name %></h4>
+                                                                <!-- <p>Category: <%= item.productId.category %></p> -->
+                                                            </div>
+                                            
+                                                            <!-- Pricing Logic -->
+                                                            <td class="price-col">
+                                                                <% 
+                                                                    let discountedPrice = item.productId.price;
+                                                                    let bestDiscountPercentage = 0;
+                                            
+                                                                    // Find the best product-specific offer (if any)
+                                                                    const productOffers = offers.filter(o => 
+                                                                        o.offerType === 'product' && o.productId.includes(item.productId._id.toString())
+                                                                    );
+                                            
+                                                                    // Check if there's any product-specific offer
+                                                                    if (productOffers.length > 0) {
+                                                                        // Find the product-specific offer with the highest discount
+                                                                        const bestProductOffer = productOffers.reduce((max, offer) => 
+                                                                            offer.discount > max.discount ? offer : max, productOffers[0]);
+                                            
+                                                                        bestDiscountPercentage = bestProductOffer.discount;
+                                                                        discountedPrice = item.productId.price - (item.productId.price * (bestDiscountPercentage / 100));
+                                                                    }
+                                            
+                                                                    // Now check all category offers and see if any offer a better discount
+                                                                    offers.forEach(offer => {
+                                                                        if (offer.offerType === 'category' && offer.categoryId.includes(item.productId.category.toString())) {
+                                                                            const currentDiscountPercentage = offer.discount;
+                                                                            if (currentDiscountPercentage > bestDiscountPercentage) {
+                                                                                bestDiscountPercentage = currentDiscountPercentage;
+                                                                                discountedPrice = item.productId.price - (item.productId.price * (bestDiscountPercentage / 100));
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                %>
+                                                                
+                                                                <% if (bestDiscountPercentage > 0) { %>
+                                                                    <span class="product-price-discounted">
+                                                                        ₹<%= discountedPrice.toFixed(2) %>
+                                                                    </span>
+                                                                    <p class="product-price-original">
+                                                                        ₹<%= item.productId.price.toFixed(2) %>
+                                                                    </p>
+                                                                    <p class="product-price-discount">
+                                                                        <%= bestDiscountPercentage %>% Off
+                                                                    </p>
+                                                                <% } else { %>
+                                                                    ₹<%= item.productId.price.toFixed(2) %>
+                                                                <% } %>
+                                                            </td>
+                                            
+                                                          
+                                                        </div>
+                                                    <% }); %>
+                                                </div>
+                                            <% } else { %>
+                                                <p>Your wishlist is empty.</p>
+                                            <% } %>
+                                            
+                                            
+                                            
+                                            
                                             <td class="stock-col"><span class="in-stock"><%= item.productId.status || 'N/A' %></span></td>
                                             <td class="action-col">
                                                 <% if (item.productId.stock > 0) { %>

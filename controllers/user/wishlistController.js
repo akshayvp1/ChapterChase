@@ -4,30 +4,66 @@ const mongoose = require('mongoose');
 const Product = require('../../models/productModel');
 const Cart = require('../../models/cartModel');
 const User = require('../../models/userModel');
+const Offer = require('../../models/offerModel');
+
 
 
 //load wislist
+// const loadWishlist = async (req, res) => {
+//     try {
+        
+//         let wishlist=null;
+//         let wishlistCount=0;
+//         const userId = req.session.user.id;
+//          wishlist = await Wishlist.findOne({ userId: userId }).populate('products.productId');
+    
+//             if(wishlist && wishlist.products){
+//                 wishlistCount=wishlist.products.length
+            
+//         }
+//         let cart = null;
+//         let cartCount = 0;
+     
+//             cart = await Cart.findOne({ userId: userId });
+//             if (cart && cart.items) {
+//                 cartCount = cart.items.length;
+            
+//         }
+//         res.render('wishlist', { wishlist: wishlist ,wishlistCount,cartCount});
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send('Server error');
+//     }
+// };
+
 const loadWishlist = async (req, res) => {
     try {
-        
-        let wishlist=null;
-        let wishlistCount=0;
         const userId = req.session.user.id;
-         wishlist = await Wishlist.findOne({ userId: userId }).populate('products.productId');
-    
-            if(wishlist && wishlist.products){
-                wishlistCount=wishlist.products.length
-            
-        }
-        let cart = null;
-        let cartCount = 0;
+
      
-            cart = await Cart.findOne({ userId: userId });
-            if (cart && cart.items) {
-                cartCount = cart.items.length;
-            
+        let wishlist = await Wishlist.findOne({ userId: userId }).populate('products.productId');
+        let wishlistCount = 0;
+        if (wishlist && wishlist.products) {
+            wishlistCount = wishlist.products.length;
         }
-        res.render('wishlist', { wishlist: wishlist ,wishlistCount,cartCount});
+
+        
+        let cart = await Cart.findOne({ userId: userId });
+        let cartCount = 0;
+        if (cart && cart.items) {
+            cartCount = cart.items.length;
+        }
+
+      
+        const offers = await Offer.find({ status: 'active' });
+
+        
+        res.render('wishlist', { 
+            wishlist,       
+            wishlistCount, 
+            cartCount,
+            offers          
+        });
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server error');
