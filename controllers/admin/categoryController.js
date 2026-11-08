@@ -7,7 +7,7 @@ const loadCategoryList = async (req, res) => {
   try {
       let admin = req.session.user;
       const page = parseInt(req.query.page) || 1; 
-      const limit = parseInt(req.query.limit) || 10; 
+      const limit = parseInt(req.query.limit) || 3; 
 
       
       const categories = await Category.find({})
